@@ -2,11 +2,9 @@ FROM  ubuntu:16.04
 
 MAINTAINER  keiranmraine@gmail.com
 
-ARG cgpbox_ver=develop
-
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="$cgpbox_ver" \
-      description="The CGP somatic calling pipeline 'in-a-box'"
+      version="0.0" \
+      description="The CGP mapping pipeline 'in-a-box'"
 
 USER  root
 
@@ -24,15 +22,12 @@ ADD scripts/mapping.sh $OPT/bin/mapping.sh
 RUN chmod a+x $OPT/bin/mapping.sh
 
 ADD build/apt-build.sh build/
-#ADD build/perllib-build.sh build/
 ADD build/opt-build.sh build/
 
 RUN bash build/apt-build.sh
-#RUN bash build/perllib-build.sh
 RUN bash build/opt-build.sh
 
 USER    ubuntu
 WORKDIR /home/ubuntu
-#RUN     echo "options(bitmapType='cairo')" > /home/ubuntu/.Rprofile
 
 ENTRYPOINT /bin/bash

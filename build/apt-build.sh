@@ -29,9 +29,9 @@ apt-get -yq install unzip
 apt-get -yq install time
 apt-get -yq install zlib1g-dev
 apt-get -yq install libpam-tmpdir
+apt-get -yq install libcairo2-dev
 
-#apt-get -yq install gfortran
-#apt-get -yq install libcairo2-dev
-
+### security upgrades and cleanup
+unattended-upgrades
 apt -yq autoremove
 apt-get clean

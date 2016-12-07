@@ -4,7 +4,7 @@ set -uxe
 
 rm -rf /tmp/downloads
 
-mkdir -p /tmp/downloads $OPT/bin $OPT/etc $OPT/lib $OPT/share $OPT/site /tmp/hts_cache $R_LIBS
+mkdir -p /tmp/downloads $OPT/bin $OPT/etc $OPT/lib $OPT/share $OPT/site /tmp/hts_cache
 
 cd /tmp/downloads
 
