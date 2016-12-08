@@ -58,6 +58,8 @@ close $FH;
 # SCRAMBLE=''
 # BWA_PARAM='-Y'
 
+exec('mapping.sh'); # I will never return to the perl code
+
 __END__
 
 
