@@ -23,9 +23,13 @@ if [ -z ${CPU+x} ]; then
   CPU=`grep -c ^processor /proc/cpuinfo`
 fi
 
+if [ -d $INPUT ] ; then
+  INPUT="$INPUT/*"
+fi
+
 set -u
 echo -e "\tSAMPLE_NAME : $SAMPLE_NAME"
-echo -e "\tINPUT_DIR : $INPUT_DIR"
+echo -e "\tINPUT : $INPUT"
 echo -e "\tREF_BASE : $REF_BASE"
 echo -e "\tCRAM : $CRAM"
 if [ -z ${SCRAMBLE+x} ]; then
@@ -34,6 +38,9 @@ else
   echo -e "\tSCRAMBLE : $SCRAMBLE"
 fi
 set +u
+
+
+exit
 
 if [ ${#PRE_EXEC[@]} -eq 0 ]; then
   PRE_EXEC='echo No PRE_EXEC defined'
@@ -86,7 +93,7 @@ fi
  -t $CPU \
  -mt $CPU \
  $ADD_ARGS \
- $INPUT_DIR/*
+ $INPUT
 
 # run any post-exec step
 echo -e "\nRun POST_EXEC: `date`"
