@@ -22,9 +22,11 @@ ADD scripts/mapping.sh $OPT/bin/mapping.sh
 RUN chmod a+x $OPT/bin/mapping.sh
 
 ADD build/apt-build.sh build/
+ADD build/perllib-build.sh build/
 ADD build/opt-build.sh build/
 
 RUN bash build/apt-build.sh
+RUN bash build/perllib-build.sh
 RUN bash build/opt-build.sh
 
 USER    ubuntu
