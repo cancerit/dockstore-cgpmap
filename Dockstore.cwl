@@ -88,4 +88,4 @@ outputs:
       - .met
 
 
-baseCommand: ["bash", "/opt/wtsi-cgp/bin/ds-wrapper.sh"]
+baseCommand: ["bash", "/opt/wtsi-cgp/bin/ds-wrapper.pl"]

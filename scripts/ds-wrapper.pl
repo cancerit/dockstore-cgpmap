@@ -4,6 +4,7 @@ use strict;
 use Getopt::Long;
 use File::Path qw(make_path);
 use Pod::Usage qw(pod2usage);
+use Data::Dumper;
 
 pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 
@@ -28,11 +29,13 @@ pod2usage(-verbose => 2, -exitval => 0) if(defined $opts{'m'});
 delete $opts{'h'};
 delete $opts{'m'};
 
+printf "Options loaded: \n%s\n",Dumper(\%opts);
+
 ## unpack the reference area:
 my $ref_area = $ENV{HOME}.'/reference_files';
-#make_path($ref_area);
-#my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
-#system($untar) && die $!;
+make_path($ref_area);
+my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
+system($untar) && die $!;
 
 my $run_file = $ENV{HOME}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
@@ -44,10 +47,6 @@ printf $FH "SCRAMBLE='%s'\n", $opts{'sc'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'};
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
-
-use Data::Dumper;
-
-warn Dumper(\%opts);
 
 # REF_BASE='/datastore/ref/reference_files'
 # SAMPLE_NAME='COLO-829'
