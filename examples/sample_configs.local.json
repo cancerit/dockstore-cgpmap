@@ -3,13 +3,16 @@
     "path": "/tmp/map_ref_GRCh37d5.tar.gz",
     "class": "File"
   },
-  "bams_in": "/tmp/test_in.bam",
+  "bams_in": [
+    {"class": "File",
+      "path": "/tmp/test_in.bam"}
+  ],
   "cram": false,
   "mapped_out": {
     "path": "/tmp/final",
     "class": "File"
   },
-  "bwa": "-Y",
+  "bwa": "",
   "sample": "test",
   "scramble": ""
 }
