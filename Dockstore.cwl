@@ -41,8 +41,9 @@ inputs:
       separate: true
 
   scramble:
-    type: string
+    type: string?
     doc: "Options to pass to scramble when generating CRAM output, see scramble docs"
+    default: ''
     inputBinding:
       prefix: -scramble
       position: 3
@@ -50,8 +51,8 @@ inputs:
       shellQuote: true
 
   bwa:
-    type: string
-    default: '\-Y'
+    type: string?
+    default: '-Y'
     doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default '-Y'"
     inputBinding:
       prefix: -bwa
@@ -68,11 +69,12 @@ inputs:
 
   bams_in:
     type:
-      type: array
+    - 'null'
+    - type: array
       items: File
     doc: ""
     inputBinding:
-      position 6
+      position: 6
 
 outputs:
   mapped_out:
