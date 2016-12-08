@@ -5,6 +5,8 @@ use Getopt::Long;
 use File::Path qw(make_path);
 use Pod::Usage qw(pod2usage);
 use Data::Dumper;
+use autodie qw(:all);
+use warnings FATAL => 'all';
 
 pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 
