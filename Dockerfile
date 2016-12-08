@@ -19,8 +19,8 @@ RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir 
 RUN mkdir -p $OPT/bin
 
 ADD scripts/mapping.sh $OPT/bin/mapping.sh
-ADD scripts/ds-wrapper.sh $OPT/bin/ds-wrapper.sh
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.sh
+ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
+RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
 
 ADD build/apt-build.sh build/
 ADD build/perllib-build.sh build/
