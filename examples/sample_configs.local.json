@@ -1,0 +1,9 @@
+{
+    "reference": {
+        "class": "File",
+        "path": "/tmp/map_ref_GRCh37d5.tar.gz"
+    },
+    "sample": "test",
+    "bwa": "-Y",
+    "bams_in": ["/tmp/test_in.bam"]
+}
