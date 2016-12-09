@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIME_FORMAT='command:%C\nreal:%e\nuser:%U\nsys:%S\ntext:%Xk\ndata:%Dk\nmax:%Mk\n';
+TIME_FORMAT='command:%C\nreal:%e\nuser:%U\nsys:%S\npctCpu:%P\ntext:%Xk\ndata:%Dk\nmax:%Mk\n';
 
 set -e
 
@@ -82,7 +82,7 @@ if [ ! -z ${BWA_PARAM+x} ]; then
   ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
 fi
 
-/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR.time \
+/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/mapping.time \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
