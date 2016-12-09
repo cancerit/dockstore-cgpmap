@@ -86,6 +86,7 @@ outputs:
       - .bas
       - .md5
       - .met
+      - .maptime
 
 
 baseCommand: ["/opt/wtsi-cgp/bin/ds-wrapper.pl"]

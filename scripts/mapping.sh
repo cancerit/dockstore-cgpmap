@@ -88,7 +88,7 @@ if [ ! -z ${BWA_PARAM+x} ]; then
 fi
 
 set -x
-/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/mapping.time \
+/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
