@@ -33,4 +33,4 @@ RUN bash build/opt-build.sh
 USER    ubuntu
 WORKDIR /home/ubuntu
 
-ENTRYPOINT /bin/bash
+CMD ["/bin/bash"]

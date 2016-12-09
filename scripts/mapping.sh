@@ -39,9 +39,6 @@ else
 fi
 set +u
 
-
-exit
-
 if [ ${#PRE_EXEC[@]} -eq 0 ]; then
   PRE_EXEC='echo No PRE_EXEC defined'
 fi
