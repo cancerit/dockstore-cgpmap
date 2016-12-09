@@ -52,17 +52,17 @@ inputs:
 
   bwa:
     type: string?
-    default: '-Y'
-    doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default '-Y'"
+    default: "' -Y -K 100000000'"
+    doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default ' -Y -K 100000000'"
     inputBinding:
       prefix: -bwa
       position: 4
       separate: true
-      shellQuote: true
+      shellQuote: false
 
   cram:
     type: boolean
-    doc: ""
+    doc: "Set if output should be in CRAM format instead of BAM, see 'scramble' for tuning parameters."
     inputBinding:
       prefix: -cram
       position: 5
@@ -72,7 +72,7 @@ inputs:
     - 'null'
     - type: array
       items: File
-    doc: ""
+    doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
       position: 6
 
