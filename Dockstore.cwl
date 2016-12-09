@@ -52,7 +52,7 @@ inputs:
 
   bwa:
     type: string?
-    default: "' -Y -K 100000000'"
+    default: ' Y -K 100000000'
     doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default ' -Y -K 100000000'"
     inputBinding:
       prefix: -bwa
