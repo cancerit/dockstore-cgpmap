@@ -45,18 +45,10 @@ printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
 printf $FH "OUTPUT_DIR='%s'\n", $ENV{HOME};
 printf $FH "CRAM='%s'\n", $opts{'c'};
-printf $FH "SCRAMBLE='%s'\n", $opts{'sc'};
-printf $FH "BWA_PARAM='%s'\n", $opts{'b'};
+printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0)
+printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0)
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
-
-# REF_BASE='/datastore/ref/reference_files'
-# SAMPLE_NAME='COLO-829'
-# INPUT=$HOME
-# OUTPUT_DIR=$BOX_MNT_PNT/$SAMPLE_NAME/mapping
-# CRAM=0
-# SCRAMBLE=''
-# BWA_PARAM='-Y'
 
 exec('mapping.sh'); # I will never return to the perl code
 

@@ -37,6 +37,11 @@ if [ -z ${SCRAMBLE+x} ]; then
 else
   echo -e "\tSCRAMBLE : $SCRAMBLE"
 fi
+if [ -z ${BWA_PARAM+x} ]; then
+  echo -e "\tBWA_PARAM : <NOTSET>"
+else
+  echo -e "\tBWA_PARAM : $BWA_PARAM"
+fi
 set +u
 
 if [ ${#PRE_EXEC[@]} -eq 0 ]; then
@@ -82,6 +87,7 @@ if [ ! -z ${BWA_PARAM+x} ]; then
   ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
 fi
 
+set -x
 /usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/mapping.time \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
@@ -91,6 +97,7 @@ fi
  -mt $CPU \
  $ADD_ARGS \
  $INPUT
+{ set +x; } 2> /dev/null
 
 # run any post-exec step
 echo -e "\nRun POST_EXEC: `date`"
