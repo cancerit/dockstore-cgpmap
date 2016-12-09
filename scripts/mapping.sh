@@ -72,7 +72,7 @@ ADD_ARGS=''
 if [ $CRAM -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS -c"
   if [ ! -z ${SCRAMBLE+x} ]; then
-    ADD_ARGS="$ADD_ARGS -sc '$SCRAMBLE'";
+    ADD_ARGS="$ADD_ARGS -sc ' $SCRAMBLE'";
   fi
 fi
 
@@ -84,11 +84,11 @@ fi
 
 # if BWA_PARAM set
 if [ ! -z ${BWA_PARAM+x} ]; then
-  ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
+  ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
 fi
 
 set -x
-/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
+bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
@@ -96,7 +96,7 @@ set -x
  -t $CPU \
  -mt $CPU \
  $ADD_ARGS \
- $INPUT
+ $INPUT"
 { set +x; } 2> /dev/null
 
 # run any post-exec step
