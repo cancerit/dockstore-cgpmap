@@ -19,6 +19,7 @@ my %opts = ('c'=>0,
 GetOptions( 'h|help' => \$opts{'h'},
             'm|man' => \$opts{'m'},
             'r|reference=s' => \$opts{'r'},
+            'i|bwa_idx=s' => \$opts{'i'},
             's|sample=s' => \$opts{'s'},
             'c|cram' => \$opts{'c'},
             'sc|scramble:s' => \$opts{'sc'},
@@ -37,6 +38,8 @@ printf "Options loaded: \n%s\n",Dumper(\%opts);
 my $ref_area = $ENV{HOME}.'/reference_files';
 make_path($ref_area);
 my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
+system($untar) && die $!;
+$untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
 system($untar) && die $!;
 
 my $run_file = $ENV{HOME}.'/run.params';
@@ -64,7 +67,8 @@ dh-wrapper.pl - Generate the param file and execute mapping.sh (for dockstore)
 dh-wrapper.pl [options] [file(s)...]
 
   Required parameters:
-    -reference   -r   Path to reference tar
+    -reference   -r   Path to core reference tar.gz
+    -bwa_idx     -i   Path to bwa index tar.gz
     -sample      -s   Sample name to be applied to output file.
 
   Optional parameters:

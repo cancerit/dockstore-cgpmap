@@ -1,11 +1,15 @@
 {
   "reference": {
-    "path": "/tmp/map_ref_GRCh37d5.tar.gz",
+    "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/core_ref_GRCh37d5.tar.gz",
+    "class": "File"
+  },
+  "bwa_idx": {
+    "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/bwa_idx_GRCh37d5.tar.gz",
     "class": "File"
   },
   "bams_in": [
     {"class": "File",
-      "path": "/tmp/test_in.bam"}
+      "path": "ftp://ngs.sanger.ac.uk/scratch/project/cancer/cgpmap/testdata/insilico_21.bam"}
   ],
   "cram": false,
   "mapped_out": {

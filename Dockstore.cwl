@@ -21,15 +21,23 @@ hints:
   - class: ResourceRequirement
     coresMin: 1 # works but long, 8 recommended
     ramMin: 15000 # good for WGS human ~30-60x
-    outdirMin: 5000000 # ~5GB or ref won't even fit
+    outdirMin: 5000000 # unlikely any BAM processing would be possible in less
 
 inputs:
   reference:
     type: File
-    doc: "The core reference and BW indexes as a tar.gz"
+    doc: "The core reference (fa, fai, dict) as tar.gz"
     inputBinding:
       prefix: -reference
       position: 1
+      separate: true
+
+  bwa_idx:
+    type: File
+    doc: "The BWA indexes in tar.gz"
+    inputBinding:
+      prefix: -bwa_idx
+      position: 2
       separate: true
 
   sample:
@@ -37,7 +45,7 @@ inputs:
     doc: "Sample name to be included in output [B|CR]AM header, also used to name final file"
     inputBinding:
       prefix: -sample
-      position: 2
+      position: 3
       separate: true
 
   scramble:
@@ -46,7 +54,7 @@ inputs:
     default: ''
     inputBinding:
       prefix: -scramble
-      position: 3
+      position: 4
       separate: true
       shellQuote: true
 
@@ -56,7 +64,7 @@ inputs:
     doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default ' -Y -K 100000000'"
     inputBinding:
       prefix: -bwa
-      position: 4
+      position: 5
       separate: true
       shellQuote: false
 
@@ -65,7 +73,7 @@ inputs:
     doc: "Set if output should be in CRAM format instead of BAM, see 'scramble' for tuning parameters."
     inputBinding:
       prefix: -cram
-      position: 5
+      position: 6
 
   bams_in:
     type:
@@ -74,7 +82,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 6
+      position: 7
 
 outputs:
   mapped_out:
