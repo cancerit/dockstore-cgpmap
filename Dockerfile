@@ -3,12 +3,11 @@ FROM  ubuntu:16.04
 MAINTAINER  keiranmraine@gmail.com
 
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="0.0" \
-      description="The CGP mapping pipeline 'in-a-box'"
+      version="1.0.0" \
+      description="The CGP mapping pipeline for dockstore.org"
 
 USER  root
 
-ENV CGPBOX_VERSION $cgpbox_ver
 ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
