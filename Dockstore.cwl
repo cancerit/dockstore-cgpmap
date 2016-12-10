@@ -19,8 +19,8 @@ requirements:
 
 hints:
   - class: ResourceRequirement
-    coresMin: 1
-    ramMin: 12288 # the process requires at least 12G of RAM
+    coresMin: 1 # works but long, 8 recommended
+    ramMin: 15000 # good for WGS human ~30-60x
     outdirMin: 5000000 # ~5GB or ref won't even fit
 
 inputs:
