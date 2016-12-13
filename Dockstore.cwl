@@ -6,7 +6,7 @@ label: "CGP BWA-mem mapping flow"
 cwlVersion: v1.0
 doc: |
     ![build_status](https://quay.io/repository/cancerit/dockstore-cgpmap/status)
-    A Docker container for the CGP BWA-mem mapping flow. See the [cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
+    A Docker container for the CGP BWA-mem mapping flow. See the [dockstore-cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
 
 dct:creator:
   "@id": "http://orcid.org/0000-0002-5634-1539"
@@ -15,7 +15,7 @@ dct:creator:
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "quay.io/cancerit/dockstore-cgpmap:0.0"
+    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:1.0.0"
 
 hints:
   - class: ResourceRequirement

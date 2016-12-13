@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIME_FORMAT='command:%C\nreal:%e\nuser:%U\nsys:%S\npctCpu:%P\ntext:%Xk\ndata:%Dk\nmax:%Mk\n';
+TIME_FORMAT='command:%C\\nreal:%e\\nuser:%U\\nsys:%S\\npctCpu:%P\ntext:%Xk\n\data:%Dk\nmax:%Mk\\n';
 
 set -e
 
