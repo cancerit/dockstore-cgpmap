@@ -1,9 +1,13 @@
 #!/usr/bin/env cwl-runner
 
 class: CommandLineTool
+
 id: "cgpmap"
+
 label: "CGP BWA-mem mapping flow"
+
 cwlVersion: v1.0
+
 doc: |
     ![build_status](https://quay.io/repository/cancerit/dockstore-cgpmap/status)
     A Docker container for the CGP BWA-mem mapping flow. See the [dockstore-cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
@@ -11,7 +15,7 @@ doc: |
 dct:creator:
   "@id": "http://orcid.org/0000-0002-5634-1539"
   foaf:name: Keiran M Raine
-  foaf:mbox: "mailto:keiranmraine@gmail.com"
+  foaf:mbox: "keiranmraine@gmail.com"
 
 requirements:
   - class: DockerRequirement
