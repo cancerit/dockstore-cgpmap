@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIME_FORMAT='command:%C\nreal:%e\nuser:%U\nsys:%S\ntext:%Xk\ndata:%Dk\nmax:%Mk\n';
+TIME_FORMAT='command:%C\\nreal:%e\\nuser:%U\\nsys:%S\\npctCpu:%P\ntext:%Xk\n\data:%Dk\nmax:%Mk\\n';
 
 set -e
 
@@ -23,15 +23,24 @@ if [ -z ${CPU+x} ]; then
   CPU=`grep -c ^processor /proc/cpuinfo`
 fi
 
+if [ -d $INPUT ] ; then
+  INPUT="$INPUT/*"
+fi
+
 set -u
 echo -e "\tSAMPLE_NAME : $SAMPLE_NAME"
-echo -e "\tINPUT_DIR : $INPUT_DIR"
+echo -e "\tINPUT : $INPUT"
 echo -e "\tREF_BASE : $REF_BASE"
 echo -e "\tCRAM : $CRAM"
 if [ -z ${SCRAMBLE+x} ]; then
   echo -e "\tSCRAMBLE : <NOTSET>"
 else
   echo -e "\tSCRAMBLE : $SCRAMBLE"
+fi
+if [ -z ${BWA_PARAM+x} ]; then
+  echo -e "\tBWA_PARAM : <NOTSET>"
+else
+  echo -e "\tBWA_PARAM : $BWA_PARAM"
 fi
 set +u
 
@@ -63,7 +72,7 @@ ADD_ARGS=''
 if [ $CRAM -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS -c"
   if [ ! -z ${SCRAMBLE+x} ]; then
-    ADD_ARGS="$ADD_ARGS -sc '$SCRAMBLE'";
+    ADD_ARGS="$ADD_ARGS -sc ' $SCRAMBLE'";
   fi
 fi
 
@@ -75,10 +84,11 @@ fi
 
 # if BWA_PARAM set
 if [ ! -z ${BWA_PARAM+x} ]; then
-  ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
+  ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
 fi
 
-/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR.time \
+set -x
+bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
@@ -86,7 +96,8 @@ fi
  -t $CPU \
  -mt $CPU \
  $ADD_ARGS \
- $INPUT_DIR/*
+ $INPUT"
+{ set +x; } 2> /dev/null
 
 # run any post-exec step
 echo -e "\nRun POST_EXEC: `date`"

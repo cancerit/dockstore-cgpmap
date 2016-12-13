@@ -7,7 +7,6 @@ apt-get -yq install apt-transport-https
 apt-get -yq install autoconf
 apt-get -yq install bsdtar
 apt-get -yq install build-essential
-apt-get -yq install ca-certificates
 apt-get -yq install curl
 apt-get -yq install libboost-dev
 apt-get -yq install libboost-iostreams-dev
@@ -21,10 +20,7 @@ apt-get -yq install libpstreams-dev
 apt-get -yq install libreadline6-dev
 apt-get -yq install libssl-dev
 apt-get -yq install nettle-dev
-apt-get -yq install nfs-common
 apt-get -yq install python-software-properties
-apt-get -yq install s3cmd
-apt-get -yq install software-properties-common
 apt-get -yq install unzip
 apt-get -yq install time
 apt-get -yq install zlib1g-dev
@@ -32,6 +28,7 @@ apt-get -yq install libpam-tmpdir
 apt-get -yq install libcairo2-dev
 
 ### security upgrades and cleanup
+apt-get -yq install unattended-upgrades
 unattended-upgrades
 apt -yq autoremove
 apt-get clean
