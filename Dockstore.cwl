@@ -15,7 +15,7 @@ doc: |
 dct:creator:
   "@id": "http://orcid.org/0000-0002-5634-1539"
   foaf:name: Keiran M Raine
-  foaf:mbox: "mailto:keiranmraine@gmail.com"
+  foaf:mbox: "keiranmraine@gmail.com"
 
 requirements:
   - class: DockerRequirement
