@@ -87,12 +87,13 @@ if [ ! -z ${BWA_PARAM+x} ]; then
   ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
 fi
 
+# -f set to be unfeasibly large to prevent splitting of lane data.
 set -x
 bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
- -f 25 \
+ -f 1000000 \ # needs to be unfeasibly large to prevent splitting
  -t $CPU \
  -mt $CPU \
  $ADD_ARGS \
