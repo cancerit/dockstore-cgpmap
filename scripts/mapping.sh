@@ -93,7 +93,7 @@ bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
- -f 1000000 \ # needs to be unfeasibly large to prevent splitting
+ -f 1000000 \
  -t $CPU \
  -mt $CPU \
  $ADD_ARGS \
