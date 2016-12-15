@@ -19,7 +19,7 @@ dct:creator:
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:1.0.2"
+    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:hotfix_1.0.3"
 
 hints:
   - class: ResourceRequirement
@@ -89,16 +89,34 @@ inputs:
       position: 7
 
 outputs:
-  mapped_out:
+  out_bam:
     type: File
     outputBinding:
       glob: $(inputs.sample).bam
-    secondaryFiles:
-      - .bai
-      - .bas
-      - .md5
-      - .met
-      - .maptime
 
+  out_bai:
+    type: File
+    outputBinding:
+      glob: $(inputs.sample).bam.bai
+
+  out_bas:
+    type: File
+    outputBinding:
+      glob: $(inputs.sample).bam.bas
+
+  out_md5:
+    type: File
+    outputBinding:
+      glob: $(inputs.sample).bam.md5
+
+  out_met:
+    type: File
+    outputBinding:
+      glob: $(inputs.sample).bam.met
+
+  out_maptime:
+    type: File
+    outputBinding:
+      glob: $(inputs.sample).bam.maptime
 
 baseCommand: ["/opt/wtsi-cgp/bin/ds-wrapper.pl"]

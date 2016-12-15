@@ -12,9 +12,29 @@
       "path": "ftp://ngs.sanger.ac.uk/scratch/project/cancer/cgpmap/testdata/insilico_21.bam"}
   ],
   "cram": false,
-  "mapped_out": {
-    "path": "/tmp/final",
+  "sample": "test",
+  "out_bam": {
+    "path": "/tmp/mapped.bam",
     "class": "File"
   },
-  "sample": "test"
+  "out_bai": {
+    "path": "/tmp/mapped.bam.bai",
+    "class": "File"
+  },
+  "out_bas": {
+    "path": "/tmp/mapped.bam.bas",
+    "class": "File"
+  },
+  "out_md5": {
+    "path": "/tmp/mapped.bam.md5",
+    "class": "File"
+  },
+  "out_met": {
+    "path": "/tmp/mapped.bam.met",
+    "class": "File"
+  },
+  "out_maptime": {
+    "path": "/tmp/mapped.bam.maptime",
+    "class": "File"
+  }
 }
