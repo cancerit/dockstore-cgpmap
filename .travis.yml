@@ -1,0 +1,19 @@
+notifications:
+  slack: wtsi-cgpit:ptUMR1tkNyZJYd9TpGoss8WR
+  email: false
+
+sudo: false
+
+language: perl
+
+perl:
+ - 5.22
+
+services:
+  - docker
+
+install:
+ - docker build -t dockstore-cgpmap .
+
+script:
+ - docker images | grep -c dockstore-cgpmap
