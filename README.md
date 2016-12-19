@@ -13,6 +13,18 @@ Options for customisation:
 * BWA specific mapping parameters (defaults are based on attempts at a global standard).
 * Optionally ouput CRAM (scramble parameters can be modified)
 
+Release process
+===============
+This project is maintained using HubFlow.
+
+1. Make appropriate changes
+2. Bump version in `Dockerfile` and `Dockstore.cwl`
+3. Push changes
+4. Check state on Travis
+5. Generate the release (add notes to GitHub)
+6. Confirm that image has been built on [quay.io](https://quay.io/repository/wtsicgp/dockstore-cgpmap?tab=builds)
+7. Update the [dockstore](https://dockstore.org/containers/quay.io/wtsicgp/dockstore-cgpmap) entry, see [their docs](https://dockstore.org/docs/getting-started-with-dockstore).
+
 LICENCE
 =======
 
