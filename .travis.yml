@@ -4,11 +4,6 @@ notifications:
 
 sudo: false
 
-language: perl
-
-perl:
- - 5.22
-
 services:
   - docker
 
