@@ -18,7 +18,7 @@ cd /tmp/downloads
 rm -rf distro.zip /tmp/downloads/distro /tmp/hts_cache
 
 # PCAP-core
-curl -sSL -o distro.zip --retry 10 https://github.com/ICGC-TCGA-PanCancer/PCAP-core/archive/v3.4.0.zip
+curl -sSL -o distro.zip --retry 10 https://github.com/ICGC-TCGA-PanCancer/PCAP-core/archive/v3.4.1.zip
 mkdir /tmp/downloads/distro
 bsdtar -C /tmp/downloads/distro --strip-components 1 -xf distro.zip
 cd /tmp/downloads/distro
