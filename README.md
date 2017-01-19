@@ -2,6 +2,11 @@ dockstore-cgpmap
 ======
 `dockstore-cgpmap` provides a complete multi threaded BWA mem mapping workflow.  This has been packaged specifically for use with the [Dockstore.org](https://dockstore.org/) framework.
 
+[![Docker Repository on Quay](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status "Docker Repository on Quay")](https://quay.io/repository/wtsicgp/dockstore-cgpmap)
+
+[![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master)](https://travis-ci.org/cancerit/dockstore-cgpmap) : master  
+[![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop)](https://travis-ci.org/cancerit/dockstore-cgpmap) : develop
+
 Supports input in following formats:
 * Multiple BAM
 * Multiple CRAM
