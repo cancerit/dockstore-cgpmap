@@ -1,5 +1,7 @@
 dockstore-cgpmap
 ======
+
+[![Join the chat at https://gitter.im/dockstore-cgpmap/Lobby](https://badges.gitter.im/dockstore-cgpmap/Lobby.svg)](https://gitter.im/dockstore-cgpmap/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 `dockstore-cgpmap` provides a complete multi threaded BWA mem mapping workflow.  This has been packaged specifically for use with the [Dockstore.org](https://dockstore.org/) framework.
 
 [![Docker Repository on Quay](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status "Docker Repository on Quay")](https://quay.io/repository/wtsicgp/dockstore-cgpmap)
