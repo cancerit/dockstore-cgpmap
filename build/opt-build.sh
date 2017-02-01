@@ -1,10 +1,12 @@
 #!/bin/bash
 
-set -uxe
+set -xe
 
 if [[ -z "${TMPDIR}" ]]; then
   TMPDIR=/tmp
 fi
+
+set -u
 
 rm -rf $TMPDIR/downloads
 
