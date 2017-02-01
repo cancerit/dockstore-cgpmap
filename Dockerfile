@@ -3,7 +3,7 @@ FROM  ubuntu:16.04
 MAINTAINER  keiranmraine@gmail.com
 
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="1.0.6" \
+      version="1.0.7" \
       description="The CGP mapping pipeline for dockstore.org"
 
 USER  root
@@ -22,11 +22,12 @@ ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
 RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
 
 ADD build/apt-build.sh build/
-ADD build/perllib-build.sh build/
-ADD build/opt-build.sh build/
-
 RUN bash build/apt-build.sh
+
+ADD build/perllib-build.sh build/
 RUN bash build/perllib-build.sh
+
+ADD build/opt-build.sh build/
 RUN bash build/opt-build.sh
 
 USER    ubuntu
