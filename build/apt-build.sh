@@ -26,6 +26,7 @@ apt-get -yq install time
 apt-get -yq install zlib1g-dev
 apt-get -yq install libpam-tmpdir
 apt-get -yq install libcairo2-dev
+apt-get -yq install lsof
 
 ### security upgrades and cleanup
 apt-get -yq install unattended-upgrades
