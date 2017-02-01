@@ -2,6 +2,10 @@
 
 set -uxe
 
+if [[ -z "${TMPDIR}" ]]; then
+  TMPDIR=/tmp
+fi
+
 rm -rf $TMPDIR/downloads
 
 mkdir -p $TMPDIR/downloads $OPT/bin $OPT/etc $OPT/lib $OPT/share $OPT/site /tmp/hts_cache
