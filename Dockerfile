@@ -3,7 +3,7 @@ FROM  ubuntu:16.04
 MAINTAINER  keiranmraine@gmail.com
 
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="1.0.7" \
+      version="1.0.8" \
       description="The CGP mapping pipeline for dockstore.org"
 
 USER  root
