@@ -1,4 +1,4 @@
-FROM  ubuntu:16.04
+FROM  ubuntu:14.04
 
 MAINTAINER  keiranmraine@gmail.com
 
@@ -28,6 +28,7 @@ ADD build/perllib-build.sh build/
 RUN bash build/perllib-build.sh
 
 ADD build/opt-build.sh build/
+ADD build/biobambam2-build.sh build/
 RUN bash build/opt-build.sh
 
 USER    ubuntu
