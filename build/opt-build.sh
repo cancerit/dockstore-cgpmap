@@ -21,7 +21,7 @@ VER_PCAP="feature/cleanLegacy" #"v3.5.2"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
-  exit 0
+  exit 1
 fi
 
 

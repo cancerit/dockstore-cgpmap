@@ -29,7 +29,7 @@ RUN bash build/perllib-build.sh
 
 ADD build/opt-build.sh build/
 ADD build/biobambam2-build.sh build/
-RUN bash build/opt-build.sh
+RUN bash build/opt-build.sh $OPT
 
 USER    ubuntu
 WORKDIR /home/ubuntu
