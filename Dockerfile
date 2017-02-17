@@ -11,6 +11,7 @@ USER  root
 ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
+ENV LD_LIBRARY_PATH $OPT/lib
 
 ## USER CONFIGURATION
 RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
