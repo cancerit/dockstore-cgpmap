@@ -164,7 +164,7 @@ if [ ! -e $SETUP_DIR/biobambam2.success ]; then
   # co-located external script as it's complex
   cd distro
   rm -rf *
-  $SCRIPT_PATH/buildBioBB.sh
+  $SCRIPT_PATH/biobambam2-build.sh
   cp biobambam/bin/* $INST_PATH/bin/.
   rsync -rl biobambam/bin $INST_PATH/.
   rsync -rl biobambam/include $INST_PATH/,
