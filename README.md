@@ -7,16 +7,41 @@ dockstore-cgpmap
 [![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master)](https://travis-ci.org/cancerit/dockstore-cgpmap) : master  
 [![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop)](https://travis-ci.org/cancerit/dockstore-cgpmap) : develop
 
-Supports input in following formats:
+## Supports input in following formats:
 * Multiple BAM
 * Multiple CRAM
 * Multiple fastq[.gz] (paired or interleaved)
-  * Please see [PCAP-core/bin/bwa_mem.pl](https://github.com/ICGC-TCGA-PanCancer/PCAP-core/blob/master/bin/bwa_mem.pl) for formatting of file names.
+  * Please see [PCAP-core/bin/bwa_mem.pl](https://github.com/cancerit/PCAP-core/blob/master/bin/bwa_mem.pl) for formatting of file names.
 
-Options for customisation:
+## Options for customisation:
 
 * BWA specific mapping parameters (defaults are based on attempts at a global standard).
-* Optionally ouput CRAM (scramble parameters can be modified)
+* Optionally output CRAM (scramble parameters can be modified)
+
+# Test data
+The `examples/sample_configs.local.json` contains test data that can be used to verify the tool.
+
+You can find expected outputs on the Sanger Institute FTP site: [dockstore-cgpmap-expected.tar.gz](ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/expected/dockstore-cgpmap-expected.tar.gz)
+
+This project includes the C program `diff_bams` that can be used to compare the generated BAM file to the one in the archive:
+
+```bash
+$ export CGPMAP_TAG=0.2.0
+$ docker run -ti --rm \
+  -v /tmp/new:/var/spool/new \
+  -v /tmp/old:/var/spool/old \
+  quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_TAG \
+    diff_bams -a /var/spool/old/mapped.bam \
+              -b /var/spool/new/mapped.bam
+```
+
+Expected output:
+
+```
+Reference sequence count passed
+Reference sequence order passed
+Matching records: 1000001
+```
 
 Release process
 ===============
@@ -33,7 +58,7 @@ This project is maintained using HubFlow.
 LICENCE
 =======
 
-Copyright (c) 2016 Genome Research Ltd.
+Copyright (c) 2016-2017 Genome Research Ltd.
 
 Author: Cancer Genome Project <cgpit@sanger.ac.uk>
 
