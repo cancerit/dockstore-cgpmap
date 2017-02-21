@@ -10,8 +10,8 @@ set -u
 
 ## for cgpBigWig
 VER_BIODBHTS="2.7"
-VER_LIBBW="0.1.7"
-VER_CGPBIGWIG="0.4.0"
+VER_LIBBW="0.3.1"
+VER_CGPBIGWIG="0.4.1"
 
 # for PCAP
 VER_BWA="v0.7.15"
@@ -198,6 +198,9 @@ if [ ! -e $SETUP_DIR/PCAP.success ]; then
   rm -rf distro.* distro/*
   touch $SETUP_DIR/PCAP.success
 fi
+
+cd $HOME
+rm -rf $SETUP_DIR
 
 set +x
 

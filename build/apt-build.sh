@@ -15,3 +15,4 @@ apt-get install -yq --no-install-recommends rsync
 apt-get install -yq --no-install-recommends libexpat1-dev
 apt-get install -yq --no-install-recommends time
 apt-get install -yq --no-install-recommends lsof
+apt-get install -yq --no-install-recommends libgoogle-perftools-dev
