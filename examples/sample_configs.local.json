@@ -9,7 +9,7 @@
   },
   "bams_in": [
     {"class": "File",
-      "path": "ftp://ngs.sanger.ac.uk/scratch/project/cancer/cgpmap/testdata/insilico_21.bam"}
+      "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21.bam"}
   ],
   "cram": false,
   "sample": "test",

@@ -1,3 +1,6 @@
+### 2.0.1
+* Test data in `examples/sample_configs.local.json` moved to a non-expiring location.
+
 ### 2.0.0
 * PCAP-core forked to cancerit and all legacy PCAWG code removed.
 * Update to cgpBigWig/libBigWig to handle bug detected in ASCAT.
