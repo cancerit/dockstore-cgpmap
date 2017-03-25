@@ -17,7 +17,7 @@ VER_CGPBIGWIG="0.4.1"
 VER_BWA="v0.7.15"
 VER_HTSLIB="1.3.2"
 VER_SAMTOOLS="1.3.1"
-VER_PCAP="4.0.0"
+VER_PCAP="4.0.1"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"

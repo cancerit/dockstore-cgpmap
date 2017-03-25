@@ -19,7 +19,7 @@ dct:creator:
 
 requirements:
   - class: DockerRequirement
-    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:2.0.1"
+    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:2.0.2"
 
 hints:
   - class: ResourceRequirement
