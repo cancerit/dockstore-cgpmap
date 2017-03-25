@@ -45,8 +45,8 @@ system($untar) && die $!;
 my $run_file = $ENV{HOME}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
 # Force explicit checking of file flush
-printf $FH "PCAP_THREADED_NO_SCRIPT=1\n";
-printf $FH "PCAP_THREADED_FORCE_SYNC=1\n";
+printf $FH "export PCAP_THREADED_NO_SCRIPT=1\n";
+printf $FH "export PCAP_THREADED_FORCE_SYNC=1\n";
 # General params
 printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
