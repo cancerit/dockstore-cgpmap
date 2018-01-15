@@ -1,4 +1,4 @@
-FROM  ubuntu:14.04
+FROM  alpine:3.7
 
 MAINTAINER  keiranmraine@gmail.com
 
@@ -13,26 +13,35 @@ ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
 
-## USER CONFIGURATION
-RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
+RUN apk update
+RUN apk upgrade
+RUN apk add --no-cache\
+  autoconf\
+  automake\
+  bash\
+  curl\
+  file\
+  g++\
+  libc6-compat\
+  libtool\
+  make\
+  musl-dev\
+  rsync\
+  zlib-dev
 
 RUN mkdir -p $OPT/bin
-
-ADD scripts/mapping.sh $OPT/bin/mapping.sh
-ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
-
-ADD build/apt-build.sh build/
-RUN bash build/apt-build.sh
-
-ADD build/perllib-build.sh build/
-RUN bash build/perllib-build.sh
 
 ADD build/opt-build.sh build/
 ADD build/biobambam2-build.sh build/
 RUN bash build/opt-build.sh $OPT
 
-USER    ubuntu
-WORKDIR /home/ubuntu
+ADD scripts/mapping.sh $OPT/bin/mapping.sh
+ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
+RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
+
+RUN addgroup -S cgp && adduser -G cgp -S cgp
+
+USER cgp
+WORKDIR /home/cgp
 
 CMD ["/bin/bash"]
