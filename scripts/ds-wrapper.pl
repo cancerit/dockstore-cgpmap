@@ -55,7 +55,7 @@ printf $FH "OUTPUT_DIR='%s'\n", $ENV{HOME};
 printf $FH "CRAM='%s'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
-printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(length $opts{'g'} > 0);
+printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'} && length $opts{'g'} > 0);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
 
