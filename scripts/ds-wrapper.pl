@@ -24,6 +24,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             'c|cram' => \$opts{'c'},
             'sc|scramble:s' => \$opts{'sc'},
             'b|bwa:s' => \$opts{'b'},
+            'g|groupinfo:s' => \$opts{'g'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -54,6 +55,7 @@ printf $FH "OUTPUT_DIR='%s'\n", $ENV{HOME};
 printf $FH "CRAM='%s'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
+printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(length $opts{'g'} > 0);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
 
@@ -81,6 +83,7 @@ dh-wrapper.pl [options] [file(s)...]
                       - '-I,-O' are used internally and should not be provided
     -bwa         -b     Single quoted string of additional parameters to pass to BWA
                          - '-t,-p,-R' are used internally and should not be provided
+    -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
 
   Other:
     -help        -h   Brief help message.

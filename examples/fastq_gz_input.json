@@ -1,0 +1,58 @@
+{
+  "reference": {
+    "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/core_ref_GRCh37d5.tar.gz",
+    "class": "File"
+  },
+  "bwa_idx": {
+    "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/bwa_idx_GRCh37d5.tar.gz",
+    "class": "File"
+  },
+  "bams_in": [
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10658_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10659_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10660_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10661_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10662_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10663_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10664_i.fq.gz"},
+    {"class": "File",
+     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10665_i.fq.gz"},
+  ],
+  "groupinfo": {
+    "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_fq.yaml",
+    "class": "File"
+  },
+  "cram": false,
+  "sample": "test",
+  "out_bam": {
+    "path": "/tmp/mapped.bam",
+    "class": "File"
+  },
+  "out_bai": {
+    "path": "/tmp/mapped.bam.bai",
+    "class": "File"
+  },
+  "out_bas": {
+    "path": "/tmp/mapped.bam.bas",
+    "class": "File"
+  },
+  "out_md5": {
+    "path": "/tmp/mapped.bam.md5",
+    "class": "File"
+  },
+  "out_met": {
+    "path": "/tmp/mapped.bam.met",
+    "class": "File"
+  },
+  "out_maptime": {
+    "path": "/tmp/mapped.bam.maptime",
+    "class": "File"
+  }
+}

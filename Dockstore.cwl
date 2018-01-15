@@ -79,6 +79,14 @@ inputs:
       prefix: -cram
       position: 6
 
+  groupinfo:
+    type: File?
+    doc: "Readgroup metadata file for FASTQ inputs"
+    inputBinding:
+      prefix: -groupinfo
+      position: 7
+      separate: true
+
   bams_in:
     type:
     - 'null'
@@ -86,7 +94,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 7
+      position: 8
 
 outputs:
   out_bam:

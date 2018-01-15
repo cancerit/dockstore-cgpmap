@@ -43,6 +43,11 @@ if [ -z ${BWA_PARAM+x} ]; then
 else
   echo -e "\tBWA_PARAM : $BWA_PARAM"
 fi
+if [ -z ${GROUPINFO+x} ]; then
+  echo -e "\tGROUPINFO : <NOTSET>"
+else
+  echo -e "\tGROUPINFO : $GROUPINFO"
+fi
 set +u
 
 if [ ${#PRE_EXEC[@]} -eq 0 ]; then
@@ -86,6 +91,11 @@ fi
 # if BWA_PARAM set
 if [ ! -z ${BWA_PARAM+x} ]; then
   ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
+fi
+
+# if GROUPINFO set
+if [ ! -z ${GROUPINFO+x} ]; then
+  ADD_ARGS="$ADD_ARGS -g ' $GROUPINFO'"
 fi
 
 # -f set to be unfeasibly large to prevent splitting of lane data.
