@@ -11,7 +11,7 @@ set -u
 ## for cgpBigWig
 VER_BIODBHTS="2.7"
 VER_LIBBW="0.3.1"
-VER_CGPBIGWIG="0.4.1"
+VER_CGPBIGWIG="0.4.4"
 
 # for PCAP
 VER_BWA="v0.7.17"
