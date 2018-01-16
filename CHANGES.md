@@ -4,6 +4,8 @@
 
 * Add ability to pair a groups file with fastq inputs to add info to readgroups
 in final BAM/CRAM files.
+* BWA 0.7.17 - bug fixes for alpine building.
+* Biobambam2 2.0.82 - updates for alpine building.
 
 ## 2.0.1
 

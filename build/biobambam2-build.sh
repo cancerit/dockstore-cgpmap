@@ -1,8 +1,8 @@
 #!/bin/bash
-LIBMAUSVERSION=2.0.312-release-20170208002133
-BIOBAMBAMVERSION=2.0.69-release-20170127133459
+LIBMAUSVERSION=2.0.431-release-20171214130550
+BIOBAMBAMVERSION=2.0.82-release-20171214120547
 SNAPPYVERSION=1.1.4
-IOLIBVERSION=1.14.8
+IOLIBVERSION=1.14.9
 CHRPATHVERSION=0.16.1
 BUILDDIR=${PWD}
 INSTALLDIR=${BUILDDIR}/install-dir
@@ -55,7 +55,7 @@ mkdir -p io_lib-${IOLIBVERSION}-src
 tar -C io_lib-${IOLIBVERSION}-src --strip-components=1 -xzf io_lib-${IOLIBVERSION}.tar.gz
 mkdir -p io_lib-${IOLIBVERSION}-build
 cd io_lib-${IOLIBVERSION}-build
-LDFLAGS="-Wl,-rpath=XORIGIN/../lib" ${BUILDDIR}/io_lib-${IOLIBVERSION}-src/configure --prefix=${INSTALLDIR}
+LDFLAGS="-Wl,-rpath=XORIGIN/../lib -Wl,-z -Wl,origin" ${BUILDDIR}/io_lib-${IOLIBVERSION}-src/configure --prefix=${INSTALLDIR}
 make -j${PAR}
 make -j${PAR} install
 cd ..
@@ -69,7 +69,7 @@ autoreconf -i -f
 cd ../
 mkdir -p snappy-${SNAPPYVERSION}-build
 cd snappy-${SNAPPYVERSION}-build
-LDFLAGS="-Wl,-rpath=XORIGIN/../lib" ${BUILDDIR}/snappy-${SNAPPYVERSION}-src/configure --prefix=${INSTALLDIR}
+LDFLAGS="-Wl,-rpath=XORIGIN/../lib -Wl,-z -Wl,origin" ${BUILDDIR}/snappy-${SNAPPYVERSION}-src/configure --prefix=${INSTALLDIR}
 make -j${PAR}
 make -j${PAR} install
 cd ..
@@ -80,7 +80,7 @@ mkdir -p libmaus-${LIBMAUSVERSION}-src
 tar -C libmaus-${LIBMAUSVERSION}-src --strip-components=1 -xzf libmaus-${LIBMAUSVERSION}.tar.gz
 mkdir -p libmaus-${LIBMAUSVERSION}-build
 cd libmaus-${LIBMAUSVERSION}-build
-LDFLAGS="-Wl,-rpath=XORIGIN/../lib" ${BUILDDIR}/libmaus-${LIBMAUSVERSION}-src/configure --prefix=${INSTALLDIR} \
+LDFLAGS="-Wl,-rpath=XORIGIN/../lib -Wl,-z -Wl,origin" ${BUILDDIR}/libmaus-${LIBMAUSVERSION}-src/configure --prefix=${INSTALLDIR} \
 	--with-snappy=${INSTALLDIR} \
 	--with-io_lib=${INSTALLDIR}
 make -j${PAR}
@@ -93,7 +93,7 @@ mkdir -p biobambam-${BIOBAMBAMVERSION}-src
 tar -C biobambam-${BIOBAMBAMVERSION}-src --strip-components=1 -xzf biobambam-${BIOBAMBAMVERSION}.tar.gz
 mkdir -p biobambam-${BIOBAMBAMVERSION}-build
 cd biobambam-${BIOBAMBAMVERSION}-build
-LDFLAGS="-Wl,-rpath=XORIGIN/../lib" ${BUILDDIR}/biobambam-${BIOBAMBAMVERSION}-src/configure --prefix=${INSTALLDIR} \
+LDFLAGS="-Wl,-rpath=XORIGIN/../lib -Wl,-z -Wl,origin" ${BUILDDIR}/biobambam-${BIOBAMBAMVERSION}-src/configure --prefix=${INSTALLDIR} \
 	--with-libmaus2=${INSTALLDIR}
 make -j${PAR}
 make -j${PAR} install
@@ -107,7 +107,7 @@ for i in `find ${INSTALLDIR} -name \*.so\*` ; do
 done
 
 for i in ${INSTALLDIR}/bin/* ; do
-	if [ ! -z `LANG=C file ${i} | egrep "ELF.*executable" | awk '{print $1}' | perl -p -e "s/://"` ] ; then
+	if [ ! -z `LANG=C file ${i} | egrep "ELF 64-bit LSB shared object" | awk '{print $1}' | perl -p -e "s/://"` ] ; then
 		ORIG=`objdump -x ${i} | grep RPATH | awk '{print $2}'`
 		MOD=`echo "$ORIG" | sed "s/XORIGIN/\\$ORIGIN/"`
 		${TOOLSDIR}/bin/chrpath -r "${MOD}" ${i}

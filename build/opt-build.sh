@@ -14,10 +14,11 @@ VER_LIBBW="0.3.1"
 VER_CGPBIGWIG="0.4.1"
 
 # for PCAP
-VER_BWA="v0.7.15"
+VER_BWA="v0.7.17"
 VER_HTSLIB="1.3.2"
 VER_SAMTOOLS="1.3.1"
-VER_PCAP="4.0.2"
+#VER_PCAP="4.0.2"
+VER_PCAP="feature/rg_metadata"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -65,7 +66,7 @@ set -u
 ## INSTALL CPANMINUS
 set -eux
 curl -sSL https://cpanmin.us/ > $SETUP_DIR/cpanm
-perl $SETUP_DIR/cpanm --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH App::cpanminus
+perl $SETUP_DIR/cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH App::cpanminus
 rm -f $SETUP_DIR/cpanm
 
 ##### DEPS for cgpBigWig #####
@@ -145,8 +146,8 @@ fi
 ## Bio::DB::HTS (tar.gz)
 if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   ## add perl deps
-  cpanm --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Module::Build
-  cpanm --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Bio::Root::Version
+  cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Module::Build
+  cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Bio::Root::Version
 
   curl -sSL --retry 10 https://github.com/Ensembl/Bio-DB-HTS/archive/${VER_BIODBHTS}.tar.gz > distro.tar.gz
   rm -rf distro/*
@@ -178,8 +179,8 @@ fi
 ##### PCAP-core installation
 
 if [ ! -e $SETUP_DIR/PCAP.success ]; then
-  cpanm --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Const::Fast
-  cpanm --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH File::Which
+  cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Const::Fast
+  cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH File::Which
   curl -sSL --retry 10 https://github.com/cancerit/PCAP-core/archive/${VER_PCAP}.tar.gz > distro.tar.gz
   rm -rf distro/*
   tar --strip-components 1 -C distro -xzf distro.tar.gz
@@ -192,8 +193,8 @@ if [ ! -e $SETUP_DIR/PCAP.success ]; then
     cp bin/diff_bams $INST_PATH/bin/.
     touch $SETUP_DIR/pcap_c.success
   fi
-  cpanm --no-interactive --notest --mirror http://cpan.metacpan.org --notest -l $INST_PATH --installdeps .
-  cpanm -v --no-interactive --mirror http://cpan.metacpan.org -l $INST_PATH .
+  cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org --notest -l $INST_PATH --installdeps .
+  cpanm -v --no-wget --no-interactive --mirror http://cpan.metacpan.org -l $INST_PATH .
   cd $SETUP_DIR
   rm -rf distro.* distro/*
   touch $SETUP_DIR/PCAP.success

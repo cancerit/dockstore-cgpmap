@@ -29,6 +29,11 @@ RUN apk add --no-cache\
   rsync\
   zlib-dev
 
+RUN apk add --no-cache perl perl-dev
+RUN apk add --no-cache curl-dev openssl-dev
+RUN apk add --no-cache gnutls-dev libtasn1-dev nettle-dev gmp-dev p11-kit-dev
+RUN apk add --no-cache ncurses-dev
+
 RUN mkdir -p $OPT/bin
 
 ADD build/opt-build.sh build/
