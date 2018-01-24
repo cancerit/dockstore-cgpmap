@@ -25,6 +25,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             'sc|scramble:s' => \$opts{'sc'},
             'b|bwa:s' => \$opts{'b'},
             'g|groupinfo:s' => \$opts{'g'},
+            't|threads:i' => \$opts{'t'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -35,13 +36,8 @@ delete $opts{'m'};
 
 printf "Options loaded: \n%s\n",Dumper(\%opts);
 
-## unpack the reference area:
 my $ref_area = $ENV{HOME}.'/reference_files';
 make_path($ref_area);
-my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
-system($untar) && die $!;
-$untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
-system($untar) && die $!;
 
 my $run_file = $ENV{HOME}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
@@ -56,8 +52,15 @@ printf $FH "CRAM='%s'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'} && length $opts{'g'} > 0);
+printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
+
+## unpack the reference area:
+my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
+system($untar) && die $!;
+$untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
+system($untar) && die $!;
 
 exec('mapping.sh'); # I will never return to the perl code
 
@@ -84,6 +87,7 @@ dh-wrapper.pl [options] [file(s)...]
     -bwa         -b     Single quoted string of additional parameters to pass to BWA
                          - '-t,-p,-R' are used internally and should not be provided
     -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
+    -threads     -t   Set the number of cpu/cores available [default all].
 
   Other:
     -help        -h   Brief help message.
@@ -126,6 +130,39 @@ Path to mapping tar.gz reference files
 =item B<-sample>
 
 Name to be applied to output files.  Special characters will not be magically fixed.
+
+
+=item B<-cram>
+
+Final output file will be a CRAM file instead of BAM.  To tune the the compression methods see then
+B<-scramble> option.
+
+=item B<-scramble>
+
+Single quoted string of parameters to pass to Scramble when '-c' used.  Please see the Scramble
+documentation for details.
+
+Please note: '-I,-O' are used internally and should not be provided.
+
+=item B<-bwa>
+
+Single quoted string of additional parameters to pass to BWA.  Please see the 'bwa mem'
+documentation for details.
+
+Please note: '-t,-p,-R' are used internally and should not be provided.
+
+=item B<-groupinfo>
+
+Readgroup information metadata file, please see the PCAP wiki for format:
+
+https://github.com/cancerit/PCAP-core/wiki/File-Formats-groupinfo.yaml
+
+=item B<-threads>
+
+Sets the number of cores to be used during processing.  Default it to use all at approptiate
+points in analysis.
+
+Recommend increments of 6 once 6 is exceeded.
 
 =back
 
