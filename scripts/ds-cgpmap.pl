@@ -69,11 +69,11 @@ __END__
 
 =head1 NAME
 
-dh-wrapper.pl - Generate the param file and execute mapping.sh (for dockstore)
+ds-cgpmap.pl - Generate the param file and execute mapping.sh (for dockstore)
 
 =head1 SYNOPSIS
 
-dh-wrapper.pl [options] [file(s)...]
+ds-cgpmap.pl [options] [file(s)...]
 
   Required parameters:
     -reference   -r   Path to core reference tar.gz
@@ -99,19 +99,19 @@ File list can be full file names or wildcard, e.g.
 
 =item mutiple BAM inputs
 
- dh-wrapper.pl [options] input/*.bam
+ ds-cgpmap.pl [options] input/*.bam
 
 =item multiple paired fastq inputs
 
- dh-wrapper.pl [options] input/*_[12].fq[.gz]
+ ds-cgpmap.pl [options] input/*_[12].fq[.gz]
 
 =item multiple interleaved paired fastq inputs
 
- dh-wrapper.pl [options] input/*.fq[.gz]
+ ds-cgpmap.pl [options] input/*.fq[.gz]
 
 =item mixture of BAM and CRAM
 
- dh-wrapper.pl [options] input/*.bam input/*.cram
+ ds-cgpmap.pl [options] input/*.bam input/*.cram
 
 =back
 

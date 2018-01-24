@@ -9,14 +9,14 @@ fi
 set -u
 
 ## for cgpBigWig
-VER_BIODBHTS="2.7"
-VER_LIBBW="0.3.1"
-VER_CGPBIGWIG="0.4.4"
+VER_BIODBHTS="2.9"
+VER_LIBBW="0.4.2"
+VER_CGPBIGWIG="0.5.0"
 
 # for PCAP
 VER_BWA="v0.7.17"
-VER_HTSLIB="1.3.2"
-VER_SAMTOOLS="1.3.1"
+VER_HTSLIB="1.5"
+VER_SAMTOOLS="1.5"
 #VER_PCAP="4.0.2"
 VER_PCAP="feature/rg_metadata"
 
@@ -154,6 +154,8 @@ if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   tar --strip-components 1 -C distro -zxf distro.tar.gz
   cd distro
   perl Build.PL --install_base=$INST_PATH --htslib=$INST_PATH
+  ./Build
+  ./Build test
   ./Build install
   cd $SETUP_DIR
   rm -rf distro.* distro/*

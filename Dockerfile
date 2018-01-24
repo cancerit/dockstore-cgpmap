@@ -27,12 +27,19 @@ RUN apk add --no-cache\
   make\
   musl-dev\
   rsync\
-  zlib-dev
-
-RUN apk add --no-cache perl perl-dev
-RUN apk add --no-cache curl-dev openssl-dev
-RUN apk add --no-cache gnutls-dev libtasn1-dev nettle-dev gmp-dev p11-kit-dev
-RUN apk add --no-cache ncurses-dev
+  zlib-dev\
+  bzip2-dev\
+  xz-dev\
+  perl\
+  perl-dev\
+  curl-dev\
+  openssl-dev\
+  gnutls-dev\
+  libtasn1-dev\
+  nettle-dev\
+  gmp-dev\
+  p11-kit-dev\
+  ncurses-dev
 
 RUN mkdir -p $OPT/bin
 
@@ -41,8 +48,8 @@ ADD build/biobambam2-build.sh build/
 RUN bash build/opt-build.sh $OPT
 
 ADD scripts/mapping.sh $OPT/bin/mapping.sh
-ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
+ADD scripts/ds-cgpmap.pl $OPT/bin/ds-cgpmap.pl
+RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
 
 RUN addgroup -S cgp && adduser -G cgp -S cgp
 

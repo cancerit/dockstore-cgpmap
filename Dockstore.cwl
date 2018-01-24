@@ -127,4 +127,4 @@ outputs:
     outputBinding:
       glob: $(inputs.sample).bam.maptime
 
-baseCommand: ["/opt/wtsi-cgp/bin/ds-wrapper.pl"]
+baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl"]
