@@ -11,14 +11,14 @@ set -u
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
 VER_LIBBW="0.4.2"
-VER_CGPBIGWIG="0.5.0"
+#VER_CGPBIGWIG="0.5.0"
+VER_CGPBIGWIG="feature/htslibLibBigWig"
 
 # for PCAP
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.5"
-VER_SAMTOOLS="1.5"
 #VER_PCAP="4.0.2"
-VER_PCAP="feature/rg_metadata"
+VER_PCAP="feature/mismatchQc_C"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -126,21 +126,6 @@ if [ ! -e $SETUP_DIR/bwa.success ]; then
   cp distro/bwa $INST_PATH/bin/.
   rm -rf distro.* distro/*
   touch $SETUP_DIR/bwa.success
-fi
-
-## SAMTOOLS (tar.bz2)
-if [ ! -e $SETUP_DIR/samtools.success ]; then
-  curl -sSL --retry 10 https://github.com/samtools/samtools/releases/download/${VER_SAMTOOLS}/samtools-${VER_SAMTOOLS}.tar.bz2 > distro.tar.bz2
-  rm -rf distro/*
-  tar --strip-components 1 -C distro -xjf distro.tar.bz2
-  cd distro
-  ./configure --enable-plugins --enable-libcurl --with-htslib=$INST_PATH --prefix=$INST_PATH
-  make clean
-  make -j$CPU all
-  make install
-  cd $SETUP_DIR
-  rm -rf distro.* distro/*
-  touch $SETUP_DIR/samtools.success
 fi
 
 ## Bio::DB::HTS (tar.gz)
