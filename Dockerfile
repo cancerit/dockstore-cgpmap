@@ -38,7 +38,7 @@ FROM  ubuntu:16.04
 MAINTAINER  keiranmraine@gmail.com
 
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="2.0.3" \
+      version="3.0.0-rc1" \
       description="The CGP mapping pipeline for dockstore.org"
 
 ENV OPT /opt/wtsi-cgp
