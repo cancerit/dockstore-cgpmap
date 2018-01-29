@@ -74,15 +74,15 @@ rm -f $SETUP_DIR/cpanm
 ## HTSLIB (tar.bz2)
 if [ ! -e $SETUP_DIR/htslib.success ]; then
   curl -sSL --retry 10 https://github.com/samtools/htslib/releases/download/${VER_HTSLIB}/htslib-${VER_HTSLIB}.tar.bz2 > distro.tar.bz2
-  rm -rf distro/*
-  tar --strip-components 1 -C distro -jxf distro.tar.bz2
-  cd distro
+  rm -rf htslib/*
+  tar --strip-components 1 -C htslib -jxf distro.tar.bz2
+  cd htslib
   ./configure --enable-plugins --enable-libcurl --prefix=$INST_PATH
   make clean
   make -j$CPU
   make install
   cd $SETUP_DIR
-  rm -rf distro.* distro/*
+  rm -rf distro.*
   touch $SETUP_DIR/htslib.success
 fi
 
@@ -147,22 +147,6 @@ if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   touch $SETUP_DIR/Bio-DB-HTS.success
 fi
 
-## biobambam2
-if [ ! -e $SETUP_DIR/biobambam2.success ]; then
-  # co-located external script as it's complex
-  cd distro
-  rm -rf *
-  bash $SCRIPT_PATH/biobambam2-build.sh
-  cp biobambam/bin/* $INST_PATH/bin/.
-  rsync -rl biobambam/bin $INST_PATH/.
-  rsync -rl biobambam/include $INST_PATH/,
-  rsync -rl biobambam/lib $INST_PATH/.
-  rsync -rl biobambam/share $INST_PATH/.
-  cd $SETUP_DIR
-  rm -rf distro.* distro/*
-  touch $SETUP_DIR/biobambam2.success
-fi
-
 ##### PCAP-core installation
 
 if [ ! -e $SETUP_DIR/PCAP.success ]; then
@@ -174,10 +158,11 @@ if [ ! -e $SETUP_DIR/PCAP.success ]; then
   cd distro
   if [ ! -e $SETUP_DIR/pcap_c.success ]; then
     make -C c clean
-    make -C c -j$CPU prefix=$INST_PATH HTSLIB=$INST_PATH/lib
+    env HTSLIB=$SETUP_DIR/htslib make -C c -j$CPU prefix=$INST_PATH
     cp bin/bam_stats $INST_PATH/bin/.
     cp bin/reheadSQ $INST_PATH/bin/.
     cp bin/diff_bams $INST_PATH/bin/.
+    cp bin/mismatchQc $INST_PATH/bin/.
     touch $SETUP_DIR/pcap_c.success
   fi
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org --notest -l $INST_PATH --installdeps .
