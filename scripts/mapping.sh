@@ -89,12 +89,12 @@ fi
 
 # if BWA_PARAM set
 if [ ! -z ${BWA_PARAM+x} ]; then
-  ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
+  ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
 fi
 
 # if GROUPINFO set
 if [ ! -z ${GROUPINFO+x} ]; then
-  ADD_ARGS="$ADD_ARGS -g ' $GROUPINFO'"
+  ADD_ARGS="$ADD_ARGS -g $GROUPINFO"
 fi
 
 # -f set to be unfeasibly large to prevent splitting of lane data.
