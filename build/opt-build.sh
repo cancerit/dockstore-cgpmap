@@ -50,7 +50,6 @@ else
 fi
 echo "Max compilation CPUs set to $CPU"
 
-
 SETUP_DIR=$INIT_DIR/install_tmp
 mkdir -p $SETUP_DIR/distro # don't delete the actual distro directory until the very end
 mkdir -p $INST_PATH/bin
@@ -64,19 +63,17 @@ export MANPATH=`echo $INST_PATH/man:$INST_PATH/share/man:$MANPATH | perl -pe 's/
 export PERL5LIB=`echo $INST_PATH/lib/perl5:$PERL5LIB | perl -pe 's/:\$//;'`
 set -u
 
-
 ## biobambam2 first
 if [ ! -e $SETUP_DIR/bbb2.sucess ]; then
-  mkdir -p distro
   curl -sSL --retry 10 https://github.com/gt1/biobambam2/releases/download/${VER_BBB2}/biobambam2-${VER_BBB2}-x86_64-etch-linux-gnu.tar.gz > distro.tar.gz
-  tar --strip-components 3 -C biobambam2 -zxf distro.tar.gz
+  tar --strip-components 3 -C distro -zxf distro.tar.gz
   mkdir -p $INST_PATH/bin $INST_PATH/etc $INST_PATH/lib $INST_PATH/share
-  rm -f biobambam2/bin/curl # don't let this file in SSL doesn't work
-  cp -r biobambam2/bin/* $INST_PATH/bin/.
-  cp -r biobambam2/etc/* $INST_PATH/etc/.
-  cp -r biobambam2/lib/* $INST_PATH/lib/.
-  cp -r biobambam2/share/* $INST_PATH/share/.
-  rm -f biobambam2.tar.gz
+  rm -f distro/bin/curl # don't let this file in SSL doesn't work
+  cp -r distro/bin/* $INST_PATH/bin/.
+  cp -r distro/etc/* $INST_PATH/etc/.
+  cp -r distro/lib/* $INST_PATH/lib/.
+  cp -r distro/share/* $INST_PATH/share/.
+  rm -rf distro.* distro/*
   touch $SETUP_DIR/bbb2.success
 fi
 
@@ -85,8 +82,6 @@ set -eux
 curl -sSL https://cpanmin.us/ > $SETUP_DIR/cpanm
 perl $SETUP_DIR/cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH App::cpanminus
 rm -f $SETUP_DIR/cpanm
-
-
 
 ##### DEPS for cgpBigWig #####
 

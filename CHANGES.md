@@ -3,9 +3,10 @@
 ## NEXT
 
 * Add ability to pair a groups file with fastq inputs to add info to readgroups
-in final BAM/CRAM files.
+in final BAM/CRAM files (PCAP-core).
 * BWA 0.7.17 - bug fixes for alpine building.
-* Biobambam2 2.0.82 - updates for alpine building.
+* Biobambam2 2.0.83
+* HTSlib + Samtools 1.7
 
 ## 2.0.1
 

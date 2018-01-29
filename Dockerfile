@@ -14,30 +14,21 @@ ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
 
 RUN apt-get -yq update
-RUN apt-get install -yq apt-transport-https
 RUN apt-get install -yq --no-install-recommends\
-  automake\
-  pkg-config\
+  apt-transport-https\
   curl\
-  build-essential\
-  libcurl4-openssl-dev\
-  nettle-dev\
-  libncurses5-dev\
-  libpstreams-dev\
-  autoconf\
-  libtool\
-  rsync\
-  libexpat1-dev\
+  ca-certificates\
+  libperlio-gzip-perl\
+  make\
+  bzip2\
+  gcc\
+  psmisc\
   time\
-  libgoogle-perftools-dev\
   zlib1g-dev\
   libbz2-dev\
   liblzma-dev\
-  nettle-dev\
-  libgnutls-dev\
-  libtasn1-6-dev\
-  libp11-kit-dev\
-  psmisc
+  libcurl4-gnutls-dev\
+  libncurses5-dev
 
 RUN mkdir -p $OPT/bin
 
