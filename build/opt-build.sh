@@ -11,14 +11,15 @@ set -u
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
 VER_LIBBW="0.4.2"
-#VER_CGPBIGWIG="0.5.0"
 VER_CGPBIGWIG="feature/htslibLibBigWig"
 
 # for PCAP
 VER_BWA="v0.7.17"
-VER_HTSLIB="1.5"
-#VER_PCAP="4.0.2"
+VER_HTSLIB="1.7"
+VER_SAMTOOLS="1.7"
 VER_PCAP="feature/mismatchQc_C"
+
+VER_BBB2="2.0.83-release-20180105121132"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -63,18 +64,37 @@ export MANPATH=`echo $INST_PATH/man:$INST_PATH/share/man:$MANPATH | perl -pe 's/
 export PERL5LIB=`echo $INST_PATH/lib/perl5:$PERL5LIB | perl -pe 's/:\$//;'`
 set -u
 
+
+## biobambam2 first
+if [ ! -e $SETUP_DIR/bbb2.sucess ]; then
+  mkdir -p distro
+  curl -sSL --retry 10 https://github.com/gt1/biobambam2/releases/download/${VER_BBB2}/biobambam2-${VER_BBB2}-x86_64-etch-linux-gnu.tar.gz > distro.tar.gz
+  tar --strip-components 3 -C biobambam2 -zxf distro.tar.gz
+  mkdir -p $INST_PATH/bin $INST_PATH/etc $INST_PATH/lib $INST_PATH/share
+  rm -f biobambam2/bin/curl # don't let this file in SSL doesn't work
+  cp -r biobambam2/bin/* $INST_PATH/bin/.
+  cp -r biobambam2/etc/* $INST_PATH/etc/.
+  cp -r biobambam2/lib/* $INST_PATH/lib/.
+  cp -r biobambam2/share/* $INST_PATH/share/.
+  rm -f biobambam2.tar.gz
+  touch $SETUP_DIR/bbb2.success
+fi
+
 ## INSTALL CPANMINUS
 set -eux
 curl -sSL https://cpanmin.us/ > $SETUP_DIR/cpanm
 perl $SETUP_DIR/cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH App::cpanminus
 rm -f $SETUP_DIR/cpanm
 
+
+
 ##### DEPS for cgpBigWig #####
 
 ## HTSLIB (tar.bz2)
 if [ ! -e $SETUP_DIR/htslib.success ]; then
+  rm -rf htslib
+  mkdir -p htslib
   curl -sSL --retry 10 https://github.com/samtools/htslib/releases/download/${VER_HTSLIB}/htslib-${VER_HTSLIB}.tar.bz2 > distro.tar.bz2
-  rm -rf htslib/*
   tar --strip-components 1 -C htslib -jxf distro.tar.bz2
   cd htslib
   ./configure --enable-plugins --enable-libcurl --prefix=$INST_PATH
@@ -84,6 +104,21 @@ if [ ! -e $SETUP_DIR/htslib.success ]; then
   cd $SETUP_DIR
   rm -rf distro.*
   touch $SETUP_DIR/htslib.success
+fi
+
+## SAMTOOLS (tar.bz2)
+if [ ! -e $SETUP_DIR/samtools.success ]; then
+  curl -sSL --retry 10 https://github.com/samtools/samtools/releases/download/${VER_SAMTOOLS}/samtools-${VER_SAMTOOLS}.tar.bz2 > distro.tar.bz2
+  rm -rf distro/*
+  tar --strip-components 1 -C distro -xjf distro.tar.bz2
+  cd distro
+  ./configure --enable-plugins --enable-libcurl --with-htslib=$INST_PATH --prefix=$INST_PATH
+  make clean
+  make -j$CPU all
+  make install
+  cd $SETUP_DIR
+  rm -rf distro.* distro/*
+  touch $SETUP_DIR/samtools.success
 fi
 
 ## LIB-BW (tar.gz)
@@ -158,6 +193,9 @@ if [ ! -e $SETUP_DIR/PCAP.success ]; then
   cd distro
   if [ ! -e $SETUP_DIR/pcap_c.success ]; then
     make -C c clean
+    export REF_PATH=/tmp/REF_CACHE/cache/%2s/%2s/%s:http://www.ebi.ac.uk/ena/cram/md5/%s
+    export REF_CACHE=/tmp/REF_CACHE/cache/%2s/%2s/%s
+    mkdir -p /tmp/REF_CACHE
     env HTSLIB=$SETUP_DIR/htslib make -C c -j$CPU prefix=$INST_PATH
     cp bin/bam_stats $INST_PATH/bin/.
     cp bin/reheadSQ $INST_PATH/bin/.

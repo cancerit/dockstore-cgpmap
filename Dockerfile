@@ -1,4 +1,4 @@
-FROM  ubuntu:16.04.3
+FROM  ubuntu:16.04
 
 MAINTAINER  keiranmraine@gmail.com
 
@@ -14,29 +14,32 @@ ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
 
 RUN apt-get -yq update
+RUN apt-get install -yq apt-transport-https
 RUN apt-get install -yq --no-install-recommends\
-  apt-transport-https\
+  automake\
+  pkg-config\
   curl\
   build-essential\
   libcurl4-openssl-dev\
   nettle-dev\
   libncurses5-dev\
+  libpstreams-dev\
   autoconf\
   libtool\
   rsync\
   libexpat1-dev\
   time\
   libgoogle-perftools-dev\
+  zlib1g-dev\
+  libbz2-dev\
+  liblzma-dev\
+  nettle-dev\
+  libgnutls-dev\
+  libtasn1-6-dev\
+  libp11-kit-dev\
+  psmisc
 
 RUN mkdir -p $OPT/bin
-
-ADD build/biobambam2-build.sh build/
-RUN bash build/biobambam2-build.sh && \
- rsync -rl biobambam/bin $INST_PATH/. && \
- rsync -rl biobambam/include $INST_PATH/. && \
- rsync -rl biobambam/lib $INST_PATH/. && \
- rsync -rl biobambam/share $INST_PATH/. && \
- rm -rf biobambam
 
 ADD build/opt-build.sh build/
 RUN bash build/opt-build.sh $OPT
