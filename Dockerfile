@@ -62,7 +62,7 @@ RUN apt-get install -yq --no-install-recommends\
   libncurses5
 
 RUN mkdir -p $OPT
-COPY --from=builder $OPT /opt/.
+COPY --from=builder $OPT $OPT
 
 ## USER CONFIGURATION
 RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
