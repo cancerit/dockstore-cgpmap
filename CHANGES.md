@@ -4,9 +4,15 @@
 
 * Add ability to pair a groups file with fastq inputs to add info to readgroups
 in final BAM/CRAM files (PCAP-core).
-* BWA 0.7.17 - bug fixes for alpine building.
-* Biobambam2 2.0.83
+* BWA 0.7.17 - bug fixes for future alpine building.
+* Biobambam2 2.0.83 - via pre-compiled versions, build script is alpine ready.
 * HTSlib + Samtools 1.7
+* PCAP-core 4.1.0
+  * mismatchQc options added
+* cgpBigWig 0.5.0
+* Examples moved to more useful naming, now have:
+  * `examples/bam_input.json`
+  * `examples/fastq_gz_input.json` - with yaml groupinfo file example.
 
 ## 2.0.1
 

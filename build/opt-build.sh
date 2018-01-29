@@ -11,14 +11,13 @@ set -u
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
 VER_LIBBW="0.4.2"
-VER_CGPBIGWIG="feature/htslibLibBigWig"
+VER_CGPBIGWIG="0.5.0-rc1"
 
 # for PCAP
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.7"
 VER_SAMTOOLS="1.7"
-VER_PCAP="feature/mismatchQc_C"
-
+VER_PCAP="4.1.0-rc1"
 VER_BBB2="2.0.83-release-20180105121132"
 
 if [ "$#" -lt "1" ] ; then
