@@ -42,7 +42,7 @@ printf "Options loaded: \n%s\n",Dumper(\%opts);
 
 my $ref_area = $opts{'o'}.'/reference_files';
 
-my $run_file = $ENV{HOME}.'/run.params';
+my $run_file = $opts{'o'}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
 # Force explicit checking of file flush
 printf $FH "export PCAP_THREADED_NO_SCRIPT=1\n";
@@ -67,7 +67,7 @@ system($untar) && die $!;
 $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
 system($untar) && die $!;
 
-exec('mapping.sh'); # I will never return to the perl code
+exec('mapping.sh', $run_file); # I will never return to the perl code
 
 __END__
 

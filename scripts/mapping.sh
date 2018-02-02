@@ -9,9 +9,8 @@ echo -e "\nStart workflow: `date`\n"
 declare -a PRE_EXEC
 declare -a POST_EXEC
 
-if [ -z ${PARAM_FILE+x} ] ; then
-  PARAM_FILE=$HOME/run.params
-fi
+PARAM_FILE=$1
+
 echo "Loading user options from: $PARAM_FILE"
 if [ ! -f $PARAM_FILE ]; then
   echo -e "\tERROR: file indicated by PARAM_FILE not found: $PARAM_FILE" 1>&2
