@@ -13,7 +13,10 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 # set defaults
 my %opts = ('c'=>0,
             'sc' => q{},
-            'b' => q{}
+            'b' => q{},
+            'o' => $ENV{HOME},
+            't' => undef,
+            'g' => undef,
             ,);
 
 GetOptions( 'h|help' => \$opts{'h'},
@@ -26,6 +29,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             'b|bwa:s' => \$opts{'b'},
             'g|groupinfo:s' => \$opts{'g'},
             't|threads:i' => \$opts{'t'},
+            'o|outdir:s' => \$opts{'o'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -37,7 +41,6 @@ delete $opts{'m'};
 printf "Options loaded: \n%s\n",Dumper(\%opts);
 
 my $ref_area = $ENV{HOME}.'/reference_files';
-make_path($ref_area);
 
 my $run_file = $ENV{HOME}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
@@ -47,16 +50,17 @@ printf $FH "export PCAP_THREADED_FORCE_SYNC=1\n";
 # General params
 printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
-printf $FH "OUTPUT_DIR='%s'\n", $ENV{HOME};
+printf $FH "OUTPUT_DIR='%s'\n", $opts{'o'};
 printf $FH "CRAM='%s'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
-printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'} && length $opts{'g'} > 0);
+printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
 printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
 
 ## unpack the reference area:
+make_path($ref_area);
 my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
 system($untar) && die $!;
 $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
@@ -88,6 +92,7 @@ ds-cgpmap.pl [options] [file(s)...]
                          - '-t,-p,-R' are used internally and should not be provided
     -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
     -threads     -t   Set the number of cpu/cores available [default all].
+    -outdir      -o   Set the output folder [$HOME]
 
   Other:
     -help        -h   Brief help message.
@@ -159,10 +164,16 @@ https://github.com/cancerit/PCAP-core/wiki/File-Formats-groupinfo.yaml
 
 =item B<-threads>
 
-Sets the number of cores to be used during processing.  Default it to use all at approptiate
+Sets the number of cores to be used during processing.  Default to use all at appropriate
 points in analysis.
 
 Recommend increments of 6 once 6 is exceeded.
+
+=item B<-outdir>
+
+Set the output directory.  Defaults to $HOME.
+
+NOTE: Should B<NOT> be set when working with dockstore wrapper.
 
 =back
 

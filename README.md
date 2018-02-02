@@ -23,11 +23,14 @@ for formatting of file names.
 * BWA specific mapping parameters (defaults are based on attempts at a global standard).
 * Optionally output CRAM (scramble parameters can be modified)
 
-## Environment variables
+## Usable Cores
 
 When running outside of a docker container you can set the number of CPUs via:
 
-* `export CPU=N` - If not set detects available cores on system.
+* `export CPU=N`
+* `-threads|-t` option of `ds-cgpmap.pl`
+
+If not set detects available cores on system.
 
 ## Test data
 
