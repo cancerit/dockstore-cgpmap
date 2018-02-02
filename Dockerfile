@@ -6,6 +6,7 @@ ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
+ENV LCC C
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
@@ -45,6 +46,7 @@ ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
+ENV LC_ALL C
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
