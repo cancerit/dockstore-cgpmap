@@ -110,6 +110,11 @@ bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  $INPUT"
 { set +x; } 2> /dev/null
 
+# cleanup reference area, see ds-cgpmap.pl
+if [ ! -z ${CLEAN_REF+x} ]; then
+  rm -rf $REF_BASE
+fi
+
 # run any post-exec step
 echo -e "\nRun POST_EXEC: `date`"
 for i in "${POST_EXEC[@]}"; do
