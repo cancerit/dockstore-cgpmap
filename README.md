@@ -32,6 +32,40 @@ When running outside of a docker container you can set the number of CPUs via:
 
 If not set detects available cores on system.
 
+## Singularity
+
+The resulting docker container has been tested with Singularity.  The command to exec is:
+
+```
+ds-cgpmap.pl -h
+```
+
+Expected use would be along the lines of:
+
+```
+export CGPMAP_VER=X.X.X
+singularity pull docker://quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_VER
+
+singularity exec\
+ --workdir /.../workspace  \
+ --home /.../workspace:/home  \
+ --bind /.../ref/human:/var/spool/ref:ro  \
+ --bind /.../example_data/cgpmap/insilico_21:/var/spool/data:ro  \
+ dockstore-cgpmap-${CGPMAP_VER}.simg  \
+ ds-cgpmap.pl  \
+ -r /var/spool/ref/core_ref_GRCh37d5.tar.gz  \
+ -i /var/spool/ref/bwa_idx_GRCh37d5.tar.gz  \
+ -s SOMENAME  \
+ -t 6 \
+ /var/spool/data/\*.bam
+```
+
+Results would be found in `/.../workspace`.
+
+For a system automatically attaching _all local mount points_ (not default singularity behaviour) you need not
+specify any `exec` params (workdir, home, bind) but you should specify the `-outdir` option for
+`ds-cgpmap.pl` to prevent data being written to your home directory.
+
 ## Test data
 
 The `examples/sample_configs.local.json` contains test data that can be used to verify the tool.

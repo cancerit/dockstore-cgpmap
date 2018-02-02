@@ -17,7 +17,7 @@ my %opts = ('c'=>0,
             'o' => $ENV{HOME},
             't' => undef,
             'g' => undef,
-            ,);
+            );
 
 GetOptions( 'h|help' => \$opts{'h'},
             'm|man' => \$opts{'m'},

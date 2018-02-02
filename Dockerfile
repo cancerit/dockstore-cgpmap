@@ -6,7 +6,7 @@ ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
-ENV LCC C
+ENV LC_ALL C
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
@@ -39,7 +39,7 @@ FROM  ubuntu:16.04
 MAINTAINER  keiranmraine@gmail.com
 
 LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="3.0.0-rc2" \
+      version="3.0.0-rc3" \
       description="The CGP mapping pipeline for dockstore.org"
 
 ENV OPT /opt/wtsi-cgp
