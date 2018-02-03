@@ -9,7 +9,11 @@ echo -e "\nStart workflow: `date`\n"
 declare -a PRE_EXEC
 declare -a POST_EXEC
 
-PARAM_FILE=$1
+if [[ $# -eq 1 ]] ; then
+  PARAM_FILE=$1
+elif [ -z ${PARAM_FILE+x} ] ; then
+  PARAM_FILE=$HOME/run.params
+fi
 
 echo "Loading user options from: $PARAM_FILE"
 if [ ! -f $PARAM_FILE ]; then
@@ -22,7 +26,7 @@ if [ -z ${CPU+x} ]; then
   CPU=`grep -c ^processor /proc/cpuinfo`
 fi
 
-if [ -d $INPUT ] ; then
+if [ -d "$INPUT" ] ; then
   INPUT="$INPUT/*"
 fi
 

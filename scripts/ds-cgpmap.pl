@@ -40,8 +40,16 @@ delete $opts{'m'};
 
 printf "Options loaded: \n%s\n",Dumper(\%opts);
 
+# figure out if ref already unpacked:
 my $ref_area = $opts{'o'}.'/reference_files';
+my $ref_unpack = 1;
+if($opts{'r'} eq $opts{'i'} && -d $opts{'r'}) {
+  $ref_area = $opts{'r'};
+  $ref_unpack = 0;
+}
 
+# make the param file
+make_path($opts{'o'}) unless(-e $opts{'o'});
 my $run_file = $opts{'o'}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
 # Force explicit checking of file flush
@@ -60,12 +68,14 @@ printf $FH "CLEAN_REF=1\n"; # we unpacked the ref so we delete it
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
 
-## unpack the reference area:
-make_path($ref_area);
-my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
-system($untar) && die $!;
-$untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
-system($untar) && die $!;
+if($ref_unpack) {
+  ## unpack the reference area:
+  make_path($ref_area);
+  my $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'r'};
+  system($untar) && die $!;
+  $untar = sprintf 'tar --strip-components 1 -C %s -zxvf %s', $ref_area, $opts{'i'};
+  system($untar) && die $!;
+}
 
 exec('mapping.sh', $run_file); # I will never return to the perl code
 
@@ -82,7 +92,11 @@ ds-cgpmap.pl [options] [file(s)...]
 
   Required parameters:
     -reference   -r   Path to core reference tar.gz
+                       - if already unpacked provide base directory
+                       - see `-m` for full details
     -bwa_idx     -i   Path to bwa index tar.gz
+                       - if already unpacked provide base directory
+                       - see `-m` for full details
     -sample      -s   Sample name to be applied to output file.
 
   Optional parameters:
@@ -129,9 +143,21 @@ stuff
 
 =over 4
 
-=item B<-reference>
+=item B<-reference> B<-bwa_idx>
 
-Path to mapping tar.gz reference files
+B<-reference> should point to a core_ref_XXXX.tar.gz
+
+B<-bwa_idx> should point to a bwa_idx_XXXX.tar.gz
+
+See ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/
+
+If both are equal and directories will assume already unpacked as
+
+  mkdir ref_base
+  tar -C ref_base --strip-components 1 -zxvf core_ref_XXXX.tar.gz
+  tar -C ref_base --strip-components 1 -zxvf bwa_idx_XXXX.tar.gz
+
+B<-reference>
 
 =item B<-sample>
 
