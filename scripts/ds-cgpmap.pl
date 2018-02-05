@@ -64,7 +64,7 @@ printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
 printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
-printf $FH "CLEAN_REF=1\n"; # we unpacked the ref so we delete it
+printf $FH "CLEAN_REF=1\n" if($ref_unpack);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 close $FH;
 
