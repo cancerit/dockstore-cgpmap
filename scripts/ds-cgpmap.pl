@@ -17,6 +17,7 @@ my %opts = ('c'=>0,
             'o' => $ENV{HOME},
             't' => undef,
             'g' => undef,
+            'f' => undef,
             );
 
 GetOptions( 'h|help' => \$opts{'h'},
@@ -30,6 +31,8 @@ GetOptions( 'h|help' => \$opts{'h'},
             'g|groupinfo:s' => \$opts{'g'},
             't|threads:i' => \$opts{'t'},
             'o|outdir:s' => \$opts{'o'},
+            'q|qc' => \$opts{'q'},
+            'f|qcf' => \$opts{'f'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -66,6 +69,8 @@ printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
 printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
 printf $FH "CLEAN_REF=1\n" if($ref_unpack);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
+printf $FH "MMQC=1\n" if($opts{'q'});
+printf $FH "MMQCFRAC=1\n" if(defined $opts{'f'});
 close $FH;
 
 if($ref_unpack) {

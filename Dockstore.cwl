@@ -87,6 +87,20 @@ inputs:
       position: 7
       separate: true
 
+  mmqc:
+    type: boolean
+    doc: "Set if mismatch QC should be applied to reads following duplicate marking."
+    inputBinding:
+      prefix: -mmqc
+      position: 8
+
+  mmqcfrac:
+    type: float?
+    doc: "Mismatch fraction to set as max before failing a read [0.05]"
+      inputBinding:
+        prefix: -mmqcfrac
+        position: 9
+
   bams_in:
     type:
     - 'null'
