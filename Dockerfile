@@ -30,10 +30,6 @@ RUN mkdir -p $OPT/bin
 ADD build/opt-build.sh build/
 RUN bash build/opt-build.sh $OPT
 
-ADD scripts/mapping.sh $OPT/bin/mapping.sh
-ADD scripts/ds-cgpmap.pl $OPT/bin/ds-cgpmap.pl
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
-
 FROM  ubuntu:16.04
 
 MAINTAINER  keiranmraine@gmail.com
@@ -63,6 +59,10 @@ RUN apt-get install -yq --no-install-recommends\
 
 RUN mkdir -p $OPT
 COPY --from=builder $OPT $OPT
+
+ADD scripts/mapping.sh $OPT/bin/mapping.sh
+ADD scripts/ds-cgpmap.pl $OPT/bin/ds-cgpmap.pl
+RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
 
 ## USER CONFIGURATION
 RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
