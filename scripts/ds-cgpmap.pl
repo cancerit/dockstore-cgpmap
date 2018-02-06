@@ -17,7 +17,7 @@ my %opts = ('c'=>0,
             'o' => $ENV{HOME},
             't' => undef,
             'g' => undef,
-            'f' => undef,
+            'f' => 0.05,
             );
 
 GetOptions( 'h|help' => \$opts{'h'},
@@ -32,7 +32,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             't|threads:i' => \$opts{'t'},
             'o|outdir:s' => \$opts{'o'},
             'q|qc' => \$opts{'q'},
-            'f|qcf' => \$opts{'f'},
+            'f|qcf:f' => \$opts{'f'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -113,6 +113,8 @@ ds-cgpmap.pl [options] [file(s)...]
     -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
     -threads     -t   Set the number of cpu/cores available [default all].
     -outdir      -o   Set the output folder [$HOME]
+    -qc          -q   Apply mismatch QC to reads following duplicate marking
+    -qcf         -f   Mismatch fraction to set as max before failing a read [0.05]
 
   Other:
     -help        -h   Brief help message.
@@ -206,6 +208,16 @@ Recommend increments of 6 once 6 is exceeded.
 Set the output directory.  Defaults to $HOME.
 
 NOTE: Should B<NOT> be set when working with dockstore wrapper.
+
+=item B<-qc>
+
+Apply mismatch QC to read with a mismatch fraction higher than that specified in B<-qcf>.
+
+=item B<-qcf>
+
+When B<-qc> is set reads with a mismatch rate greater than this value to QC_FAIL (512/0x200).
+
+An auxilary tag is also set so these can be identified.
 
 =back
 

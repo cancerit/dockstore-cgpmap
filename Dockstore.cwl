@@ -89,17 +89,19 @@ inputs:
 
   mmqc:
     type: boolean
-    doc: "Set if mismatch QC should be applied to reads following duplicate marking."
+    doc: "Apply mismatch QC to reads following duplicate marking."
     inputBinding:
-      prefix: -mmqc
+      prefix: -qc
       position: 8
 
   mmqcfrac:
     type: float?
+    default: 0.05
     doc: "Mismatch fraction to set as max before failing a read [0.05]"
-      inputBinding:
-        prefix: -mmqcfrac
-        position: 9
+    inputBinding:
+      prefix: -qcf
+      position: 9
+      separate: true
 
   bams_in:
     type:
@@ -108,7 +110,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 8
+      position: 10
 
 outputs:
   out_bam:
