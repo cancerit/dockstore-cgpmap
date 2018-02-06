@@ -2,16 +2,10 @@ FROM  ubuntu:16.04 as builder
 
 USER  root
 
-ENV OPT /opt/wtsi-cgp
-ENV PATH $OPT/bin:$PATH
-ENV PERL5LIB $OPT/lib/perl5
-ENV LD_LIBRARY_PATH $OPT/lib
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
   apt-transport-https\
+  locales\
   curl\
   ca-certificates\
   libperlio-gzip-perl\
@@ -26,6 +20,16 @@ RUN apt-get install -yq --no-install-recommends\
   libcurl4-gnutls-dev\
   libncurses5-dev
 
+RUN locale-gen en_US.UTF-8
+RUN update-locale LANG=en_US.UTF-8
+
+ENV OPT /opt/wtsi-cgp
+ENV PATH $OPT/bin:$PATH
+ENV PERL5LIB $OPT/lib/perl5
+ENV LD_LIBRARY_PATH $OPT/lib
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
 RUN mkdir -p $OPT/bin
 
 ADD build/opt-build.sh build/
@@ -39,16 +43,10 @@ LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" 
       version="3.0.0-rc5" \
       description="The CGP mapping pipeline for dockstore.org"
 
-ENV OPT /opt/wtsi-cgp
-ENV PATH $OPT/bin:$PATH
-ENV PERL5LIB $OPT/lib/perl5
-ENV LD_LIBRARY_PATH $OPT/lib
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
   apt-transport-https\
+  locales\
   curl\
   ca-certificates\
   libperlio-gzip-perl\
@@ -58,6 +56,16 @@ RUN apt-get install -yq --no-install-recommends\
   zlib1g\
   liblzma5\
   libncurses5
+
+RUN locale-gen en_US.UTF-8
+RUN update-locale LANG=en_US.UTF-8
+
+ENV OPT /opt/wtsi-cgp
+ENV PATH $OPT/bin:$PATH
+ENV PERL5LIB $OPT/lib/perl5
+ENV LD_LIBRARY_PATH $OPT/lib
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 RUN mkdir -p $OPT
 COPY --from=builder $OPT $OPT
