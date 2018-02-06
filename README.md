@@ -3,19 +3,20 @@
 `dockstore-cgpmap` provides a complete multi threaded BWA mem mapping workflow.  This has been
 packaged specifically for use with the [Dockstore.org](https://dockstore.org/) framework.
 
-[![Join the chat at https://gitter.im/dockstore-cgpmap/general](https://badges.gitter.im/dockstore-cgpmap/general.svg)](https://gitter.im/dockstore-cgpmap/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter Badge][gitter-svg]][gitter-badge]
 
-[![Docker Repository on Quay](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status "Docker Repository on Quay")](https://quay.io/repository/wtsicgp/dockstore-cgpmap)
+[![Quay Badge][quay-status]][quay-repo]
 
-[![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master)](https://travis-ci.org/cancerit/dockstore-cgpmap) : master  
-[![Build Status](https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop)](https://travis-ci.org/cancerit/dockstore-cgpmap) : develop
+| Master                                        | Develop                                         |
+| --------------------------------------------- | ----------------------------------------------- |
+| [![Master Badge][travis-master]][travis-base] | [![Develop Badge][travis-develop]][travis-base] |
 
 ## Supports input in following formats:
 
 * Multiple BAM
 * Multiple CRAM
 * Multiple fastq[.gz] (paired or interleaved)
-  * Please see [PCAP-core/bin/bwa_mem.pl](https://github.com/cancerit/PCAP-core/blob/master/bin/bwa_mem.pl)
+  * Please see [PCAP-core/bin/bwa_mem.pl][bwa-mem.pl]
 for formatting of file names.
 
 ## Options for customisation:
@@ -70,7 +71,7 @@ specify any `exec` params (workdir, home, bind) but you should specify the `-out
 
 The `examples/sample_configs.local.json` contains test data that can be used to verify the tool.
 
-You can find expected outputs on the Sanger Institute FTP site: [dockstore-cgpmap-expected.tar.gz](ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/expected/dockstore-cgpmap-expected.tar.gz)
+You can find expected outputs on the Sanger Institute FTP site: [dockstore-cgpmap-expected.tar.gz][cgpmap-expected]
 
 This project includes the C program `diff_bams` that can be used to compare the generated BAM file
 to the one in the archive:
@@ -102,8 +103,8 @@ This project is maintained using HubFlow.
 1. Push changes
 1. Check state on Travis - not possible due to build time
 1. Generate the release (add notes to GitHub)
-1. Confirm that image has been built on [quay.io](https://quay.io/repository/wtsicgp/dockstore-cgpmap?tab=builds)
-1. Update the [dockstore](https://dockstore.org/containers/quay.io/wtsicgp/dockstore-cgpmap) entry, see [their docs](https://dockstore.org/docs/getting-started-with-dockstore).
+1. Confirm that image has been built on [quay.io][quay-builds]
+1. Update the [dockstore][dockstore-cgpmap] entry, see [their docs][dockstore-get-started].
 
 ## LICENCE
 
@@ -137,3 +138,25 @@ statement that reads ‘Copyright (c) 2005-2012’ should be interpreted as bein
 identical to a statement that reads ‘Copyright (c) 2005, 2006, 2007, 2008,
 2009, 2010, 2011, 2012’."
 ```
+
+<!-- links -->
+[bwa-mem.pl]: https://github.com/cancerit/PCAP-core/blob/master/bin/bwa_mem.pl
+[cgpmap-expected]: ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/expected
+
+<!-- Travis -->
+[travis-base]: https://travis-ci.org/cancerit/dockstore-cgpmap
+[travis-master]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master
+[travis-develop]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop
+
+<!-- Gitter -->
+[gitter-svg]: https://badges.gitter.im/dockstore-cgpmap/general.svg
+[gitter-badge]: https://gitter.im/dockstore-cgpmap/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
+<!-- Quay.io -->
+[quay-status]: https://quay.io/repository/wtsicgp/dockstore-cgpmap/status
+[quay-repo]: https://quay.io/repository/wtsicgp/dockstore-cgpmap
+[quay-builds]:
+
+<!-- dockstore -->
+[dockstore-cgpmap]: https://dockstore.org/containers/quay.io/wtsicgp/dockstore-cgpmap
+[dockstore-get-started]: https://dockstore.org/docs/getting-started-with-dockstore
