@@ -14,7 +14,7 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 my %opts = ('c'=>0,
             'sc' => q{},
             'b' => q{},
-            'o' => $ENV{HOME}.'/workspace',
+            'o' => $ENV{HOME},
             't' => undef,
             'g' => undef,
             'f' => 0.05,
