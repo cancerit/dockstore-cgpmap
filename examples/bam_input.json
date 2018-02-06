@@ -13,6 +13,8 @@
   ],
   "cram": false,
   "sample": "test",
+  "mmqc": false,
+  "mmqcfrag": 0.05,
   "out_bam": {
     "path": "/tmp/mapped.bam",
     "class": "File"
