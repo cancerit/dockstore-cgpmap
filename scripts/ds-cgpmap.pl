@@ -14,7 +14,7 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 my %opts = ('c'=>0,
             'sc' => q{},
             'b' => q{},
-            'o' => $ENV{HOME},
+            'o' => $ENV{HOME}.'/workspace',
             't' => undef,
             'g' => undef,
             'f' => 0.05,
@@ -70,7 +70,7 @@ printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
 printf $FH "CLEAN_REF=1\n" if($ref_unpack);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 printf $FH "MMQC=1\n" if($opts{'q'});
-printf $FH "MMQCFRAC=1\n" if(defined $opts{'f'});
+printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
 close $FH;
 
 if($ref_unpack) {

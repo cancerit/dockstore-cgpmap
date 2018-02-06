@@ -2,6 +2,7 @@
 
 ## NEXT
 
+* Drop pre/post exec functions in `mapping.sh`
 * Add ability to pair a groups file with fastq inputs to add info to readgroups
 in final BAM/CRAM files (PCAP-core).
 * BWA 0.7.17 - bug fixes for future alpine building.
@@ -11,8 +12,13 @@ in final BAM/CRAM files (PCAP-core).
   * mismatchQc options added
 * cgpBigWig 0.5.0
 * Examples moved to more useful naming, now have:
-  * `examples/bam_input.json`
-  * `examples/fastq_gz_input.json` - with yaml groupinfo file example.
+  * `examples/bamOutput` and `examples/cramOutput` each containing:
+    * `bam_input.json`
+    * `fastq_gz_input.json` - with yaml groupinfo file example.
+* 2 different CWL descriptors one for BAM output., another for cram
+  * Ensure you use the correct `json` examples.
+* Now using secondaryFiles for outputs to reduce repetitive entries in cwl and json.
+  * Bugfix to dockstore tool needed for output provisioning, likely 1.3.4 at time of writing.
 
 ## 2.0.1
 

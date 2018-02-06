@@ -29,32 +29,18 @@
     "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_fq.yaml",
     "class": "File"
   },
-  "cram": false,
   "sample": "test",
   "mmqc": false,
   "mmqcfrag": 0.05,
   "out_bam": {
     "path": "/tmp/mapped.bam",
-    "class": "File"
-  },
-  "out_bai": {
-    "path": "/tmp/mapped.bam.bai",
-    "class": "File"
-  },
-  "out_bas": {
-    "path": "/tmp/mapped.bam.bas",
-    "class": "File"
-  },
-  "out_md5": {
-    "path": "/tmp/mapped.bam.md5",
-    "class": "File"
-  },
-  "out_met": {
-    "path": "/tmp/mapped.bam.met",
-    "class": "File"
-  },
-  "out_maptime": {
-    "path": "/tmp/mapped.bam.maptime",
-    "class": "File"
+    "class": "File",
+    "secondaryFiles": [
+      ".bai",
+      ".bas",
+      ".md5",
+      ".met",
+      ".maptime"
+    ]
   }
 }

@@ -52,39 +52,22 @@ inputs:
       position: 3
       separate: true
 
-  scramble:
-    type: string?
-    doc: "Options to pass to scramble when generating CRAM output, see scramble docs"
-    default: ''
-    inputBinding:
-      prefix: -scramble
-      position: 4
-      separate: true
-      shellQuote: true
-
   bwa:
     type: string?
     default: ' -Y -K 100000000'
     doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default ' -Y -K 100000000'"
     inputBinding:
       prefix: -bwa
-      position: 5
+      position: 4
       separate: true
       shellQuote: false
-
-  cram:
-    type: boolean
-    doc: "Set if output should be in CRAM format instead of BAM, see 'scramble' for tuning parameters."
-    inputBinding:
-      prefix: -cram
-      position: 6
 
   groupinfo:
     type: File?
     doc: "Readgroup metadata file for FASTQ inputs"
     inputBinding:
       prefix: -groupinfo
-      position: 7
+      position: 5
       separate: true
 
   mmqc:
@@ -92,7 +75,7 @@ inputs:
     doc: "Apply mismatch QC to reads following duplicate marking."
     inputBinding:
       prefix: -qc
-      position: 8
+      position: 6
 
   mmqcfrac:
     type: float?
@@ -100,7 +83,7 @@ inputs:
     doc: "Mismatch fraction to set as max before failing a read [0.05]"
     inputBinding:
       prefix: -qcf
-      position: 9
+      position: 7
       separate: true
 
   bams_in:
@@ -110,37 +93,18 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 10
+      position: 8
 
 outputs:
   out_bam:
     type: File
     outputBinding:
       glob: $(inputs.sample).bam
-
-  out_bai:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.bai
-
-  out_bas:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.bas
-
-  out_md5:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.md5
-
-  out_met:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.met
-
-  out_maptime:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.maptime
+    secondaryFiles:
+      - .bai
+      - .bas
+      - .md5
+      - .met
+      - .maptime
 
 baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl"]
