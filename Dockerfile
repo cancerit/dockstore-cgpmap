@@ -39,9 +39,9 @@ FROM  ubuntu:16.04
 
 MAINTAINER  keiranmraine@gmail.com
 
-LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="3.0.0-rc5" \
-      description="The CGP mapping pipeline for dockstore.org"
+LABEL vendor="Cancer Genome Project, Wellcome Trust Sanger Institute"
+LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
+LABEL uk.ac.sanger.cgp.version="3.0.0-rc6"
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
