@@ -8,19 +8,32 @@ label: "CGP BWA-mem mapping flow"
 
 cwlVersion: v1.0
 
-doc:
-  $include: includes/doc.yml
+#doc:
+#  $include: includes/doc.yml
 
-dct:creator:
-  "@id": "http://orcid.org/0000-0002-5634-1539"
-  foaf:name: Keiran M Raine
-  foaf:mbox: "keiranmraine@gmail.com"
+doc: |
+  ![build_status](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status)
+  A Docker container for PCAP-core. See the [dockstore-cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
+
+  Parameters for a CWL definition are generally described in a json file, but parameters can be provided on the command line.
+
+  To see the parameters descriptions please run: cwltool --tool-help path_to.cwl
+
+#requirements:
+#  - $mixin: mixins/requirements.yml
 
 requirements:
-  - $mixin: mixins/requirements.yml
+  - class: DockerRequirement
+    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:3.0.0-rc8"
+
+#hints:
+#  - $mixin: mixins/hints.yml
 
 hints:
-  - $mixin: mixins/hints.yml
+  - class: ResourceRequirement
+    coresMin: 1 # works but long, 8 recommended
+    ramMin: 15000 # good for WGS human ~30-60x
+    outdirMin: 5000000 # unlikely any BAM processing would be possible in less
 
 inputs:
   reference:
@@ -113,3 +126,23 @@ outputs:
       - .maptime
 
 baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl", "-cram"]
+
+$schemas:
+  - http://schema.org/docs/schema_org_rdfa.html
+
+$namespaces:
+  s: http://schema.org/
+
+s:codeRepository: https://github.com/cancerit/dockstore-biobambam2
+s:license: https://spdx.org/licenses/GPL-3.0
+
+s:author:
+  - class: s:Person
+    s:identifier: https://orcid.org/0000-0002-5634-1539
+    s:email: mailto:keiranmraine@gmail.com
+    s:name: Keiran Raine
+
+dct:creator:
+  "@id": "keiranmraine@gmail.com"
+  foaf:name: Keiran Raine
+  foaf:mbox: "keiranmraine@gmail.com"
