@@ -123,8 +123,8 @@ $schemas:
 $namespaces:
   s: http://schema.org/
 
-s:codeRepository: https://github.com/cancerit/dockstore-biobambam2
-s:license: https://spdx.org/licenses/GPL-3.0
+s:codeRepository: https://github.com/cancerit/dockstore-cgpmap
+s:license: https://spdx.org/licenses/AGPL-3.0-only
 
 s:author:
   - class: s:Person
