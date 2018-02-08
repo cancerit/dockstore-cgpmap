@@ -1,0 +1,1 @@
+cwls/cgpmap-bamOut.cwl
