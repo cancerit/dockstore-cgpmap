@@ -30,7 +30,6 @@
     "class": "File"
   },
   "sample": "test",
-  "scramble": "'-e'",
   "mmqc": false,
   "mmqcfrag": 0.05,
   "out_cram": {

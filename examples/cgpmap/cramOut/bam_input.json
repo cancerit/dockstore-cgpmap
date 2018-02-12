@@ -12,7 +12,6 @@
       "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21.bam"}
   ],
   "sample": "test",
-  "scramble": "'-e'",
   "mmqc": false,
   "mmqcfrag": 0.05,
   "out_cram": {
