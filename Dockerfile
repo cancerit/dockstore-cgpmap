@@ -4,6 +4,7 @@ USER  root
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
+  software-properties-common\
   apt-transport-https\
   locales\
   curl\
@@ -19,6 +20,14 @@ RUN apt-get install -yq --no-install-recommends\
   liblzma-dev\
   libcurl4-gnutls-dev\
   libncurses5-dev
+
+# biobambam2
+RUN apt-get install -yq --no-install-recommends software-properties-common
+RUN add-apt-repository -y ppa:gt1/staden-io-lib-trunk-tischler
+RUN add-apt-repository -y ppa:gt1/libmaus2
+RUN add-apt-repository -y ppa:gt1/biobambam2
+RUN apt-get -yq update
+RUN apt-get install -yq --no-install-recommends biobambam2
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
@@ -56,6 +65,14 @@ RUN apt-get install -yq --no-install-recommends\
   zlib1g\
   liblzma5\
   libncurses5
+
+# biobambam2
+RUN apt-get install -yq --no-install-recommends software-properties-common
+RUN add-apt-repository -y ppa:gt1/staden-io-lib-trunk-tischler
+RUN add-apt-repository -y ppa:gt1/libmaus2
+RUN add-apt-repository -y ppa:gt1/biobambam2
+RUN apt-get -yq update
+RUN apt-get install -yq --no-install-recommends biobambam2
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8

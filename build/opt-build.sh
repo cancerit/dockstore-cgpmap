@@ -18,7 +18,6 @@ VER_BWA="v0.7.17"
 VER_HTSLIB="1.7"
 VER_SAMTOOLS="1.7"
 VER_PCAP="4.1.0-rc2"
-VER_BBB2="2.0.83-release-20180105121132"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -61,20 +60,6 @@ export PATH=`echo $INST_PATH/bin:$PATH | perl -pe 's/:\$//;'`
 export MANPATH=`echo $INST_PATH/man:$INST_PATH/share/man:$MANPATH | perl -pe 's/:\$//;'`
 export PERL5LIB=`echo $INST_PATH/lib/perl5:$PERL5LIB | perl -pe 's/:\$//;'`
 set -u
-
-## biobambam2 first
-if [ ! -e $SETUP_DIR/bbb2.sucess ]; then
-  curl -sSL --retry 10 https://github.com/gt1/biobambam2/releases/download/${VER_BBB2}/biobambam2-${VER_BBB2}-x86_64-etch-linux-gnu.tar.gz > distro.tar.gz
-  tar --strip-components 3 -C distro -zxf distro.tar.gz
-  mkdir -p $INST_PATH/bin $INST_PATH/etc $INST_PATH/lib $INST_PATH/share
-  rm -f distro/bin/curl # don't let this file in SSL doesn't work
-  cp -r distro/bin/* $INST_PATH/bin/.
-  cp -r distro/etc/* $INST_PATH/etc/.
-  cp -r distro/lib/* $INST_PATH/lib/.
-  cp -r distro/share/* $INST_PATH/share/.
-  rm -rf distro.* distro/*
-  touch $SETUP_DIR/bbb2.success
-fi
 
 ## INSTALL CPANMINUS
 set -eux
