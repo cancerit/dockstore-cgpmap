@@ -165,13 +165,13 @@ identical to a statement that reads ‘Copyright (c) 2005, 2006, 2007, 2008,
 [travis-develop]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop
 
 <!-- Gitter -->
-[gitter-svg]: https://badges.gitter.im/dockstore-cgpmap/general.svg
-[gitter-badge]: https://gitter.im/dockstore-cgpmap/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[gitter-svg]: https://badges.gitter.im/dockstore-cgp/Lobby.svg
+[gitter-badge]: https://gitter.im/dockstore-cgp/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 <!-- Quay.io -->
 [quay-status]: https://quay.io/repository/wtsicgp/dockstore-cgpmap/status
 [quay-repo]: https://quay.io/repository/wtsicgp/dockstore-cgpmap
-[quay-builds]:
+[quay-builds]: https://quay.io/repository/wtsicgp/dockstore-cgpmap?tab=builds
 
 <!-- dockstore -->
 [dockstore-cgpmap]: https://dockstore.org/containers/quay.io/wtsicgp/dockstore-cgpmap
