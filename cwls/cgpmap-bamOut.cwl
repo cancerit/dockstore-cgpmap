@@ -8,35 +8,14 @@ label: "CGP BWA-mem mapping flow"
 
 cwlVersion: v1.0
 
-#doc:
-#  $include: includes/doc.yml
-
-doc: |
-  ![build_status](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status)
-  A Docker container for PCAP-core. See the [dockstore-cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
-
-  Please read the relevant [changes](https://github.com/cancerit/dockstore-cgpmap/blob/master/CHANGES.md)
-  when upgrading.
-
-  Parameters for a CWL definition are generally described in a json file, but parameters can be provided on the command line.
-
-  To see the parameters descriptions please run: cwltool --tool-help path_to.cwl
-
-#requirements:
-#  - $mixin: mixins/requirements.yml
+doc:
+  $include: includes/doc.yml
 
 requirements:
-  - class: DockerRequirement
-    dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:3.0.0-rc8"
-
-#hints:
-#  - $mixin: mixins/hints.yml
+  - $mixin: mixins/requirements.yml
 
 hints:
-  - class: ResourceRequirement
-    coresMin: 1 # works but long, 8 recommended
-    ramMin: 15000 # good for WGS human ~30-60x
-    outdirMin: 5000000 # unlikely any BAM processing would be possible in less
+  - $mixin: mixins/hints.yml
 
 inputs:
   reference:
