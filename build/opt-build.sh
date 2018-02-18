@@ -59,9 +59,9 @@ cd $SETUP_DIR
 BB_INST=$INST_PATH/biobambam2
 if [ ! -e $SETUP_DIR/bbb2.sucess ]; then
   curl -sSL --retry 10 https://github.com/gt1/biobambam2/releases/download/${VER_BBB2}/biobambam2-${VER_BBB2}-x86_64-etch-linux-gnu.tar.gz > distro.tar.gz
-  tar --strip-components 3 -C distro -zxf distro.tar.gz
-  rm -f distro/bin/curl # don't let this file in SSL doesn't work
-  mv distro/* BB_INST/.
+  mkdir -p $BB_INST
+  tar --strip-components 3 -C $BB_INST -zxf distro.tar.gz
+  rm -f $BB_INST/bin/curl # don't let this file in SSL doesn't work
   rm -rf distro.* distro/*
   touch $SETUP_DIR/bbb2.success
 fi
