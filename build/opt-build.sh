@@ -8,6 +8,8 @@ fi
 
 set -u
 
+VER_BBB2="2.0.83-release-20180105121132"
+
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
 VER_LIBBW="0.4.2"
@@ -53,11 +55,22 @@ mkdir -p $SETUP_DIR/distro # don't delete the actual distro directory until the 
 mkdir -p $INST_PATH/bin
 cd $SETUP_DIR
 
+## biobambam2 first
+BB_INST=$INST_PATH/biobambam2
+if [ ! -e $SETUP_DIR/bbb2.sucess ]; then
+  curl -sSL --retry 10 https://github.com/gt1/biobambam2/releases/download/${VER_BBB2}/biobambam2-${VER_BBB2}-x86_64-etch-linux-gnu.tar.gz > distro.tar.gz
+  tar --strip-components 3 -C distro -zxf distro.tar.gz
+  rm -f distro/bin/curl # don't let this file in SSL doesn't work
+  mv distro/* BB_INST/.
+  rm -rf distro.* distro/*
+  touch $SETUP_DIR/bbb2.success
+fi
+
 # make sure tools installed can see the install loc of libraries
 set +u
 export LD_LIBRARY_PATH=`echo $INST_PATH/lib:$LD_LIBRARY_PATH | perl -pe 's/:\$//;'`
-export PATH=`echo $INST_PATH/bin:$PATH | perl -pe 's/:\$//;'`
-export MANPATH=`echo $INST_PATH/man:$INST_PATH/share/man:$MANPATH | perl -pe 's/:\$//;'`
+export PATH=`echo $INST_PATH/bin:$BB_INST/bin:$PATH | perl -pe 's/:\$//;'`
+export MANPATH=`echo $INST_PATH/man:$BB_INST/man:$INST_PATH/share/man:$MANPATH | perl -pe 's/:\$//;'`
 export PERL5LIB=`echo $INST_PATH/lib/perl5:$PERL5LIB | perl -pe 's/:\$//;'`
 set -u
 
