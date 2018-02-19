@@ -13,7 +13,6 @@ VER_BBB2="2.0.83-release-20180105121132"
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
 VER_LIBBW="0.4.2"
-VER_CGPBIGWIG="0.5.0-rc1"
 
 # for PCAP
 VER_BWA="v0.7.17"
@@ -122,24 +121,6 @@ if [ ! -e $SETUP_DIR/libBigWig.success ]; then
   make -C distro -j$CPU install prefix=$INST_PATH
   rm -rf distro.* distro/*
   touch $SETUP_DIR/libBigWig.success
-fi
-
-##### cgpBigWig installation
-if [ ! -e $SETUP_DIR/cgpBigWig.success ]; then
-  curl -sSL --retry 10 https://github.com/cancerit/cgpBigWig/archive/${VER_CGPBIGWIG}.tar.gz > distro.tar.gz
-  rm -rf distro/*
-  tar --strip-components 1 -C distro -xzf distro.tar.gz
-  make -C distro/c clean
-  make -C distro/c -j$CPU prefix=$INST_PATH HTSLIB=$INST_PATH/lib
-  cp distro/bin/bam2bedgraph $INST_PATH/bin/.
-  cp distro/bin/bwjoin $INST_PATH/bin/.
-  cp distro/bin/bam2bw $INST_PATH/bin/.
-  cp distro/bin/bwcat $INST_PATH/bin/.
-  cp distro/bin/bam2bwbases $INST_PATH/bin/.
-  cp distro/bin/bg2bw $INST_PATH/bin/.
-  cp distro/bin/detectExtremeDepth $INST_PATH/bin/.
-  rm -rf distro.* distro/*
-  touch $SETUP_DIR/cgpBigWig.success
 fi
 
 ##### DEPS for PCAP - layered on top #####

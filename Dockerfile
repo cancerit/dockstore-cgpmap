@@ -1,4 +1,4 @@
-FROM  ubuntu:16.04 as builder
+FROM  quay.io/wtsicgp/dockstore-cgpbigwig:1.0.0 as builder
 
 USER  root
 
