@@ -185,17 +185,3 @@ fi
 
 cd $HOME
 rm -rf $SETUP_DIR
-
-set +x
-
-echo "
-################################################################
-
-  To use the non-central tools you need to set the following
-    export LD_LIBRARY_PATH=$INST_PATH/lib:\$LD_LIBRARY_PATH
-    export PATH=$INST_PATH/bin:\$PATH
-    export MANPATH=$INST_PATH/man:$INST_PATH/share/man:\$MANPATH
-    export PERL5LIB=$INST_PATH/lib/perl5:\$PERL5LIB
-
-################################################################
-"
