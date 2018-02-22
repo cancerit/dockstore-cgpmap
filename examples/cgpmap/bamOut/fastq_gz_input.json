@@ -7,7 +7,7 @@
     "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/bwa_idx_GRCh37d5.tar.gz",
     "class": "File"
   },
-  "bams_in": [
+  "seq_in": [
     {"class": "File",
      "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21_10658_i.fq.gz"},
     {"class": "File",
@@ -34,13 +34,6 @@
   "mmqcfrag": 0.05,
   "out_bam": {
     "path": "/tmp/mapped.bam",
-    "class": "File",
-    "secondaryFiles": [
-      ".bai",
-      ".bas",
-      ".md5",
-      ".met",
-      ".maptime"
-    ]
+    "class": "File"
   }
 }

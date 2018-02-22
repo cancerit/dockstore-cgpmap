@@ -76,7 +76,7 @@ inputs:
       position: 7
       separate: true
 
-  bams_in:
+  seq_in:
     type:
     - 'null'
     - type: array

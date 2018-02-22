@@ -7,15 +7,34 @@
     "path": "ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/human/bwa_idx_GRCh37d5.tar.gz",
     "class": "File"
   },
-  "seq_in": [
+  "bams_in": [
     {"class": "File",
       "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21.bam"}
   ],
+  "cram": false,
   "sample": "test",
-  "mmqc": false,
-  "mmqcfrag": 0.05,
   "out_bam": {
     "path": "/tmp/mapped.bam",
+    "class": "File"
+  },
+  "out_bai": {
+    "path": "/tmp/mapped.bam.bai",
+    "class": "File"
+  },
+  "out_bas": {
+    "path": "/tmp/mapped.bam.bas",
+    "class": "File"
+  },
+  "out_md5": {
+    "path": "/tmp/mapped.bam.md5",
+    "class": "File"
+  },
+  "out_met": {
+    "path": "/tmp/mapped.bam.met",
+    "class": "File"
+  },
+  "out_maptime": {
+    "path": "/tmp/mapped.bam.maptime",
     "class": "File"
   }
 }

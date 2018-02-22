@@ -9,7 +9,7 @@ label: "CGP BWA-mem mapping flow"
 cwlVersion: v1.0
 
 doc: |
-  Please use one of the new tools for v3+:
+  Please use one of the new tools for v3+ or if you want CRAM output:
 
     * [dockstore-cgpmap/cgpmap-bamOut](https://dockstore.org/containers/quay.io%2Fwtsicgp%2Fdockstore-cgpmap%2Fcgpmap-bamOut)
     * [dockstore-cgpmap/cgpmap-cramOut](https://dockstore.org/containers/quay.io%2Fwtsicgp%2Fdockstore-cgpmap%2Fcgpmap-cramOut)
