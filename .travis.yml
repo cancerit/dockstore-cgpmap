@@ -9,6 +9,12 @@ services:
 
 install:
  - docker build -t dockstore-cgpmap .
+ - virtualenv -p python3 venv
+ - source venv/bin/activate
+ - pip install cwltool
 
 script:
  - docker images | grep -c dockstore-cgpmap
+ - cwltool --validate Dockstore.cwl
+ - cwltool --validate cwls/cgpmap-bamOut.cwl
+ - cwltool --validate cwls/cgpmap-cramOut.cwl
