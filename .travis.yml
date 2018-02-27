@@ -11,7 +11,7 @@ install:
  - docker build -t dockstore-cgpmap .
  - virtualenv -p python3 venv
  - source venv/bin/activate
- - pip install cwltool
+ - pip install html5lib cwltool
 
 script:
  - docker images | grep -c dockstore-cgpmap
