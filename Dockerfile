@@ -1,4 +1,4 @@
-FROM  quay.io/wtsicgp/dockstore-cgpbigwig:1.0.0 as builder
+FROM  quay.io/wtsicgp/dockstore-cgpbigwig:2.0.0 as builder
 
 USER  root
 
@@ -43,7 +43,7 @@ FROM  ubuntu:16.04
 
 MAINTAINER  keiranmraine@gmail.com
 
-LABEL vendor="Cancer Genome Project, Wellcome Trust Sanger Institute"
+LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
 LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
 LABEL uk.ac.sanger.cgp.version="3.0.0-rc8"
 

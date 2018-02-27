@@ -126,7 +126,7 @@ This project is maintained using HubFlow.
 ```
 Copyright (c) 2016-2018 Genome Research Ltd.
 
-Author: Cancer Genome Project <cgpit@sanger.ac.uk>
+Author: CASM/Cancer IT <cgphelp@sanger.ac.uk>
 
 This file is part of dockstore-cgpmap.
 
