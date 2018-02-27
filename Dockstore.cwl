@@ -136,10 +136,5 @@ s:license: https://spdx.org/licenses/AGPL-3.0-only
 s:author:
   - class: s:Person
     s:identifier: https://orcid.org/0000-0002-5634-1539
-    s:email: mailto:keiranmraine@gmail.com
+    s:email: mailto:cgphelp@sanger.ac.uk
     s:name: Keiran Raine
-
-dct:creator:
-  "@id": "keiranmraine@gmail.com"
-  foaf:name: Keiran Raine
-  foaf:mbox: "keiranmraine@gmail.com"
