@@ -18,11 +18,9 @@ install:
  - pip install html5lib cwltool
 
 script:
- - 'set -ue
-    if [ "$BUILD_ELEMENT" == "docker" ]; then
-      docker images | grep -c dockstore-cgpmap
-    elif [ "$BUILD_ELEMENT" == "validate" ]; then
-      cwltool --validate Dockstore.cwl
-      cwltool --validate cwls/cgpmap-bamOut.cwl
-      cwltool --validate cwls/cgpmap-cramOut.cwl
-    fi'
+ - set -ue
+ - if [ "$BUILD_ELEMENT" == "docker" ] bash -c 'docker images | grep -c dockstore-cgpmap'
+ - if [ "$BUILD_ELEMENT" == "validate" ] \
+    cwltool --validate Dockstore.cwl && \
+    cwltool --validate cwls/cgpmap-bamOut.cwl && \
+    cwltool --validate cwls/cgpmap-cramOut.cwl
