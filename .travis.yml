@@ -8,7 +8,6 @@ services:
   - docker
 
 install:
- - docker build -t dockstore-cgpmap .
  - virtualenv -p python3 venv
  - source venv/bin/activate
  - pip install html5lib cwltool
@@ -18,4 +17,10 @@ script:
  - cwltool --validate Dockstore.cwl
  - cwltool --validate cwls/cgpmap-bamOut.cwl
  - cwltool --validate cwls/cgpmap-cramOut.cwl
+ - docker build -t dockstore-cgpmap .
  - docker images | grep -c dockstore-cgpmap
+ - docker run -ti --rm dockstore-cgpmap ds-cgpmap.pl -h
+ - docker run -ti --rm dockstore-cgpmap bwa_mem.pl -version
+ - docker run -ti --rm dockstore-cgpmap bammarkduplicates2 --version
+ - docker run -ti --rm dockstore-cgpmap samtools --version
+ - docker run -ti --rm dockstore-cgpmap bash -c 'bwa 2>&1 | grep Version'
