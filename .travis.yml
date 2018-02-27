@@ -4,6 +4,10 @@ notifications:
 
 sudo: false
 
+env:
+  - BUILD_ELEMENT='docker'
+  - BUILD_ELEMENT='validate'
+
 services:
   - docker
 
@@ -14,7 +18,11 @@ install:
  - pip install html5lib cwltool
 
 script:
- - docker images | grep -c dockstore-cgpmap
- - cwltool --validate Dockstore.cwl
- - cwltool --validate cwls/cgpmap-bamOut.cwl
- - cwltool --validate cwls/cgpmap-cramOut.cwl
+ - 'set -ue
+    if [ "$BUILD_ELEMENT" == "docker" ]; then
+      docker images | grep -c dockstore-cgpmap
+    elif [ "$BUILD_ELEMENT" == "validate" ]; then
+      cwltool --validate Dockstore.cwl
+      cwltool --validate cwls/cgpmap-bamOut.cwl
+      cwltool --validate cwls/cgpmap-cramOut.cwl
+    fi'
