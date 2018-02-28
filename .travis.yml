@@ -14,11 +14,16 @@ install:
 
 script:
  - set -e
+ - echo 'Validate CWL file(s)'
  - cwltool --validate Dockstore.cwl
  - cwltool --validate cwls/cgpmap-bamOut.cwl
  - cwltool --validate cwls/cgpmap-cramOut.cwl
+ - echo 'Build and check docker image'
  - docker build -t dockstore-cgpmap .
  - docker images | grep -c dockstore-cgpmap
+ - echo 'Verify program from each inherited package is found (dockstore-cgpbigwig)'
+ - docker run -ti --rm dockstore-cgpmap bwjoin --version
+ - echo 'Verify a program from each new package is found (dockstore-cgpmap)'
  - docker run -ti --rm dockstore-cgpmap ds-cgpmap.pl -h
  - docker run -ti --rm dockstore-cgpmap bwa_mem.pl -version
  - docker run -ti --rm dockstore-cgpmap bammarkduplicates2 --version
