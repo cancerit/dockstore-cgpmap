@@ -1,36 +1,86 @@
-FROM  ubuntu:14.04
-
-MAINTAINER  keiranmraine@gmail.com
-
-LABEL uk.ac.sanger.cgp="Cancer Genome Project, Wellcome Trust Sanger Institute" \
-      version="2.0.3" \
-      description="The CGP mapping pipeline for dockstore.org"
+FROM  quay.io/wtsicgp/dockstore-cgpbigwig:2.0.0 as builder
 
 USER  root
 
+RUN apt-get -yq update
+RUN apt-get install -yq --no-install-recommends\
+  apt-transport-https\
+  locales\
+  curl\
+  ca-certificates\
+  libperlio-gzip-perl\
+  make\
+  bzip2\
+  gcc\
+  psmisc\
+  time\
+  zlib1g-dev\
+  libbz2-dev\
+  liblzma-dev\
+  libcurl4-gnutls-dev\
+  libncurses5-dev\
+  nettle-dev\
+  libp11-kit-dev\
+  libtasn1-dev\
+  libgnutls-dev
+
+RUN locale-gen en_US.UTF-8
+RUN update-locale LANG=en_US.UTF-8
+
 ENV OPT /opt/wtsi-cgp
-ENV PATH $OPT/bin:$PATH
+ENV PATH $OPT/bin:$OPT/biobambam2/bin:$PATH
 ENV PERL5LIB $OPT/lib/perl5
 ENV LD_LIBRARY_PATH $OPT/lib
-
-## USER CONFIGURATION
-RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 RUN mkdir -p $OPT/bin
 
-ADD scripts/mapping.sh $OPT/bin/mapping.sh
-ADD scripts/ds-wrapper.pl $OPT/bin/ds-wrapper.pl
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-wrapper.pl
-
-ADD build/apt-build.sh build/
-RUN bash build/apt-build.sh
-
-ADD build/perllib-build.sh build/
-RUN bash build/perllib-build.sh
-
 ADD build/opt-build.sh build/
-ADD build/biobambam2-build.sh build/
 RUN bash build/opt-build.sh $OPT
+
+FROM  ubuntu:16.04
+
+MAINTAINER  cgphelp@sanger.ac.uk
+
+LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
+LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
+LABEL uk.ac.sanger.cgp.version="3.0.0"
+
+RUN apt-get -yq update
+RUN apt-get install -yq --no-install-recommends\
+  apt-transport-https\
+  locales\
+  curl\
+  ca-certificates\
+  libperlio-gzip-perl\
+  bzip2\
+  psmisc\
+  time\
+  zlib1g\
+  liblzma5\
+  libncurses5\
+  p11-kit
+
+RUN locale-gen en_US.UTF-8
+RUN update-locale LANG=en_US.UTF-8
+
+ENV OPT /opt/wtsi-cgp
+ENV PATH $OPT/bin:$OPT/biobambam2/bin:$PATH
+ENV PERL5LIB $OPT/lib/perl5
+ENV LD_LIBRARY_PATH $OPT/lib
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+RUN mkdir -p $OPT
+COPY --from=builder $OPT $OPT
+
+ADD scripts/mapping.sh $OPT/bin/mapping.sh
+ADD scripts/ds-cgpmap.pl $OPT/bin/ds-cgpmap.pl
+RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
+
+## USER CONFIGURATION
+RUN adduser --disabled-password --gecos '' ubuntu && chsh -s /bin/bash && mkdir -p /home/ubuntu
 
 USER    ubuntu
 WORKDIR /home/ubuntu

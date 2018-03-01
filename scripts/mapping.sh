@@ -9,22 +9,24 @@ echo -e "\nStart workflow: `date`\n"
 declare -a PRE_EXEC
 declare -a POST_EXEC
 
-if [ -z ${PARAM_FILE+x} ] ; then
+if [[ $# -eq 1 ]] ; then
+  PARAM_FILE=$1
+elif [ -z ${PARAM_FILE+x} ] ; then
   PARAM_FILE=$HOME/run.params
 fi
+
 echo "Loading user options from: $PARAM_FILE"
 if [ ! -f $PARAM_FILE ]; then
   echo -e "\tERROR: file indicated by PARAM_FILE not found: $PARAM_FILE" 1>&2
   exit 1
 fi
 source $PARAM_FILE
-env
 
 if [ -z ${CPU+x} ]; then
   CPU=`grep -c ^processor /proc/cpuinfo`
 fi
 
-if [ -d $INPUT ] ; then
+if [ -d "$INPUT" ] ; then
   INPUT="$INPUT/*"
 fi
 
@@ -33,6 +35,8 @@ echo -e "\tSAMPLE_NAME : $SAMPLE_NAME"
 echo -e "\tINPUT : $INPUT"
 echo -e "\tREF_BASE : $REF_BASE"
 echo -e "\tCRAM : $CRAM"
+echo -e "\tCSI : $CSI"
+echo -e "\tMMQC : $MMQC"
 if [ -z ${SCRAMBLE+x} ]; then
   echo -e "\tSCRAMBLE : <NOTSET>"
 else
@@ -42,6 +46,11 @@ if [ -z ${BWA_PARAM+x} ]; then
   echo -e "\tBWA_PARAM : <NOTSET>"
 else
   echo -e "\tBWA_PARAM : $BWA_PARAM"
+fi
+if [ -z ${GROUPINFO+x} ]; then
+  echo -e "\tGROUPINFO : <NOTSET>"
+else
+  echo -e "\tGROUPINFO : $GROUPINFO"
 fi
 set +u
 
@@ -56,27 +65,16 @@ fi
 set -u
 mkdir -p $OUTPUT_DIR
 
-# run any pre-exec step before attempting to access BAMs
-# logically the pre-exec could be pulling them
-if [ ! -f $OUTPUT_DIR/pre-exec.done ]; then
-  echo -e "\nRun PRE_EXEC: `date`"
-
-  for i in "${PRE_EXEC[@]}"; do
-    set -x
-    $i
-    { set +x; } 2> /dev/null
-  done
-  touch $OUTPUT_DIR/pre-exec.done
-fi
+TIME_EXT="bam"
 
 ADD_ARGS=''
 if [ $CRAM -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS -c"
+  TIME_EXT="cram"
   if [ ! -z ${SCRAMBLE+x} ]; then
     ADD_ARGS="$ADD_ARGS -sc ' $SCRAMBLE'";
   fi
 fi
-
 
 # use a different malloc library when cores for mapping are over 8
 if [ $CPU -gt 7 ]; then
@@ -85,12 +83,30 @@ fi
 
 # if BWA_PARAM set
 if [ ! -z ${BWA_PARAM+x} ]; then
-  ADD_ARGS="$ADD_ARGS -b ' $BWA_PARAM'"
+  ADD_ARGS="$ADD_ARGS -b '$BWA_PARAM'"
+fi
+
+# if GROUPINFO set
+if [ ! -z ${GROUPINFO+x} ]; then
+  ADD_ARGS="$ADD_ARGS -g $GROUPINFO"
+fi
+
+# if CSI set
+if [ $CSI -gt 0 ]; then
+  ADD_ARGS="$ADD_ARGS --csi"
+fi
+
+# if GROUPINFO set
+if [ $MMQC -gt 0 ]; then
+  ADD_ARGS="$ADD_ARGS --mmqc"
+  if [ ! -z ${MMQCFRAC+x} ]; then
+    ADD_ARGS="$ADD_ARGS --mmqcfrac $MMQCFRAC"
+  fi
 fi
 
 # -f set to be unfeasibly large to prevent splitting of lane data.
 set -x
-bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
+bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.$TIME_EXT.maptime \
  bwa_mem.pl -o $OUTPUT_DIR \
  -r $REF_BASE/genome.fa \
  -s $SAMPLE_NAME \
@@ -101,12 +117,9 @@ bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.bam.maptime \
  $INPUT"
 { set +x; } 2> /dev/null
 
-# run any post-exec step
-echo -e "\nRun POST_EXEC: `date`"
-for i in "${POST_EXEC[@]}"; do
-  set -x
-  $i
-  { set +x; } 2> /dev/null
-done
+# cleanup reference area, see ds-cgpmap.pl
+if [ $CLEAN_REF -gt 0 ]; then
+  rm -rf $REF_BASE
+fi
 
 echo -e "\nWorkflow end: `date`"
