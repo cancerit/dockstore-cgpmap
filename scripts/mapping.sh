@@ -118,7 +118,7 @@ bash -c "/usr/bin/time -f $TIME_FORMAT -o $OUTPUT_DIR/$SAMPLE_NAME.$TIME_EXT.map
 { set +x; } 2> /dev/null
 
 # cleanup reference area, see ds-cgpmap.pl
-if [ ! -z ${CLEAN_REF+x} ]; then
+if [ $CLEAN_REF -gt 0 ]; then
   rm -rf $REF_BASE
 fi
 
