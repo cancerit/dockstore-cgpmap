@@ -11,7 +11,21 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 | --------------------------------------------- | ----------------------------------------------- |
 | [![Master Badge][travis-master]][travis-base] | [![Develop Badge][travis-develop]][travis-base] |
 
-## Supports input in following formats:
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Supported input formats:](#supported-input-formats)
+- [Options for customisation:](#options-for-customisation)
+- [Usable Cores](#usable-cores)
+- [Other uses](#other-uses)
+	- [Native docker](#native-docker)
+	- [Singularity](#singularity)
+- [Test data](#test-data)
+- [Release process](#release-process)
+- [LICENCE](#licence)
+
+<!-- /TOC -->
+
+## Supported input formats:
 
 * Multiple BAM
 * Multiple CRAM
