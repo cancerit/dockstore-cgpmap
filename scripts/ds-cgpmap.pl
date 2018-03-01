@@ -11,7 +11,7 @@ use warnings FATAL => 'all';
 pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 
 # set defaults
-my %opts = ('c'=>0,
+my %opts = ('csi' => 0,
             'sc' => q{},
             'b' => q{},
             'o' => $ENV{HOME},
@@ -27,6 +27,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             's|sample=s' => \$opts{'s'},
             'c|cram' => \$opts{'c'},
             'sc|scramble:s' => \$opts{'sc'},
+            'csi' => \$opts{'csi'},
             'b|bwa:s' => \$opts{'b'},
             'g|groupinfo:s' => \$opts{'g'},
             't|threads:i' => \$opts{'t'},
@@ -66,6 +67,7 @@ printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
 printf $FH "OUTPUT_DIR='%s'\n", $opts{'o'};
 printf $FH "CRAM='%s'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
+printf $FH "CSI='%s'\n", $opts{'csi'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
 printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
@@ -184,6 +186,10 @@ Single quoted string of parameters to pass to Scramble when '-c' used.  Please s
 documentation for details.
 
 Please note: '-I,-O' are used internally and should not be provided.
+
+=item B<-csi>
+
+Generate csi index instead of bai when output is BAM.
 
 =item B<-bwa>
 

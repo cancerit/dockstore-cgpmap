@@ -89,6 +89,11 @@ if [ ! -z ${GROUPINFO+x} ]; then
   ADD_ARGS="$ADD_ARGS -g $GROUPINFO"
 fi
 
+# if CSI set
+if [ ! -z ${CSI+x} ]; then
+  ADD_ARGS="$ADD_ARGS --csi"
+fi
+
 # if GROUPINFO set
 if [ ! -z ${MMQC+x} ]; then
   ADD_ARGS="$ADD_ARGS --mmqc"

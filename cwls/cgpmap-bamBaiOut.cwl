@@ -36,7 +36,7 @@ inputs:
 
   sample:
     type: string
-    doc: "Sample name to be included in output [B|CR]AM header, also used to name final file"
+    doc: "Sample name to be included in output BAM header, also used to name final file"
     inputBinding:
       prefix: -sample
       position: 3

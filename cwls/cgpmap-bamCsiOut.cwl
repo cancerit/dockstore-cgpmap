@@ -36,21 +36,11 @@ inputs:
 
   sample:
     type: string
-    doc: "Sample name to be included in output CRAM header, also used to name final file"
+    doc: "Sample name to be included in output BAM header, also used to name final file"
     inputBinding:
       prefix: -sample
       position: 3
       separate: true
-
-  scramble:
-    type: string?
-    doc: "Options to pass to scramble when generating CRAM output, see scramble docs"
-    default: ''
-    inputBinding:
-      prefix: -scramble
-      position: 4
-      separate: true
-      shellQuote: true
 
   bwa:
     type: string?
@@ -58,16 +48,16 @@ inputs:
     doc: "Mapping and output parameters to pass to BWA-mem, see BWA docs, default ' -Y -K 100000000'"
     inputBinding:
       prefix: -bwa
-      position: 5
+      position: 4
       separate: true
-      shellQuote: true
+      shellQuote: false
 
   groupinfo:
     type: File?
     doc: "Readgroup metadata file for FASTQ inputs"
     inputBinding:
       prefix: -groupinfo
-      position: 6
+      position: 5
       separate: true
 
   mmqc:
@@ -75,7 +65,7 @@ inputs:
     doc: "Apply mismatch QC to reads following duplicate marking."
     inputBinding:
       prefix: -qc
-      position: 7
+      position: 6
 
   mmqcfrac:
     type: float?
@@ -83,7 +73,7 @@ inputs:
     doc: "Mismatch fraction to set as max before failing a read [0.05]"
     inputBinding:
       prefix: -qcf
-      position: 8
+      position: 7
       separate: true
 
   seq_in:
@@ -93,21 +83,21 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 9
+      position: 8
 
 outputs:
-  out_cram:
+  out_bam:
     type: File
     outputBinding:
-      glob: $(inputs.sample).cram
+      glob: $(inputs.sample).bam
     secondaryFiles:
-      - .crai
+      - .csi
       - .bas
       - .md5
       - .met
       - .maptime
 
-baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl", "-cram"]
+baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl", "-csi"]
 
 $schemas:
   - http://schema.org/docs/schema_org_rdfa.html
