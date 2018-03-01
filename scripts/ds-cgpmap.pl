@@ -12,6 +12,8 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 
 # set defaults
 my %opts = ('csi' => 0,
+            'c' => 0,
+            'q' => 0,
             'sc' => q{},
             'b' => q{},
             'o' => $ENV{HOME},
@@ -65,15 +67,15 @@ print $FH "export PCAP_THREADED_REM_LOGS=1\n";
 printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
 printf $FH "OUTPUT_DIR='%s'\n", $opts{'o'};
-printf $FH "CRAM='%s'\n", $opts{'c'};
+printf $FH "CRAM='%d'\n", $opts{'c'};
 printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
-printf $FH "CSI='%s'\n", $opts{'csi'};
+printf $FH "CSI='%d'\n", $opts{'csi'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
 printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
 printf $FH "CLEAN_REF=1\n" if($ref_unpack);
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
-printf $FH "MMQC=1\n" if($opts{'q'});
+printf $FH "MMQC=%d\n" $opts{'q'};
 printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
 close $FH;
 

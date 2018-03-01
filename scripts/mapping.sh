@@ -35,6 +35,8 @@ echo -e "\tSAMPLE_NAME : $SAMPLE_NAME"
 echo -e "\tINPUT : $INPUT"
 echo -e "\tREF_BASE : $REF_BASE"
 echo -e "\tCRAM : $CRAM"
+echo -e "\tCSI : $CSI"
+echo -e "\tMMQC : $MMQC"
 if [ -z ${SCRAMBLE+x} ]; then
   echo -e "\tSCRAMBLE : <NOTSET>"
 else
@@ -90,12 +92,12 @@ if [ ! -z ${GROUPINFO+x} ]; then
 fi
 
 # if CSI set
-if [ ! -z ${CSI+x} ]; then
+if [ $CSI -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --csi"
 fi
 
 # if GROUPINFO set
-if [ ! -z ${MMQC+x} ]; then
+if [ $MMQC -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --mmqc"
   if [ ! -z ${MMQCFRAC+x} ]; then
     ADD_ARGS="$ADD_ARGS --mmqcfrac $MMQCFRAC"
