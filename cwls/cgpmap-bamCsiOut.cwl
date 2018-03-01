@@ -8,20 +8,14 @@ label: "CGP BWA-mem mapping flow"
 
 cwlVersion: v1.0
 
-doc: |
-  Please use one of the new tools for v3+:
-
-    * [dockstore-cgpmap/cgpmap-bamOut](https://dockstore.org/containers/quay.io%2Fwtsicgp%2Fdockstore-cgpmap%2Fcgpmap-bamOut)
-    * [dockstore-cgpmap/cgpmap-cramOut](https://dockstore.org/containers/quay.io%2Fwtsicgp%2Fdockstore-cgpmap%2Fcgpmap-cramOut)
-
-  ![build_status](https://quay.io/repository/wtsicgp/dockstore-cgpmap/status)
-  A Docker container for PCAP-core. See the [dockstore-cgpmap](https://github.com/cancerit/dockstore-cgpmap) website for more information.
+doc:
+  $include: includes/doc.yml
 
 requirements:
-  - $mixin: cwls/mixins/requirements.yml
+  - $mixin: mixins/requirements.yml
 
 hints:
-  - $mixin: cwls/mixins/hints.yml
+  - $mixin: mixins/hints.yml
 
 inputs:
   reference:
@@ -42,7 +36,7 @@ inputs:
 
   sample:
     type: string
-    doc: "Sample name to be included in output [B|CR]AM header, also used to name final file"
+    doc: "Sample name to be included in output BAM header, also used to name final file"
     inputBinding:
       prefix: -sample
       position: 3
@@ -82,7 +76,7 @@ inputs:
       position: 7
       separate: true
 
-  bams_in:
+  seq_in:
     type:
     - 'null'
     - type: array
@@ -96,33 +90,14 @@ outputs:
     type: File
     outputBinding:
       glob: $(inputs.sample).bam
+    secondaryFiles:
+      - .csi
+      - .bas
+      - .md5
+      - .met
+      - .maptime
 
-  out_bai:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.bai
-
-  out_bas:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.bas
-
-  out_md5:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.md5
-
-  out_met:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.met
-
-  out_maptime:
-    type: File
-    outputBinding:
-      glob: $(inputs.sample).bam.maptime
-
-baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl"]
+baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl", "-csi"]
 
 $schemas:
   - http://schema.org/docs/schema_org_rdfa.html
