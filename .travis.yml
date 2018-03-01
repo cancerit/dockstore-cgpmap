@@ -16,7 +16,8 @@ script:
  - set -e
  - echo 'Validate CWL file(s)'
  - cwltool --validate Dockstore.cwl
- - cwltool --validate cwls/cgpmap-bamOut.cwl
+ - cwltool --validate cwls/cgpmap-bamBaiOut.cwl
+ - cwltool --validate cwls/cgpmap-bamCsiOut.cwl
  - cwltool --validate cwls/cgpmap-cramOut.cwl
  - echo 'Build and check docker image'
  - docker build -t dockstore-cgpmap .
