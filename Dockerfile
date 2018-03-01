@@ -41,7 +41,7 @@ RUN bash build/opt-build.sh $OPT
 
 FROM  ubuntu:16.04
 
-MAINTAINER  keiranmraine@gmail.com
+MAINTAINER  cgphelp@sanger.ac.uk
 
 LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
 LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
