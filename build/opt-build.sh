@@ -12,6 +12,7 @@ VER_BBB2="2.0.86-release-20180228171821"
 
 ## for cgpBigWig
 VER_BIODBHTS="2.9"
+CANCERIT_BIODBHTS="https://github.com/cancerit/Bio-DB-HTS/archive/v2.10-rc1.tar.gz"
 VER_LIBBW="0.4.2"
 
 # for PCAP
@@ -142,7 +143,7 @@ if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Module::Build
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Bio::Root::Version
 
-  curl -sSL --retry 10 https://github.com/Ensembl/Bio-DB-HTS/archive/${VER_BIODBHTS}.tar.gz > distro.tar.gz
+  curl -sSL --retry 10 $CANCERIT_BIODBHTS > distro.tar.gz
   rm -rf distro/*
   tar --strip-components 1 -C distro -zxf distro.tar.gz
   cd distro
