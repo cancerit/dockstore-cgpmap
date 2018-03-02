@@ -1,5 +1,9 @@
 # CHANGES
 
+## 3.0.1
+
+* Change to forked Bio::DB::HTS so csi indexed of BAM files can be used in downstream images.
+
 ## 3.0.0
 
 * Drop pre/post exec functions in `mapping.sh`
