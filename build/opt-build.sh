@@ -19,7 +19,7 @@ VER_LIBBW="0.4.2"
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.7"
 VER_SAMTOOLS="1.7"
-VER_PCAP="4.1.3"
+VER_PCAP="feature/add_threadpool"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"

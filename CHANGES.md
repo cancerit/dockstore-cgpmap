@@ -1,5 +1,9 @@
 # CHANGES
 
+## 3.0.2
+
+* v4.2.0 of PCAP-core to allow use of threads for `bam_stats`
+
 ## 3.0.1
 
 * Change to forked Bio::DB::HTS so csi indexed of BAM files can be used in downstream images.
