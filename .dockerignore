@@ -1,5 +1,7 @@
 /examples/
+/expected/
 /cwls/
 /git-hooks/
 /*.*
 /LICENSE
+/scripts/timeCleaner.pl

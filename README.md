@@ -13,25 +13,25 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Supported input formats:](#supported-input-formats)
+- [Supported input formats](#supported-input-formats)
 - [Options for customisation:](#options-for-customisation)
 - [Usable Cores](#usable-cores)
 - [Other uses](#other-uses)
 	- [Native docker](#native-docker)
 	- [Singularity](#singularity)
-- [Test data](#test-data)
+- [Verifying your deployment](#verifying-your-deployment)
+- [Development environment](#development-environment)
 - [Release process](#release-process)
 - [LICENCE](#licence)
 
 <!-- /TOC -->
 
-## Supported input formats:
+## Supported input formats
 
 * Multiple BAM
 * Multiple CRAM
 * Multiple fastq[.gz] (paired or interleaved)
-  * Please see [PCAP-core/bin/bwa_mem.pl][bwa-mem.pl]
-for formatting of file names.
+  * Please see [PCAP-core/bin/bwa_mem.pl][bwa-mem.pl] for formatting of file names.
 
 ## Options for customisation:
 
@@ -96,31 +96,23 @@ By default results are written to the home directory of the container so ensure 
 a large volume and set the `-home` variable.  As indicated above the location can be overridden
 via the options of `ds-cgpmap.pl`
 
-## Test data
+## Verifying your deployment
 
-The `examples/` contains test data that can be used to verify the tool.
+The `examples/` tree contains test json files populated with data that can be used to verify the
+tool.  More details can be found [here](examples/README.md).
 
-You can find expected outputs on the Sanger Institute FTP site (bam output): [dockstore-cgpmap-expected.tar.gz][cgpmap-expected]
+The `expected/` tree contains the expected output for each tool.  More details can be found [here](expected/README.md).
 
-This project includes the C program `diff_bams` that can be used to compare the generated BAM file
-to the one in the archive:
+## Development environment
 
-```bash
-$ export CGPMAP_TAG=0.2.0
-$ docker run -ti --rm \
-  -v /tmp/new:/var/spool/new \
-  -v /tmp/old:/var/spool/old \
-  quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_TAG \
-    diff_bams -a /var/spool/old/mapped.bam \
-              -b /var/spool/new/mapped.bam
-```
+This project uses git pre-commit hooks.  Please enable them to prevent inappropriate large files
+being included.  Any pull request found not to have adhered to this will be rejected and the branch
+will need to be manually cleaned to keep the repo size down.
 
-Expected output:
+Activate the hooks with
 
 ```
-Reference sequence count passed
-Reference sequence order passed
-Matching records: 1000001
+git config core.hooksPath git-hooks
 ```
 
 ## Release process
