@@ -13,19 +13,20 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Supported input formats:](#supported-input-formats)
+- [Supported input formats](#supported-input-formats)
 - [Options for customisation:](#options-for-customisation)
 - [Usable Cores](#usable-cores)
 - [Other uses](#other-uses)
 	- [Native docker](#native-docker)
 	- [Singularity](#singularity)
 - [Test data](#test-data)
+- [Development environment](#development-environment)
 - [Release process](#release-process)
 - [LICENCE](#licence)
 
 <!-- /TOC -->
 
-## Supported input formats:
+## Supported input formats
 
 * Multiple BAM
 * Multiple CRAM
@@ -121,6 +122,18 @@ Expected output:
 Reference sequence count passed
 Reference sequence order passed
 Matching records: 1000001
+```
+
+## Development environment
+
+This project uses git pre-commit hooks.  Please enable them to prevent inappropriate large files
+being included.  Any pull request found not to have adhered to this will be rejected and the branch
+will need to be manually cleaned to keep the repo size down.
+
+Activate the hooks with
+
+```
+git config core.hooksPath git-hooks
 ```
 
 ## Release process

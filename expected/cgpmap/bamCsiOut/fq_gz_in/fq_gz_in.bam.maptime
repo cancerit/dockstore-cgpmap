@@ -1,0 +1,8 @@
+command:bwa_mem.pl -o /var/spool/cwl -r /var/spool/cwl/reference_files/genome.fa -s test -f 1000000 -t 28 -mt 28 -l /usr/lib/libtcmalloc_minimal.so -b  -Y -K 100000000 -g /var/lib/cwl/stg21c46345-0fa4-44e7-8703-eceaefe6c6cb/insilico_21_fq.yaml --csi /var/lib/cwl/stgb8141f51-6ac0-4b91-95a8-60e2f9f969ff/insilico_21_10658_i.fq.gz /var/lib/cwl/stg3af22cae-2032-4225-b890-9627fd5b9cc3/insilico_21_10659_i.fq.gz /var/lib/cwl/stgf250b3a8-2d9c-4367-8641-b7ece78641d6/insilico_21_10660_i.fq.gz /var/lib/cwl/stg8d52a216-653c-47a9-85c4-bd588982d46f/insilico_21_10661_i.fq.gz /var/lib/cwl/stg0be3752e-4bbe-4c1f-b3ff-865649ae80a0/insilico_21_10662_i.fq.gz /var/lib/cwl/stg34794436-69af-42d6-a25d-64e25bf686c8/insilico_21_10663_i.fq.gz /var/lib/cwl/stgaf6054a1-f0db-4c43-a884-503690668a3a/insilico_21_10664_i.fq.gz /var/lib/cwl/stg991dff5b-cc7f-4e40-9e9c-c131dc57d4a1/insilico_21_10665_i.fq.gz
+real:164.60
+user:280.00
+sys:36.66
+pctCpu:192%
+text:0k
+data:0k
+max:5528892k

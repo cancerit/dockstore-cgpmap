@@ -1,0 +1,8 @@
+command:bwa_mem.pl -o /var/spool/cwl -r /var/spool/cwl/reference_files/genome.fa -s test -f 1000000 -t 28 -mt 28 -l /usr/lib/libtcmalloc_minimal.so -b  -Y -K 100000000 /var/lib/cwl/stgc3867845-4e8a-45ce-b4b7-528db5bdf08a/insilico_21.cram
+real:131.11
+user:285.10
+sys:35.66
+pctCpu:244%
+text:0k
+data:0k
+max:5521800k
