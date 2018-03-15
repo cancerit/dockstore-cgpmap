@@ -15,7 +15,7 @@
 
 This area reflects the structure of the examples tree.
 
-See `examples/` [docs](../examples/README.md) for correlation to json param files.
+See [`examples/README.md`](../examples/README.md) for correlation to json param files.
 
 ### Files of 1 byte
 
