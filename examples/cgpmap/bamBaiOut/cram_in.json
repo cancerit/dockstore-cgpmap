@@ -9,13 +9,13 @@
   },
   "seq_in": [
     {"class": "File",
-      "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21.bam"}
+      "path": "ftp://ngs.sanger.ac.uk/production/cancer/dockstore/cgpmap/insilico_21.cram"}
   ],
   "sample": "test",
   "mmqc": false,
   "mmqcfrag": 0.05,
   "out_bam": {
-    "path": "/tmp/mapped.bam",
+    "path": "/tmp/cram_in.bam",
     "class": "File"
   }
 }

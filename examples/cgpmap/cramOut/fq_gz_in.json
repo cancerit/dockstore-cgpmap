@@ -32,8 +32,8 @@
   "sample": "test",
   "mmqc": false,
   "mmqcfrag": 0.05,
-  "out_bam": {
-    "path": "/tmp/mapped.bam",
+  "out_cram": {
+    "path": "/tmp/fq_gz_in.cram",
     "class": "File"
   }
 }

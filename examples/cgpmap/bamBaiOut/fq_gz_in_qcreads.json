@@ -30,10 +30,10 @@
     "class": "File"
   },
   "sample": "test",
-  "mmqc": false,
+  "mmqc": true,
   "mmqcfrag": 0.05,
-  "out_cram": {
-    "path": "/tmp/mapped.cram",
+  "out_bam": {
+    "path": "/tmp/fq_gz_in_qcreads.bam",
     "class": "File"
   }
 }

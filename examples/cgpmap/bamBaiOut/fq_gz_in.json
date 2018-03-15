@@ -33,7 +33,7 @@
   "mmqc": false,
   "mmqcfrag": 0.05,
   "out_bam": {
-    "path": "/tmp/mapped.bam",
+    "path": "/tmp/fq_gz_in.bam",
     "class": "File"
   }
 }
