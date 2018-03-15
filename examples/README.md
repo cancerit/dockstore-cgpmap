@@ -13,4 +13,4 @@ e.g.
 * JSON: `examples/cgpmap/bamBaiOut/bam_in.json` generates a set of files: `bam_in.bam*`
 * These are stored in: `expected/cgpmap/bamBaiOut/bam_in/`
 
-See [`expected/docs`](../expected/README.md) for content of that area.
+See [`expected/README.md`](../expected/README.md) for content of that area.
