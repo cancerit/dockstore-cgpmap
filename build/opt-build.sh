@@ -8,18 +8,13 @@ fi
 
 set -u
 
-VER_BBB2="2.0.86-release-20180228171821"
-
-## for cgpBigWig
-VER_BIODBHTS="2.9"
-CANCERIT_BIODBHTS="https://github.com/cancerit/Bio-DB-HTS/archive/v2.10-rc1.tar.gz"
-VER_LIBBW="0.4.2"
-
 # for PCAP
+VER_BBB2="2.0.86-release-20180228171821"
+VER_BIODBHTS="2.10"
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.7"
 VER_SAMTOOLS="1.7"
-VER_PCAP="4.2.1"
+VER_PCAP="4.2.2"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -113,17 +108,6 @@ if [ ! -e $SETUP_DIR/samtools.success ]; then
   touch $SETUP_DIR/samtools.success
 fi
 
-## LIB-BW (tar.gz)
-if [ ! -e $SETUP_DIR/libBigWig.success ]; then
-  curl -sSL --retry 10 https://github.com/dpryan79/libBigWig/archive/${VER_LIBBW}.tar.gz > distro.tar.gz
-  rm -rf distro/*
-  tar --strip-components 1 -C distro -xzf distro.tar.gz
-  make -C distro clean
-  make -C distro -j$CPU install prefix=$INST_PATH
-  rm -rf distro.* distro/*
-  touch $SETUP_DIR/libBigWig.success
-fi
-
 ##### DEPS for PCAP - layered on top #####
 
 ## build BWA (tar.gz)
@@ -143,7 +127,7 @@ if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Module::Build
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Bio::Root::Version
 
-  curl -sSL --retry 10 $CANCERIT_BIODBHTS > distro.tar.gz
+  curl -sSL --retry 10 https://github.com/Ensembl/Bio-DB-HTS/archive/${VER_BIODBHTS}.tar.gz > distro.tar.gz
   rm -rf distro/*
   tar --strip-components 1 -C distro -zxf distro.tar.gz
   cd distro
