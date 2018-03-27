@@ -11,9 +11,9 @@ set -u
 VER_BBB2="2.0.86-release-20180228171821"
 
 ## for cgpBigWig
-VER_BIODBHTS="2.9"
-CANCERIT_BIODBHTS="https://github.com/cancerit/Bio-DB-HTS/archive/v2.10-rc1.tar.gz"
+VER_BIODBHTS="2.10"
 VER_LIBBW="0.4.2"
+VER_CGPBW="1.0.0"
 
 # for PCAP
 VER_BWA="v0.7.17"
@@ -124,6 +124,25 @@ if [ ! -e $SETUP_DIR/libBigWig.success ]; then
   touch $SETUP_DIR/libBigWig.success
 fi
 
+if [ ! -e $SETUP_DIR/cgpBigWig.success ]; then
+  curl -sSL --retry 10 https://github.com/cancerit/cgpBigWig/archive/${VER_CGPBW}.tar.gz > distro.tar.gz
+  rm -rf distro/*
+  tar --strip-components 1 -C distro -xzf distro.tar.gz
+  cd distro
+  make -C c clean
+  make -C c -j$CPU prefix=$INST_PATH HTSLIB=$INST_PATH/lib/htslib
+  cp bin/bam2bedgraph $INST_PATH/bin/.
+  cp bin/bwjoin $INST_PATH/bin/.
+  cp bin/bam2bw $INST_PATH/bin/.
+  cp bin/bwcat $INST_PATH/bin/.
+  cp bin/bam2bwbases $INST_PATH/bin/.
+  cp bin/bg2bw $INST_PATH/bin/.
+  cp bin/detectExtremeDepth $INST_PATH/bin/.
+  cd ../
+  rm -rf distro.* distro/*
+  touch $SETUP_DIR/cgpBigWig.success
+fi
+
 ##### DEPS for PCAP - layered on top #####
 
 ## build BWA (tar.gz)
@@ -143,7 +162,7 @@ if [ ! -e $SETUP_DIR/Bio-DB-HTS.success ]; then
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Module::Build
   cpanm --no-wget --no-interactive --notest --mirror http://cpan.metacpan.org -l $INST_PATH Bio::Root::Version
 
-  curl -sSL --retry 10 $CANCERIT_BIODBHTS > distro.tar.gz
+  curl -sSL --retry 10 $VER_BIODBHTS > distro.tar.gz
   rm -rf distro/*
   tar --strip-components 1 -C distro -zxf distro.tar.gz
   cd distro
