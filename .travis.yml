@@ -23,10 +23,10 @@ script:
  - docker build -t dockstore-cgpmap .
  - docker images | grep -c dockstore-cgpmap
  - echo 'Verify program from each inherited package is found (dockstore-cgpbigwig)'
- - docker run -ti --rm dockstore-cgpmap bwjoin --version
+ - docker run -t --rm dockstore-cgpmap bwjoin --version
  - echo 'Verify a program from each new package is found (dockstore-cgpmap)'
- - docker run -ti --rm dockstore-cgpmap ds-cgpmap.pl -h
- - docker run -ti --rm dockstore-cgpmap bwa_mem.pl -version
- - docker run -ti --rm dockstore-cgpmap bammarkduplicates2 --version
- - docker run -ti --rm dockstore-cgpmap samtools --version
- - docker run -ti --rm dockstore-cgpmap bash -c 'bwa 2>&1 | grep Version'
+ - docker run -t --rm dockstore-cgpmap ds-cgpmap.pl -h
+ - docker run -t --rm dockstore-cgpmap bwa_mem.pl -version
+ - docker run -t --rm dockstore-cgpmap bammarkduplicates2 --version
+ - docker run -t --rm dockstore-cgpmap samtools --version
+ - docker run -t --rm dockstore-cgpmap bash -c 'bwa 2>&1 | grep Version'
