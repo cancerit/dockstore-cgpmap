@@ -1,5 +1,13 @@
 # CHANGES
 
+## 3.0.4
+
+* Update to dockstore-cgpbigwig:2.0.1 for base image
+
+## 3.0.3
+
+* Switch back to Ensembl Bio::DB::HTS now merged
+
 ## 3.0.2
 
 * v4.2.0 of PCAP-core to allow use of threads for `bam_stats`
