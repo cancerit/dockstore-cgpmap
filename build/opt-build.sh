@@ -9,12 +9,12 @@ fi
 set -u
 
 # for PCAP
-VER_BBB2="2.0.86-release-20180228171821"
+VER_BBB2="2.0.87-release-20180301132713"
 VER_BIODBHTS="2.10"
 VER_BWA="v0.7.17"
-VER_HTSLIB="1.7"
-VER_SAMTOOLS="1.7"
-VER_PCAP="4.2.2"
+VER_HTSLIB="1.9"
+VER_SAMTOOLS="1.9"
+VER_PCAP="4.3.1"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
