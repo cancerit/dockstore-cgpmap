@@ -1,2 +1,2 @@
 class: DockerRequirement
-dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:3.0.4"
+dockerPull: "quay.io/wtsicgp/dockstore-cgpmap:3.1.0"

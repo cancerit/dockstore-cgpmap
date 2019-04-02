@@ -1,5 +1,16 @@
 # CHANGES
 
+## 3.1.0
+
+* Update to dockstore-cgpbigwig:2.1.0 for base image
+* Update dependencies:
+  * gt1/biobambam2 - 2.0.87
+  * HTSLib - 1.9
+  * Samtools -1.9
+  * Bio::DB::HTS - 2.10
+  * PCAP-core - 4.3.1
+* Drop `expected` tree, will be revising how verification of container is achieved.
+
 ## 3.0.4
 
 * Update to dockstore-cgpbigwig:2.0.1 for base image

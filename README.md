@@ -11,20 +11,16 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 | --------------------------------------------- | ----------------------------------------------- |
 | [![Master Badge][travis-master]][travis-base] | [![Develop Badge][travis-develop]][travis-base] |
 
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Supported input formats](#supported-input-formats)
-- [Options for customisation:](#options-for-customisation)
-- [Usable Cores](#usable-cores)
-- [Other uses](#other-uses)
-	- [Native docker](#native-docker)
-	- [Singularity](#singularity)
-- [Verifying your deployment](#verifying-your-deployment)
-- [Development environment](#development-environment)
-- [Release process](#release-process)
-- [LICENCE](#licence)
-
-<!-- /TOC -->
+* [Supported input formats](#supported-input-formats)
+* [Options for customisation:](#options-for-customisation)
+* [Usable Cores](#usable-cores)
+* [Other uses](#other-uses)
+	* [Native docker](#native-docker)
+	* [Singularity](#singularity)
+* [Verifying your deployment](#verifying-your-deployment)
+* [Development environment](#development-environment)
+* [Release process](#release-process)
+* [LICENCE](#licence)
 
 ## Supported input formats
 
@@ -101,8 +97,6 @@ via the options of `ds-cgpmap.pl`
 The `examples/` tree contains test json files populated with data that can be used to verify the
 tool.  More details can be found [here](examples/README.md).
 
-The `expected/` tree contains the expected output for each tool.  More details can be found [here](expected/README.md).
-
 ## Development environment
 
 This project uses git pre-commit hooks.  Please enable them to prevent inappropriate large files
@@ -120,12 +114,12 @@ git config core.hooksPath git-hooks
 This project is maintained using HubFlow.
 
 1. Make appropriate changes
-1. Bump version in `Dockerfile` and `cwls/mixins/requirements.yml`
-1. Push changes
-1. Check state on Travis
-1. Generate the release (add notes to GitHub)
-1. Confirm that image has been built on [quay.io][quay-builds]
-1. Update the [dockstore][dockstore-cgpmap] entry, see [their docs][dockstore-get-started].
+2. Bump version in `Dockerfile` and `cwls/mixins/requirements.yml`
+3. Push changes
+4. Check state on Travis
+5. Generate the release (add notes to GitHub)
+6. Confirm that image has been built on [quay.io][quay-builds]
+7. Update the [dockstore][dockstore-cgpmap] entry, see [their docs][dockstore-get-started].
 
 ## LICENCE
 
