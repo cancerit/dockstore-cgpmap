@@ -1,4 +1,4 @@
-FROM  quay.io/wtsicgp/dockstore-cgpbigwig:2.0.1 as builder
+FROM  quay.io/wtsicgp/dockstore-cgpbigwig:2.1.0 as builder
 
 USER  root
 
@@ -22,7 +22,9 @@ RUN apt-get install -yq --no-install-recommends\
   nettle-dev\
   libp11-kit-dev\
   libtasn1-dev\
-  libgnutls-dev
+  libgnutls-dev\
+  libgd-dev\
+  libdb-dev
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
@@ -45,7 +47,7 @@ MAINTAINER  cgphelp@sanger.ac.uk
 
 LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
 LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
-LABEL uk.ac.sanger.cgp.version="3.0.4"
+LABEL uk.ac.sanger.cgp.version="3.1.0"
 
 RUN apt-get -yq update
 RUN apt-get install -yq --no-install-recommends\
