@@ -59,7 +59,6 @@ make_path($opts{'o'}) unless(-e $opts{'o'});
 my $run_file = $opts{'o'}.'/run.params';
 open my $FH,'>',$run_file or die "Failed to write to $run_file: $!";
 # Force explicit checking of file flush
-print $FH "export PCAP_THREADED_NO_SCRIPT=1\n";
 print $FH "export PCAP_THREADED_FORCE_SYNC=1\n";
 print $FH "export PCAP_THREADED_LOADBACKOFF=1\n";
 print $FH "export PCAP_THREADED_REM_LOGS=1\n";
