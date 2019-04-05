@@ -1,5 +1,11 @@
 # CHANGES
 
+## 3.1.1
+
+* Update PCAP-core to 4.3.2
+  * Much faster to resume a partial job
+  * Fixes for CRAM handling in mismatchQc/mmFlagModifier
+
 ## 3.1.0
 
 * Update to dockstore-cgpbigwig:2.1.0 for base image

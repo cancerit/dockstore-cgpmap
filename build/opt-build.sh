@@ -14,7 +14,7 @@ VER_BIODBHTS="2.10"
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.9"
 VER_SAMTOOLS="1.9"
-VER_PCAP="4.3.1"
+VER_PCAP="4.3.2"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"
@@ -151,9 +151,8 @@ if [ ! -e $SETUP_DIR/PCAP.success ]; then
   cd distro
   if [ ! -e $SETUP_DIR/pcap_c.success ]; then
     make -C c clean
-    export REF_PATH=/tmp/REF_CACHE/cache/%2s/%2s/%s:http://www.ebi.ac.uk/ena/cram/md5/%s
-    export REF_CACHE=/tmp/REF_CACHE/cache/%2s/%2s/%s
-    mkdir -p /tmp/REF_CACHE
+    export REF_CACHE=$PWD/t/data/ref_cache/%2s/%2s/%s
+    export REF_PATH=$REF_CACHE
     env HTSLIB=$SETUP_DIR/htslib make -C c -j$CPU prefix=$INST_PATH
     cp bin/bam_stats $INST_PATH/bin/.
     cp bin/reheadSQ $INST_PATH/bin/.
