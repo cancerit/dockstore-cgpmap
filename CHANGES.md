@@ -1,5 +1,10 @@
 # CHANGES
 
+## 3.1.2
+
+* Update PCAP-core to 4.3.3
+* Add security updates to docker build process
+
 ## 3.1.1
 
 * Update PCAP-core to 4.3.2
