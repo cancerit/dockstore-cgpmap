@@ -67,7 +67,8 @@ RUN apt-get install -yq --no-install-recommends\
 RUN bash -c 'apt-get update -yq && \
 apt-get install -yq unattended-upgrades && \
 unattended-upgrade -d -v && \
-apt-get remove -yq unattended-upgrades'
+apt-get remove -yq unattended-upgrades && \
+apt-get autoremove -yq'
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
