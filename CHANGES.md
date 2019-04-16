@@ -1,5 +1,10 @@
 # CHANGES
 
+## 3.1.3
+
+* Update PCAP-core to 4.3.4
+  * More stability work on Threaded for singularity/docker
+
 ## 3.1.2
 
 * Update PCAP-core to 4.3.3
