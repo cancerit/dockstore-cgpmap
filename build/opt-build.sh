@@ -14,7 +14,7 @@ VER_BIODBHTS="2.10"
 VER_BWA="v0.7.17"
 VER_HTSLIB="1.9"
 VER_SAMTOOLS="1.9"
-VER_PCAP="4.3.4"
+VER_PCAP="4.3.5"
 
 if [ "$#" -lt "1" ] ; then
   echo "Please provide an installation path such as /opt/ICGC"

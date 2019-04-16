@@ -1,5 +1,10 @@
 # CHANGES
 
+## 3.1.4
+
+* Update PCAP-core to 4.3.5
+  * Sppedup bamsort by adding sort helpers
+
 ## 3.1.3
 
 * Update PCAP-core to 4.3.4
