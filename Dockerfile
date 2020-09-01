@@ -1,8 +1,7 @@
-FROM  quay.io/wtsicgp/pcap-core:4.4.1
-
-MAINTAINER  cgphelp@sanger.ac.uk
+FROM  quay.io/wtsicgp/pcap-core:5.3.0
 
 LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
+LABEL maintainer="cgphelp@sanger.ac.uk"
 LABEL uk.ac.sanger.cgp.description="PCAP-core for dockstore.org"
 LABEL uk.ac.sanger.cgp.version="3.2.0"
 

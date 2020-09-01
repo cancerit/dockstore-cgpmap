@@ -1,9 +1,13 @@
 # CHANGES
 
+## 3.2.0
+
+* Update PCAP-core to 5.3.0, new ubuntu base.
+
 ## 3.1.4
 
 * Update PCAP-core to 4.3.5
-  * Sppedup bamsort by adding sort helpers
+  * Speedup bamsort by adding sort helpers
 
 ## 3.1.3
 
