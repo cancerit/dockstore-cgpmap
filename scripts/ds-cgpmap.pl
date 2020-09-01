@@ -20,6 +20,11 @@ my %opts = ('csi' => 0,
             't' => undef,
             'g' => undef,
             'f' => 0.05,
+            'dupmode' => 't',
+            'bwamem2' => undef,
+            'nomarkdup' => undef,
+            'legacy' => undef,
+            'seqslice' => undef,
             );
 
 GetOptions( 'h|help' => \$opts{'h'},
@@ -28,7 +33,6 @@ GetOptions( 'h|help' => \$opts{'h'},
             'i|bwa_idx=s' => \$opts{'i'},
             's|sample=s' => \$opts{'s'},
             'c|cram' => \$opts{'c'},
-            'sc|scramble:s' => \$opts{'sc'},
             'csi' => \$opts{'csi'},
             'b|bwa:s' => \$opts{'b'},
             'g|groupinfo:s' => \$opts{'g'},
@@ -36,6 +40,11 @@ GetOptions( 'h|help' => \$opts{'h'},
             'o|outdir:s' => \$opts{'o'},
             'q|qc' => \$opts{'q'},
             'f|qcf:f' => \$opts{'f'},
+            'bm2|bwamem2' => \$opts{'bwamem2'},
+            'n|nomarkdup' => \$opts{'nomarkdup'},
+            'd|dupmode:s' => \$opts{'dupmode'},
+            'legacy' => \$opts{'legacy'},
+            'ss|seqslice:i' => \$opts{'seqslice'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -67,7 +76,6 @@ printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
 printf $FH "OUTPUT_DIR='%s'\n", $opts{'o'};
 printf $FH "CRAM='%d'\n", $opts{'c'};
-printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "CSI='%d'\n", $opts{'csi'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
@@ -76,6 +84,12 @@ printf $FH "CLEAN_REF=%d\n", $ref_unpack;
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 printf $FH "MMQC=%d\n", $opts{'q'};
 printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
+printf $FH "DUPMODE=%d\n", $opts{'dupmode'};
+printf $FH "BWAMEM2=%s\n", $opts{'bwamem2'} if(defined $opts{'bwamem2'});
+printf $FH "NOMARKDUP=%s\n", $opts{'nomarkdup'} if(defined $opts{'nomarkdup'});
+printf $FH "LEGACY=%s\n", $opts{'legacy'} if(defined $opts{'legacy'});
+printf $FH "SEQSLICE=%s\n", $opts{'seqslice'}; if(defined $opts{'seqslice'});
+
 close $FH;
 
 if($ref_unpack) {
@@ -110,16 +124,23 @@ ds-cgpmap.pl [options] [file(s)...]
     -sample      -s   Sample name to be applied to output file.
 
   Optional parameters:
-    -cram        -c   Output cram, see '-sc'
-    -scramble    -sc  Single quoted string of parameters to pass to Scramble when '-c' used
-                      - '-I,-O' are used internally and should not be provided
-    -bwa         -b     Single quoted string of additional parameters to pass to BWA
-                         - '-t,-p,-R' are used internally and should not be provided
-    -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
-    -threads     -t   Set the number of cpu/cores available [default all].
-    -outdir      -o   Set the output folder [$HOME]
-    -qc          -q   Apply mismatch QC to reads following duplicate marking
-    -qcf         -f   Mismatch fraction to set as max before failing a read [0.05]
+    -threads     -t    Number of threads to use. [1]
+    -bwamem2     -bm2  Use bwa-mem2 instead of bwa (experimental).
+    -nomarkdup   -n    Don't mark duplicates [flag]
+    -seqslice    -ss   seqs_per_slice for CRAM compression [samtools default: 10000]
+    -cram        -c    Output cram, see '-sc'
+    -bwa         -b    Single quoted string of additional parameters to pass to BWA
+                       - '-t,-p,-R' are used internally and should not be provided
+    -groupinfo   -g    Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
+    -threads     -t    Set the number of cpu/cores available [default all].
+    -outdir      -o    Set the output folder [$HOME]
+    -qc          -q    Apply mismatch QC to reads following duplicate marking
+    -qcf         -f    Mismatch fraction to set as max before failing a read [0.05]
+    -dupmode     -d    See "samtools markdup -m" [t]
+    -legacy            Equivalent to PCAP-core<=5.0.5
+                        - bamtofastq instead of samtools collate (for BAM/CRAM input)
+                        - dupmode ignored as uses bammarkduplicates2
+                        - Avoid use with bwamem2 (memory explosion)
 
   Other:
     -help        -h   Brief help message.

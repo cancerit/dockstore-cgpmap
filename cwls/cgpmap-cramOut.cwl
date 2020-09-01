@@ -42,15 +42,14 @@ inputs:
       position: 3
       separate: true
 
-  scramble:
-    type: string?
-    doc: "Options to pass to scramble when generating CRAM output, see scramble docs"
-    default: ''
+  seqslice:
+    type: int?
+    doc: "seqs_per_slice for CRAM compression [samtools default: 10000]"
+    default: 10000
     inputBinding:
       prefix: -scramble
       position: 4
       separate: true
-      shellQuote: true
 
   bwa:
     type: string?
@@ -86,6 +85,44 @@ inputs:
       position: 8
       separate: true
 
+  threads:
+    type: int?
+    doc: "Number of CPUs to use where possible"
+    inputBinding:
+      prefix: -threads
+      position: 9
+      separate: true
+
+  bwamem2:
+    type: boolean
+    doc: "Use bwa-mem2 binary"
+    inputBinding:
+      prefix: -bwamem2
+      position: 10
+
+  nomarkdup:
+    type: boolean
+    doc: "Do not mark duplicates"
+    inputBinding:
+      prefix: -nomarkdup
+      position: 11
+
+  dupmode:
+    type: string?
+    doc: "Duplicate mode as defined by 'samtools markdup' (t)emplate or (s)equence"
+    default: 't'
+    inputBinding:
+      prefix: -dupmode
+      position: 12
+      separate: true
+
+  legacy:
+    type: boolean
+    doc: "Use legacy merge/dupmark from biobambam2 tools, slower, more memory"
+    inputBinding:
+      prefix: -legacy
+      position: 13
+
   seq_in:
     type:
     - 'null'
@@ -93,7 +130,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 9
+      position: 14
 
 outputs:
   out_cram:

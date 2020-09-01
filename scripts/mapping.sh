@@ -96,12 +96,37 @@ if [ $CSI -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --csi"
 fi
 
-# if GROUPINFO set
+# if MMQC set
 if [ $MMQC -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --mmqc"
   if [ ! -z ${MMQCFRAC+x} ]; then
     ADD_ARGS="$ADD_ARGS --mmqcfrac $MMQCFRAC"
   fi
+fi
+
+# if DUPMODE set
+if [ ! -z ${DUPMODE+x} ]; then
+  ADD_ARGS="$ADD_ARGS --dupmode $DUPMODE"
+fi
+
+# if BWAMEM2 set
+if [ ! -z ${BWAMEM2+x} ]; then
+  ADD_ARGS="$ADD_ARGS --bwamem2"
+fi
+
+# if NOMARKDUP set
+if [ ! -z ${NOMARKDUP+x} ]; then
+  ADD_ARGS="$ADD_ARGS --nomarkdup"
+fi
+
+# if LEGACY set
+if [ ! -z ${LEGACY+x} ]; then
+  ADD_ARGS="$ADD_ARGS --legacy"
+fi
+
+# if SEQSLICE set
+if [ ! -z ${SEQSLICE+x} ]; then
+  ADD_ARGS="$ADD_ARGS --seqslice $SEQSLICE"
 fi
 
 # -f set to be unfeasibly large to prevent splitting of lane data.

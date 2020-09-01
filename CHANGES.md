@@ -3,6 +3,8 @@
 ## 3.2.0
 
 * Update PCAP-core to 5.3.0, new ubuntu base.
+* `-scramble` deprecated, see `seqslice`
+* New options to control duplicate marking
 
 ## 3.1.4
 
