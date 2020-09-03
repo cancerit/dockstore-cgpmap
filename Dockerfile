@@ -9,7 +9,7 @@ USER root
 
 ADD scripts/mapping.sh $OPT/bin/mapping.sh
 ADD scripts/ds-cgpmap.pl $OPT/bin/ds-cgpmap.pl
-RUN chmod a+x $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
+RUN chmod +rx $OPT/bin/mapping.sh $OPT/bin/ds-cgpmap.pl
 
 USER ubuntu
 WORKDIR /home/ubuntu

@@ -14,6 +14,11 @@
   "sample": "test",
   "mmqc": false,
   "mmqcfrag": 0.05,
+  "threads": null,
+  "bwamem2": false,
+  "nomarkdup": false,
+  "dupmode": "t",
+  "legacy": false,
   "out_bam": {
     "path": "/tmp/bam_in.bam",
     "class": "File"

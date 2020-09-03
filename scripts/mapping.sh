@@ -37,11 +37,6 @@ echo -e "\tREF_BASE : $REF_BASE"
 echo -e "\tCRAM : $CRAM"
 echo -e "\tCSI : $CSI"
 echo -e "\tMMQC : $MMQC"
-if [ -z ${SCRAMBLE+x} ]; then
-  echo -e "\tSCRAMBLE : <NOTSET>"
-else
-  echo -e "\tSCRAMBLE : $SCRAMBLE"
-fi
 if [ -z ${BWA_PARAM+x} ]; then
   echo -e "\tBWA_PARAM : <NOTSET>"
 else
@@ -52,6 +47,19 @@ if [ -z ${GROUPINFO+x} ]; then
 else
   echo -e "\tGROUPINFO : $GROUPINFO"
 fi
+if [ -z ${DUPMODE+x} ]; then
+  echo -e "\tDUPMODE : <NOTSET>"
+else
+  echo -e "\tDUPMODE : $DUPMODE"
+fi
+if [ -z ${SEQSLICE+x} ]; then
+  echo -e "\tSEQSLICE : <NOTSET>"
+else
+  echo -e "\tSEQSLICE : $SEQSLICE"
+fi
+echo -e "\tBWAMEM2 : $BWAMEM2"
+echo -e "\tNOMARKDUP : $NOMARKDUP"
+echo -e "\tLEGACY : $LEGACY"
 set +u
 
 if [ ${#PRE_EXEC[@]} -eq 0 ]; then
@@ -78,7 +86,7 @@ fi
 
 # use a different malloc library when cores for mapping are over 8
 if [ $CPU -gt 7 ]; then
-  ADD_ARGS="$ADD_ARGS -l /usr/lib/libtcmalloc_minimal.so"
+  ADD_ARGS="$ADD_ARGS -l /usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4"
 fi
 
 # if BWA_PARAM set
@@ -110,17 +118,17 @@ if [ ! -z ${DUPMODE+x} ]; then
 fi
 
 # if BWAMEM2 set
-if [ ! -z ${BWAMEM2+x} ]; then
+if [ $BWAMEM2 -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --bwamem2"
 fi
 
 # if NOMARKDUP set
-if [ ! -z ${NOMARKDUP+x} ]; then
+if [ $NOMARKDUP -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --nomarkdup"
 fi
 
 # if LEGACY set
-if [ ! -z ${LEGACY+x} ]; then
+if [ $LEGACY -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --legacy"
 fi
 

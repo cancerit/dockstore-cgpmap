@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use Getopt::Long;
@@ -21,9 +21,9 @@ my %opts = ('csi' => 0,
             'g' => undef,
             'f' => 0.05,
             'dupmode' => 't',
-            'bwamem2' => undef,
-            'nomarkdup' => undef,
-            'legacy' => undef,
+            'bwamem2' => 0,
+            'nomarkdup' => 0,
+            'legacy' => 0,
             'seqslice' => undef,
             );
 
@@ -84,11 +84,11 @@ printf $FH "CLEAN_REF=%d\n", $ref_unpack;
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 printf $FH "MMQC=%d\n", $opts{'q'};
 printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
-printf $FH "DUPMODE=%d\n", $opts{'dupmode'};
-printf $FH "BWAMEM2=%s\n", $opts{'bwamem2'} if(defined $opts{'bwamem2'});
-printf $FH "NOMARKDUP=%s\n", $opts{'nomarkdup'} if(defined $opts{'nomarkdup'});
-printf $FH "LEGACY=%s\n", $opts{'legacy'} if(defined $opts{'legacy'});
-printf $FH "SEQSLICE=%s\n", $opts{'seqslice'}; if(defined $opts{'seqslice'});
+printf $FH "DUPMODE=%s\n", $opts{'dupmode'};
+printf $FH "BWAMEM2=%d\n", $opts{'bwamem2'} if(defined $opts{'bwamem2'});
+printf $FH "NOMARKDUP=%d\n", $opts{'nomarkdup'} if(defined $opts{'nomarkdup'});
+printf $FH "LEGACY=%d\n", $opts{'legacy'} if(defined $opts{'legacy'});
+printf $FH "SEQSLICE=%d\n", $opts{'seqslice'} if(defined $opts{'seqslice'});
 
 close $FH;
 

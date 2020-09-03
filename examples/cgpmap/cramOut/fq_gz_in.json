@@ -32,6 +32,12 @@
   "sample": "test",
   "mmqc": false,
   "mmqcfrag": 0.05,
+  "threads": null,
+  "bwamem2": false,
+  "nomarkdup": false,
+  "dupmode": "t",
+  "legacy": false,
+  "seqslices": null,
   "out_cram": {
     "path": "/tmp/fq_gz_in.cram",
     "class": "File"
