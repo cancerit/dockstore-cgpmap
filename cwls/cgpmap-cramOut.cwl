@@ -47,7 +47,7 @@ inputs:
     doc: "seqs_per_slice for CRAM compression [samtools default: 10000]"
     default: 10000
     inputBinding:
-      prefix: -scramble
+      prefix: -seqslice
       position: 4
       separate: true
 
