@@ -14,7 +14,6 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 my %opts = ('csi' => 0,
             'c' => 0,
             'q' => 0,
-            'sc' => q{},
             'b' => q{},
             'o' => $ENV{HOME},
             't' => undef,
@@ -128,7 +127,7 @@ ds-cgpmap.pl [options] [file(s)...]
     -bwamem2     -bm2  Use bwa-mem2 instead of bwa (experimental).
     -nomarkdup   -n    Don't mark duplicates [flag]
     -seqslice    -ss   seqs_per_slice for CRAM compression [samtools default: 10000]
-    -cram        -c    Output cram, see '-sc'
+    -cram        -c    Output cram, see '-seqslice'
     -bwa         -b    Single quoted string of additional parameters to pass to BWA
                        - '-t,-p,-R' are used internally and should not be provided
     -groupinfo   -g    Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
@@ -200,14 +199,13 @@ Name to be applied to output files.  Special characters will not be magically fi
 =item B<-cram>
 
 Final output file will be a CRAM file instead of BAM.  To tune the the compression methods see then
-B<-scramble> option.
+B<-seqslice> option.
 
-=item B<-scramble>
+=item B<-seqslice>
 
-Single quoted string of parameters to pass to Scramble when '-c' used.  Please see the Scramble
-documentation for details.
+Alter the sequences per slice.  For improved random access values lower than the 10000 default may be considered.
 
-Please note: '-I,-O' are used internally and should not be provided.
+1000 has been tested with older versions of HTSlib and found to be a good trade off, comparible speed 1% increase in file size.
 
 =item B<-csi>
 
