@@ -1,4 +1,4 @@
-FROM  quay.io/wtsicgp/pcap-core:5.3.0
+FROM  quay.io/wtsicgp/pcap-core:5.4.0
 
 LABEL vendor="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute"
 LABEL maintainer="cgphelp@sanger.ac.uk"
