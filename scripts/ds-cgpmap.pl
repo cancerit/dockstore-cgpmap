@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use Getopt::Long;
@@ -14,12 +14,16 @@ pod2usage(-verbose => 1, -exitval => 1) if(@ARGV == 0);
 my %opts = ('csi' => 0,
             'c' => 0,
             'q' => 0,
-            'sc' => q{},
             'b' => q{},
             'o' => $ENV{HOME},
             't' => undef,
             'g' => undef,
             'f' => 0.05,
+            'dupmode' => 't',
+            'bwamem2' => 0,
+            'nomarkdup' => 0,
+            'legacy' => 0,
+            'seqslice' => undef,
             );
 
 GetOptions( 'h|help' => \$opts{'h'},
@@ -28,7 +32,6 @@ GetOptions( 'h|help' => \$opts{'h'},
             'i|bwa_idx=s' => \$opts{'i'},
             's|sample=s' => \$opts{'s'},
             'c|cram' => \$opts{'c'},
-            'sc|scramble:s' => \$opts{'sc'},
             'csi' => \$opts{'csi'},
             'b|bwa:s' => \$opts{'b'},
             'g|groupinfo:s' => \$opts{'g'},
@@ -36,6 +39,11 @@ GetOptions( 'h|help' => \$opts{'h'},
             'o|outdir:s' => \$opts{'o'},
             'q|qc' => \$opts{'q'},
             'f|qcf:f' => \$opts{'f'},
+            'bm2|bwamem2' => \$opts{'bwamem2'},
+            'n|nomarkdup' => \$opts{'nomarkdup'},
+            'd|dupmode:s' => \$opts{'dupmode'},
+            'legacy' => \$opts{'legacy'},
+            'ss|seqslice:i' => \$opts{'seqslice'},
 ) or pod2usage(2);
 
 pod2usage(-verbose => 1, -exitval => 0) if(defined $opts{'h'});
@@ -67,15 +75,20 @@ printf $FH "REF_BASE='%s'\n", $ref_area;
 printf $FH "SAMPLE_NAME='%s'\n", $opts{'s'};
 printf $FH "OUTPUT_DIR='%s'\n", $opts{'o'};
 printf $FH "CRAM='%d'\n", $opts{'c'};
-printf $FH "SCRAMBLE='%s'\n", $opts{'sc'} if(length $opts{'sc'} > 0);
 printf $FH "CSI='%d'\n", $opts{'csi'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
-printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
+printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'} && $opts{'t'} != 0);
 printf $FH "CLEAN_REF=%d\n", $ref_unpack;
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 printf $FH "MMQC=%d\n", $opts{'q'};
 printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
+printf $FH "DUPMODE=%s\n", $opts{'dupmode'};
+printf $FH "BWAMEM2=%d\n", $opts{'bwamem2'} if(defined $opts{'bwamem2'});
+printf $FH "NOMARKDUP=%d\n", $opts{'nomarkdup'} if(defined $opts{'nomarkdup'});
+printf $FH "LEGACY=%d\n", $opts{'legacy'} if(defined $opts{'legacy'});
+printf $FH "SEQSLICE=%d\n", $opts{'seqslice'} if(defined $opts{'seqslice'});
+
 close $FH;
 
 if($ref_unpack) {
@@ -110,16 +123,22 @@ ds-cgpmap.pl [options] [file(s)...]
     -sample      -s   Sample name to be applied to output file.
 
   Optional parameters:
-    -cram        -c   Output cram, see '-sc'
-    -scramble    -sc  Single quoted string of parameters to pass to Scramble when '-c' used
-                      - '-I,-O' are used internally and should not be provided
-    -bwa         -b     Single quoted string of additional parameters to pass to BWA
-                         - '-t,-p,-R' are used internally and should not be provided
-    -groupinfo   -g   Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
-    -threads     -t   Set the number of cpu/cores available [default all].
-    -outdir      -o   Set the output folder [$HOME]
-    -qc          -q   Apply mismatch QC to reads following duplicate marking
-    -qcf         -f   Mismatch fraction to set as max before failing a read [0.05]
+    -threads     -t    Set the number of cpu/cores available [default all].
+    -bwamem2     -bm2  Use bwa-mem2 instead of bwa (experimental).
+    -nomarkdup   -n    Don't mark duplicates [flag]
+    -seqslice    -ss   seqs_per_slice for CRAM compression [samtools default: 10000]
+    -cram        -c    Output cram, see '-seqslice'
+    -bwa         -b    Single quoted string of additional parameters to pass to BWA
+                       - '-t,-p,-R' are used internally and should not be provided
+    -groupinfo   -g    Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
+    -outdir      -o    Set the output folder [$HOME]
+    -qc          -q    Apply mismatch QC to reads following duplicate marking
+    -qcf         -f    Mismatch fraction to set as max before failing a read [0.05]
+    -dupmode     -d    See "samtools markdup -m" [t]
+    -legacy            Equivalent to PCAP-core<=5.0.5
+                        - bamtofastq instead of samtools collate (for BAM/CRAM input)
+                        - dupmode ignored as uses bammarkduplicates2
+                        - Avoid use with bwamem2 (memory explosion)
 
   Other:
     -help        -h   Brief help message.
@@ -179,14 +198,13 @@ Name to be applied to output files.  Special characters will not be magically fi
 =item B<-cram>
 
 Final output file will be a CRAM file instead of BAM.  To tune the the compression methods see then
-B<-scramble> option.
+B<-seqslice> option.
 
-=item B<-scramble>
+=item B<-seqslice>
 
-Single quoted string of parameters to pass to Scramble when '-c' used.  Please see the Scramble
-documentation for details.
+Alter the sequences per slice.  For improved random access values lower than the 10000 default may be considered.
 
-Please note: '-I,-O' are used internally and should not be provided.
+1000 has been tested with older versions of HTSlib and found to be a good trade off, comparible speed 1% increase in file size.
 
 =item B<-csi>
 

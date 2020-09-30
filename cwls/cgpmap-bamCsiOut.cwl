@@ -76,6 +76,44 @@ inputs:
       position: 7
       separate: true
 
+  threads:
+    type: int?
+    doc: "Number of CPUs to use where possible - 0/null/not defined to query host for max"
+    inputBinding:
+      prefix: -threads
+      position: 8
+      separate: true
+
+  bwamem2:
+    type: boolean
+    doc: "Use bwa-mem2 binary"
+    inputBinding:
+      prefix: -bwamem2
+      position: 9
+
+  nomarkdup:
+    type: boolean
+    doc: "Do not mark duplicates"
+    inputBinding:
+      prefix: -nomarkdup
+      position: 10
+
+  dupmode:
+    type: string?
+    doc: "Duplicate mode as defined by 'samtools markdup' (t)emplate or (s)equence"
+    default: 't'
+    inputBinding:
+      prefix: -dupmode
+      position: 11
+      separate: true
+
+  legacy:
+    type: boolean
+    doc: "Use legacy merge/dupmark from biobambam2 tools, slower, more memory"
+    inputBinding:
+      prefix: -legacy
+      position: 12
+
   seq_in:
     type:
     - 'null'
@@ -83,7 +121,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 8
+      position: 13
 
 outputs:
   out_bam:
@@ -99,8 +137,7 @@ outputs:
 
 baseCommand: ["/opt/wtsi-cgp/bin/ds-cgpmap.pl", "-csi"]
 
-$schemas:
-  - http://schema.org/docs/schema_org_rdfa.html
+$schemas: [ http://schema.org/version/9.0/schemaorg-current-http.rdf ]
 
 $namespaces:
   s: http://schema.org/
