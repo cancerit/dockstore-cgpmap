@@ -32,7 +32,7 @@
   "sample": "test",
   "mmqc": true,
   "mmqcfrag": 0.05,
-  "threads": null,
+  "threads": 0,
   "bwamem2": false,
   "nomarkdup": false,
   "dupmode": "t",

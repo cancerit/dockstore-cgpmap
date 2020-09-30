@@ -87,7 +87,7 @@ inputs:
 
   threads:
     type: int?
-    doc: "Number of CPUs to use where possible"
+    doc: "Number of CPUs to use where possible - 0/null/not defined to query host for max"
     inputBinding:
       prefix: -threads
       position: 9

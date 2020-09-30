@@ -78,7 +78,7 @@ printf $FH "CRAM='%d'\n", $opts{'c'};
 printf $FH "CSI='%d'\n", $opts{'csi'};
 printf $FH "BWA_PARAM='%s'\n", $opts{'b'} if(length $opts{'b'} > 0);
 printf $FH "GROUPINFO='%s'\n", $opts{'g'} if(defined $opts{'g'});
-printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'});
+printf $FH "CPU=%d\n", $opts{'t'} if(defined $opts{'t'} && $opts{'t'} != 0);
 printf $FH "CLEAN_REF=%d\n", $ref_unpack;
 printf $FH "INPUT='%s'\n", join ' ', @ARGV;
 printf $FH "MMQC=%d\n", $opts{'q'};
@@ -123,7 +123,7 @@ ds-cgpmap.pl [options] [file(s)...]
     -sample      -s   Sample name to be applied to output file.
 
   Optional parameters:
-    -threads     -t    Number of threads to use. [1]
+    -threads     -t    Set the number of cpu/cores available [default all].
     -bwamem2     -bm2  Use bwa-mem2 instead of bwa (experimental).
     -nomarkdup   -n    Don't mark duplicates [flag]
     -seqslice    -ss   seqs_per_slice for CRAM compression [samtools default: 10000]
@@ -131,7 +131,6 @@ ds-cgpmap.pl [options] [file(s)...]
     -bwa         -b    Single quoted string of additional parameters to pass to BWA
                        - '-t,-p,-R' are used internally and should not be provided
     -groupinfo   -g    Readgroup metadata file for FASTQ inputs, values are not validated (yaml).
-    -threads     -t    Set the number of cpu/cores available [default all].
     -outdir      -o    Set the output folder [$HOME]
     -qc          -q    Apply mismatch QC to reads following duplicate marking
     -qcf         -f    Mismatch fraction to set as max before failing a read [0.05]
