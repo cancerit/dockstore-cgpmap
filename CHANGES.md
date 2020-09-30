@@ -1,9 +1,15 @@
 # CHANGES
 
+## 3.2.0
+
+* Update PCAP-core to 5.4.0, new ubuntu htslib/samtools 1.11.
+* `-scramble` deprecated, see `seqslice`
+* New options to control duplicate marking
+
 ## 3.1.4
 
 * Update PCAP-core to 4.3.5
-  * Sppedup bamsort by adding sort helpers
+  * Speedup bamsort by adding sort helpers
 
 ## 3.1.3
 

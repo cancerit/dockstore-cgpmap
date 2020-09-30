@@ -22,11 +22,12 @@ script:
  - echo 'Build and check docker image'
  - docker build -t dockstore-cgpmap .
  - docker images | grep -c dockstore-cgpmap
- - echo 'Verify program from each inherited package is found (dockstore-cgpbigwig)'
+ - echo 'Verify program(s) from each inherited package (cgpbigwig)'
  - docker run -t --rm dockstore-cgpmap bwjoin --version
- - echo 'Verify a program from each new package is found (dockstore-cgpmap)'
- - docker run -t --rm dockstore-cgpmap ds-cgpmap.pl -h
+ - echo 'Verify program(s) from each inherited package (pcap-core)'
  - docker run -t --rm dockstore-cgpmap bwa_mem.pl -version
  - docker run -t --rm dockstore-cgpmap bammarkduplicates2 --version
  - docker run -t --rm dockstore-cgpmap samtools --version
  - docker run -t --rm dockstore-cgpmap bash -c 'bwa 2>&1 | grep Version'
+ - echo 'Verify program(s) this layer are found (dockstore-cgpmap)'
+ - docker run -t --rm dockstore-cgpmap ds-cgpmap.pl -h
