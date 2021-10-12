@@ -1,6 +1,6 @@
 # CHANGES
 
-## 3.2.0
+## 3.3.0
 
 * Update PCAP-core to 5.7.0, which includes bwakit post processing
 
