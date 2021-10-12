@@ -2,6 +2,10 @@
 
 ## 3.2.0
 
+* Update PCAP-core to 5.7.0, which includes bwakit post processing
+
+## 3.2.0
+
 * Update PCAP-core to 5.4.0, new ubuntu htslib/samtools 1.11.
 * `-scramble` deprecated, see `seqslice`
 * New options to control duplicate marking

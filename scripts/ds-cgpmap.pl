@@ -21,6 +21,7 @@ my %opts = ('csi' => 0,
             'f' => 0.05,
             'dupmode' => 't',
             'bwamem2' => 0,
+            'bwakit' => 0,
             'nomarkdup' => 0,
             'legacy' => 0,
             'seqslice' => undef,
@@ -40,6 +41,7 @@ GetOptions( 'h|help' => \$opts{'h'},
             'q|qc' => \$opts{'q'},
             'f|qcf:f' => \$opts{'f'},
             'bm2|bwamem2' => \$opts{'bwamem2'},
+            'kit|bwakit' => \$opts{'seqslice'},
             'n|nomarkdup' => \$opts{'nomarkdup'},
             'd|dupmode:s' => \$opts{'dupmode'},
             'legacy' => \$opts{'legacy'},
@@ -85,6 +87,7 @@ printf $FH "MMQC=%d\n", $opts{'q'};
 printf $FH "MMQCFRAC=%s\n", $opts{'f'} if(defined $opts{'f'});
 printf $FH "DUPMODE=%s\n", $opts{'dupmode'};
 printf $FH "BWAMEM2=%d\n", $opts{'bwamem2'} if(defined $opts{'bwamem2'});
+printf $FH "BWAKIT=%d\n", $opts{'bwakit'} if(defined $opts{'bwakit'});
 printf $FH "NOMARKDUP=%d\n", $opts{'nomarkdup'} if(defined $opts{'nomarkdup'});
 printf $FH "LEGACY=%d\n", $opts{'legacy'} if(defined $opts{'legacy'});
 printf $FH "SEQSLICE=%d\n", $opts{'seqslice'} if(defined $opts{'seqslice'});
@@ -125,6 +128,7 @@ ds-cgpmap.pl [options] [file(s)...]
   Optional parameters:
     -threads     -t    Set the number of cpu/cores available [default all].
     -bwamem2     -bm2  Use bwa-mem2 instead of bwa (experimental).
+    -bwakit      -kit  Run bwakit post alignment processing.
     -nomarkdup   -n    Don't mark duplicates [flag]
     -seqslice    -ss   seqs_per_slice for CRAM compression [samtools default: 10000]
     -cram        -c    Output cram, see '-seqslice'

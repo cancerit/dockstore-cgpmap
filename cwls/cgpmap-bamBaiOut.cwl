@@ -91,12 +91,19 @@ inputs:
       prefix: -bwamem2
       position: 9
 
+  bwakit:
+    type: boolean
+    doc: "Use bwakit post-processing"
+    inputBinding:
+      prefix: -bwakit
+      position: 10
+
   nomarkdup:
     type: boolean
     doc: "Do not mark duplicates"
     inputBinding:
       prefix: -nomarkdup
-      position: 10
+      position: 11
 
   dupmode:
     type: string?
@@ -104,7 +111,7 @@ inputs:
     default: 't'
     inputBinding:
       prefix: -dupmode
-      position: 11
+      position: 12
       separate: true
 
   legacy:
@@ -112,7 +119,7 @@ inputs:
     doc: "Use legacy merge/dupmark from biobambam2 tools, slower, more memory"
     inputBinding:
       prefix: -legacy
-      position: 12
+      position: 13
 
   seq_in:
     type:
@@ -121,7 +128,7 @@ inputs:
       items: File
     doc: "Can be BAM, CRAM, fastq (paired or interleaved), BAM/CRAM can be mixed together but not FASTQ."
     inputBinding:
-      position: 13
+      position: 14
 
 outputs:
   out_bam:
