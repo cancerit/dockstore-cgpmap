@@ -31,7 +31,8 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 ## Options for customisation:
 
 * BWA specific mapping parameters (defaults are based on attempts at a global standard)
-* Optionally output CRAM (scramble parameters can be modified)
+* Optionally output CRAM (see `seqslice` to for faster access, recommend 1000)
+    * applied to `seqs_per_slice` option of htslib/samtools.
 * Optionally run with BWA-MEM2
 * Optionally run with bwa-kit post-processing (for calling on alternative contigs)
 
