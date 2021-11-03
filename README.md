@@ -41,6 +41,10 @@ The full documentation covering input files, optional parameters, and methods of
 
 ## Development
 
+### Verifying your deployment
+
+The `examples/` tree contains test json files populated with data that can be used to verify the tool. More details on running Dockstore locally for testing purposes can be found in the [github wiki][github-wiki].
+
 ### Development environment
 
 This project uses git pre-commit hooks.  Please enable them to prevent inappropriate large files
