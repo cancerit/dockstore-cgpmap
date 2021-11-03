@@ -19,6 +19,9 @@ jobs:
           command: |
             set -e
             echo "Validating CWL files"
+            virtualenv -p python3 venv
+            source venv/bin/activate
+            pip install html5lib cwltool
             cwltool --validate Dockstore.cwl
             cwltool --validate cwls/cgpmap-bamBaiOut.cwl
             cwltool --validate cwls/cgpmap-bamCsiOut.cwl
