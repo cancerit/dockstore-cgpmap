@@ -8,55 +8,70 @@
 #    - as circleci is pushing the image
 #    - reevaluate when/if quay.io adds ability to authenticate pulls
 
-# version: 2.1
-# jobs:
-#   build:
-#     environment:
-#       IMAGE_NAME: quay.io/wtsicgp/pcap-core
-#     docker:
-#       - image: circleci/buildpack-deps:stretch
-#     steps:
-#       - checkout
-#       - setup_remote_docker
-#       - run:
-#           name: Build Docker image
-#           command: |
-#             set -e
-#             BRANCH_OR_TAG="${CIRCLE_TAG:-$CIRCLE_BRANCH}"
-#             CLEAN_BRANCH=$(echo $BRANCH_OR_TAG | tr / -)
-#             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USER" --password-stdin
-#             echo "$QUAYIO_PASSWORD" | docker login -u "$QUAYIO_USER" --password-stdin quay.io
-#             docker build -t $IMAGE_NAME:$CLEAN_BRANCH .
-#             echo 'Verify program(s) from base image'
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bam2bedgraph --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bwjoin --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bam2bw --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bwcat --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bam2bwbases --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bg2bw --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH detectExtremeDepth --version
-#             echo 'Verify program(s) from this repo'
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH diff_bams --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH reheadSQ --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bam_stats --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH mismatchQc --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH bwa_mem.pl --version
-#             docker run -t --rm $IMAGE_NAME:$CLEAN_BRANCH merge_or_mark.pl --version
-#             if [ "$CIRCLE_TAG" = "$BRANCH_OR_TAG" ]; then
-#               echo 'Pushing image'
-#               docker push $IMAGE_NAME:$CLEAN_BRANCH
-#             else
-#               echo "I am not a tag so not pushing image"
-#             fi
+jobs:
+  build-test-push-job:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    environment:
+      IMAGE_NAME: quay.io/wtsicgp/dockstore-cgpmap
+    steps:
+      - checkout
+      - setup_remote_docker:
+      - run:
+          name: Build Docker image
+          command: |
+            set -e
+            echo "Building Docker image"
+            docker build -t test:${CIRCLE_BUILD_NUM} .
+      - run:
+          name: Validate CWL files
+          command: |
+            set -e
+            echo "Validating CWL files"
+            cwltool --validate Dockstore.cwl
+            cwltool --validate cwls/cgpmap-bamBaiOut.cwl
+            cwltool --validate cwls/cgpmap-bamCsiOut.cwl
+            cwltool --validate cwls/cgpmap-cramOut.cwl
+      - run:
+          name: Verify inherited programs
+          command: |
+            set -e
+            echo 'Verifying programs inherited from cgpbigwig'
+            docker run -t --rm test:${CIRLCE_BUILD_NUM} bwjoin --version
+            echo 'Verifying programs inherited from pcap-core'
+            docker run -t --rm test:${CIRLCE_BUILD_NUM} bwa_mem.pl -version
+            docker run -t --rm test:${CIRLCE_BUILD_NUM} bammarkduplicates2 --version
+            docker run -t --rm test:${CIRLCE_BUILD_NUM} samtools --version
+            docker run -t --rm test:${CIRLCE_BUILD_NUM} bash -c 'bwa 2>&1 | grep Version'
+      - run:
+          name: Verify programs
+          command: |
+            set -e
+            echo 'Verify programs from dockstore-cgpmap'
+            docker run --rm -t test:${CIRCLE_BUILD_NUM} ds-cgpmap.pl -h
+      - run:
+          name: Push image to quay.io
+          command: |
+            set -e
+            BRANCH_OR_TAG="${CIRCLE_TAG:-$CIRCLE_BRANCH}"
+            if [ "$CIRCLE_TAG" = "$BRANCH_OR_TAG" ]; then
+              echo 'Pushing image'
+              echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USER" --password-stdin
+              echo "$QUAYIO_PASSWORD" | docker login -u "$QUAYIO_USER" --password-stdin quay.io
+              CLEAN_BRANCH=$(echo $BRANCH_OR_TAG | tr / -)
+              docker tag test:${CIRLCE_BUILD_NUM} ${IMAGE_NAME}:${CLEAN_BRANCH}
+              # docker push ${IMAGE_NAME}:${CLEAN_BRANCH}
+            else
+              echo "I am not a tag so not pushing image"
+            fi
 
-# workflows:
-#   version: 2.1
-#   build_test:
-#     jobs:
-#       - build:
-#           context:
-#             - dockerhub-casmservice
-#             - quayio-casmservice
-#           filters:
-#             tags:
-#               only: /.+/ 
+workflows:
+  build-test-push-workflow:
+    jobs:
+      - build-test-push-job
+          context:
+            - dockerhub-casmservice
+            - quayio-casmservice
+          filters:
+            tags:
+              only: /.+/ 
