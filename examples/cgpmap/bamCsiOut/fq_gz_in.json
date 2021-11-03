@@ -34,6 +34,7 @@
   "mmqcfrag": 0.05,
   "threads": 0,
   "bwamem2": false,
+  "bwakit": false,
   "nomarkdup": false,
   "dupmode": "t",
   "legacy": false,
