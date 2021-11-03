@@ -53,7 +53,7 @@ jobs:
               echo "$QUAYIO_PASSWORD" | docker login -u "$QUAYIO_USER" --password-stdin quay.io
               CLEAN_BRANCH=$(echo $BRANCH_OR_TAG | tr / -)
               docker tag test ${IMAGE_NAME}:${CLEAN_BRANCH}
-              # docker push ${IMAGE_NAME}:${CLEAN_BRANCH}
+              docker push ${IMAGE_NAME}:${CLEAN_BRANCH}
             else
               echo "I am not a tag so not pushing image"
             fi
