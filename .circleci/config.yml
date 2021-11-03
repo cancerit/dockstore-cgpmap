@@ -7,7 +7,7 @@ jobs:
       IMAGE_NAME: quay.io/wtsicgp/dockstore-cgpmap
     steps:
       - checkout
-      - setup_remote_docker:
+      - setup_remote_docker
       - run:
           name: Build Docker image
           command: |
@@ -57,6 +57,7 @@ jobs:
             fi
 
 workflows:
+  version: 2.1
   build-test-push-workflow:
     jobs:
       - build-test-push-job:
