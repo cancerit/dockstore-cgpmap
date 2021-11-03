@@ -37,7 +37,7 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 ## Run instructions
 
-The full documentation covering input files, optional parameters, and methods of running dockstore-cgpmap can be found in the [github wiki][github wiki].
+The full documentation covering input files, optional parameters, and methods of running dockstore-cgpmap can be found in the [github wiki][github-wiki].
 
 ## Development
 
