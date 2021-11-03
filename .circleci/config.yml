@@ -59,7 +59,7 @@ jobs:
 workflows:
   build-test-push-workflow:
     jobs:
-      - build-test-push-job
+      - build-test-push-job:
           context:
             - dockerhub-casmservice
             - quayio-casmservice
