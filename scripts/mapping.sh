@@ -58,6 +58,7 @@ else
   echo -e "\tSEQSLICE : $SEQSLICE"
 fi
 echo -e "\tBWAMEM2 : $BWAMEM2"
+echo -e "\tBWAKIT : $BWAKIT"
 echo -e "\tNOMARKDUP : $NOMARKDUP"
 echo -e "\tLEGACY : $LEGACY"
 set +u
@@ -120,6 +121,11 @@ fi
 # if BWAMEM2 set
 if [ $BWAMEM2 -gt 0 ]; then
   ADD_ARGS="$ADD_ARGS --bwamem2"
+fi
+
+# if BWAKIT set
+if [ $BWAKIT -gt 0 ]; then
+  ADD_ARGS="$ADD_ARGS --bwakit"
 fi
 
 # if NOMARKDUP set
