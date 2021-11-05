@@ -7,9 +7,9 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 [![Quay Badge][quay-status]][quay-repo]
 
-| Master                                        | Develop                                         |
-| --------------------------------------------- | ----------------------------------------------- |
-| [![Master Badge][travis-master]][travis-base] | [![Develop Badge][travis-develop]][travis-base] |
+| Master | Develop |
+| --- | --- |
+| [![Master Badge][circleci-master-badge]][circleci-master] | [![Develop Badge][circleci-develop-badge]][circleci-develop] |
 
 * [Supported input formats](#supported-input-formats)
 * [Options for customisation:](#options-for-customisation)
@@ -65,7 +65,7 @@ This project is maintained using HubFlow.
 1. Make appropriate changes
 2. Bump version in `Dockerfile` and `cwls/mixins/requirements.yml`
 3. Push changes
-4. Check state on Travis
+4. Check state on CircleCi
 5. Generate the release (add notes to GitHub)
 6. Confirm that image has been built on [quay.io][quay-builds]
 7. Update the [dockstore][dockstore-cgpmap] entry, see [their docs][dockstore-get-started].
@@ -109,10 +109,11 @@ identical to a statement that reads ‘Copyright (c) 2005, 2006, 2007, 2008,
 [pcap-core]: https://github.com/cancerit/PCAP-core
 [github-wiki]: https://github.com/cancerit/dockstore-cgpmap/wiki
 
-<!-- Travis -->
-[travis-base]: https://travis-ci.org/cancerit/dockstore-cgpmap
-[travis-master]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master
-[travis-develop]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop
+<!-- CircleCi -->
+[circleci-master-badge]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master.svg?style=svg
+[circleci-master]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master
+[circleci-develop-badge]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/develop.svg?style=svg
+[circleci-develop]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master
 
 <!-- Gitter -->
 [gitter-svg]: https://badges.gitter.im/dockstore-cgp/Lobby.svg
