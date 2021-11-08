@@ -7,19 +7,18 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 [![Quay Badge][quay-status]][quay-repo]
 
-| Master                                        | Develop                                         |
-| --------------------------------------------- | ----------------------------------------------- |
-| [![Master Badge][travis-master]][travis-base] | [![Develop Badge][travis-develop]][travis-base] |
+| Master | Develop |
+| --- | --- |
+| [![Master Badge][circleci-master-badge]][circleci-master] | [![Develop Badge][circleci-develop-badge]][circleci-develop] |
 
 * [Supported input formats](#supported-input-formats)
 * [Options for customisation:](#options-for-customisation)
 * [Usable Cores](#usable-cores)
-* [Other uses](#other-uses)
-	* [Native docker](#native-docker)
-	* [Singularity](#singularity)
-* [Verifying your deployment](#verifying-your-deployment)
-* [Development environment](#development-environment)
-* [Release process](#release-process)
+* [Run instructions](#run-instructions)
+* [Development](#development)
+	* [Verifying your deployment](#verifying-your-deployment)
+	* [Development environment](#development-environment)
+	* [Release process](#release-process)
 * [LICENCE](#licence)
 
 ## Supported input formats
@@ -31,73 +30,23 @@ packaged specifically for use with the [Dockstore.org](https://dockstore.org/) f
 
 ## Options for customisation:
 
-* BWA specific mapping parameters (defaults are based on attempts at a global standard).
-* Optionally output CRAM (scramble parameters can be modified)
+* BWA specific mapping parameters (defaults are based on attempts at a global standard)
+* Optionally output CRAM (see `seqslice` to for faster access, recommend 1000)
+    * applied to `seqs_per_slice` option of htslib/samtools.
+* Optionally run with BWA-MEM2
+* Optionally run with bwa-kit post-processing (for calling on alternative contigs)
 
-## Usable Cores
+## Run instructions
 
-When running outside of a docker container you can set the number of CPUs via:
+The full documentation covering input files, optional parameters, and methods of running dockstore-cgpmap can be found in the [github wiki][github-wiki].
 
-* `export CPU=N`
-* `-threads|-t` option of `ds-cgpmap.pl`
+## Development
 
-If not set detects available cores on system.
+### Verifying your deployment
 
-## Other uses
+The `examples/` tree contains test json files populated with data that can be used to verify the tool. More details on running Dockstore locally for testing purposes can be found in the [github wiki][github-wiki].
 
-### Native docker
-
-All of the tools installed as part of [PCAP-core][pcap-core] are available for direct use.
-
-```
-export CGPMAP_VER=X.X.X
-docker pull quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_VER
-# interactive session
-docker --rm -ti [--volume ...] quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_VER bash
-```
-
-### Singularity
-
-The resulting docker container has been tested with Singularity.  The command to exec is:
-
-```
-ds-cgpmap.pl -h
-```
-
-Expected use would be along the lines of:
-
-```
-export CGPMAP_VER=X.X.X
-singularity pull docker://quay.io/wtsicgp/dockstore-cgpmap:$CGPMAP_VER
-
-singularity exec\
- --workdir /.../workspace  \
- --home /.../workspace:/home  \
- --bind /.../ref/human:/var/spool/ref:ro  \
- --bind /.../example_data/cgpmap/insilico_21:/var/spool/data:ro  \
- dockstore-cgpmap-${CGPMAP_VER}.simg  \
- ds-cgpmap.pl  \
- -r /var/spool/ref/core_ref_GRCh37d5.tar.gz  \
- -i /var/spool/ref/bwa_idx_GRCh37d5.tar.gz  \
- -s SOMENAME  \
- -t 6 \
- /var/spool/data/\*.bam
-```
-
-For a system automatically attaching _all local mount points_ (not default singularity behaviour)
-you need not specify any `exec` params (workdir, home, bind) but you should specify the `-outdir`
-option for `ds-cgpmap.pl` to prevent data being written to your home directory.
-
-By default results are written to the home directory of the container so ensure you bind
-a large volume and set the `-home` variable.  As indicated above the location can be overridden
-via the options of `ds-cgpmap.pl`
-
-## Verifying your deployment
-
-The `examples/` tree contains test json files populated with data that can be used to verify the
-tool.  More details can be found [here](examples/README.md).
-
-## Development environment
+### Development environment
 
 This project uses git pre-commit hooks.  Please enable them to prevent inappropriate large files
 being included.  Any pull request found not to have adhered to this will be rejected and the branch
@@ -109,14 +58,14 @@ Activate the hooks with
 git config core.hooksPath git-hooks
 ```
 
-## Release process
+### Release process
 
 This project is maintained using HubFlow.
 
 1. Make appropriate changes
 2. Bump version in `Dockerfile` and `cwls/mixins/requirements.yml`
 3. Push changes
-4. Check state on Travis
+4. Check state on CircleCi
 5. Generate the release (add notes to GitHub)
 6. Confirm that image has been built on [quay.io][quay-builds]
 7. Update the [dockstore][dockstore-cgpmap] entry, see [their docs][dockstore-get-started].
@@ -158,11 +107,13 @@ identical to a statement that reads ‘Copyright (c) 2005, 2006, 2007, 2008,
 [bwa-mem.pl]: https://github.com/cancerit/PCAP-core/blob/master/bin/bwa_mem.pl
 [cgpmap-expected]: ftp://ftp.sanger.ac.uk/pub/cancer/dockstore/expected
 [pcap-core]: https://github.com/cancerit/PCAP-core
+[github-wiki]: https://github.com/cancerit/dockstore-cgpmap/wiki
 
-<!-- Travis -->
-[travis-base]: https://travis-ci.org/cancerit/dockstore-cgpmap
-[travis-master]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=master
-[travis-develop]: https://travis-ci.org/cancerit/dockstore-cgpmap.svg?branch=develop
+<!-- CircleCi -->
+[circleci-master-badge]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master.svg?style=svg
+[circleci-master]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master
+[circleci-develop-badge]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/develop.svg?style=svg
+[circleci-develop]: https://circleci.com/gh/cancerit/dockstore-cgpmap/tree/master
 
 <!-- Gitter -->
 [gitter-svg]: https://badges.gitter.im/dockstore-cgp/Lobby.svg
