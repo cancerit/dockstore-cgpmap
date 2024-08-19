@@ -1,5 +1,9 @@
 # CHANGES
 
+## 3.4.0
+* NOT FULLY TESTED
+* Change base image for Dockerfile to PCAP-core 5.8.1 (htslib update - 1.20)
+
 ## 3.3.0
 
 * Update PCAP-core to 5.7.0, which includes bwakit post processing
